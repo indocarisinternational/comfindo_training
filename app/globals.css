@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -99,33 +99,56 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-sans: 'Poppins', 'Inter', system-ui, sans-serif;
+  --font-sans: "Poppins", "Inter", system-ui, sans-serif;
 
   --color-esas-green: hsl(152, 69%, 31%);
   --color-esas-green-light: hsl(152, 50%, 45%);
   --color-esas-green-dark: hsl(152, 75%, 22%);
   --color-esas-gold: hsl(45, 100%, 51%);
   --color-esas-navy: hsl(210, 50%, 15%);
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 /* Base styles */
 body {
-  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  font-family: "Poppins", "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ESAS gradient backgrounds */
 .esas-gradient {
-  background: linear-gradient(135deg, hsl(152, 69%, 31%) 0%, hsl(152, 75%, 22%) 50%, hsl(210, 50%, 15%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(152, 69%, 31%) 0%,
+    hsl(152, 75%, 22%) 50%,
+    hsl(210, 50%, 15%) 100%
+  );
 }
 
 .esas-gradient-light {
-  background: linear-gradient(135deg, hsl(152, 50%, 45%) 0%, hsl(152, 69%, 31%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(152, 50%, 45%) 0%,
+    hsl(152, 69%, 31%) 100%
+  );
 }
 
 .esas-hero-gradient {
-  background: linear-gradient(160deg, hsl(152, 75%, 22%) 0%, hsl(152, 69%, 31%) 40%, hsl(160, 60%, 35%) 100%);
+  background: linear-gradient(
+    160deg,
+    hsl(152, 75%, 22%) 0%,
+    hsl(152, 69%, 31%) 40%,
+    hsl(160, 60%, 35%) 100%
+  );
 }
 
 /* Card hover animation */
@@ -140,7 +163,6 @@ body {
 
 /* Floating animation */
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -155,6 +177,17 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.pause-hover:hover {
+  animation-play-state: paused;
+}
+
+
+
 /* Shimmer effect */
 @keyframes shimmer {
   0% {
@@ -167,14 +200,18 @@ body {
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent 25%, rgba(255, 255, 255, 0.1) 50%, transparent 75%);
+  background: linear-gradient(
+    90deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
 
 /* Pulse glow */
 @keyframes pulse-glow {
-
   0%,
   100% {
     box-shadow: 0 0 0 0 rgba(39, 130, 77, 0.4);

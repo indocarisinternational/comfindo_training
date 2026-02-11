@@ -29,7 +29,7 @@ export default function ContactPage() {
       />
 
       <section className="py-12 md:py-16">
-        <div className="container grid gap-12 lg:grid-cols-2">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 grid gap-12 lg:grid-cols-2">
           {/* Contact Info & Map */}
           <div className="space-y-8">
             <div>

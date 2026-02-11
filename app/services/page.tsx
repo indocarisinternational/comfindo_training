@@ -29,7 +29,7 @@ export default function ServicesPage() {
 
       {/* Certificate Check Section */}
       <section className="py-12 md:py-16 bg-white">
-        <div className="container max-w-2xl">
+        <div className="container max-w-2xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)] mb-4">
               <Search className="h-8 w-8" />
@@ -63,7 +63,7 @@ export default function ServicesPage() {
 
       {/* Services List */}
       <section className="py-12 md:py-16 bg-[hsl(152,15%,97%)]">
-        <div className="container">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
               Layanan <span className="text-[hsl(152,69%,31%)]">Kami</span>

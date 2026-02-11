@@ -35,9 +35,9 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="container max-w-3xl">
-        <div className="text-center mb-12">
+    <section className="py-20 md:py-28 bg-white">
+      <div className="container max-w-4xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
+        <div className="text-center mb-14">
           <Badge variant="outline" className="mb-4 px-4 py-1 text-[hsl(152,69%,31%)] border-[hsl(152,69%,31%)]/30 bg-[hsl(152,69%,31%)]/5">
             FAQ
           </Badge>

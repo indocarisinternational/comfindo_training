@@ -22,8 +22,8 @@ export function Footer() {
     <footer className="relative overflow-hidden">
       {/* Main Footer */}
       <div className="bg-[hsl(210,50%,12%)] text-white">
-        <div className="container py-12 md:py-16">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-14 md:py-20">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
             {/* Brand Column */}
             <div className="space-y-5 lg:col-span-1">
               <Link href="/" className="flex items-center gap-2.5 group">
@@ -119,7 +119,7 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="bg-[hsl(210,50%,8%)]">
-        <div className="container py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-400">
             Copyright © {new Date().getFullYear()} | esasmanagement.com . All right reserved.
           </p>

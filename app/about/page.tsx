@@ -20,7 +20,7 @@ export default function AboutPage() {
 
       {/* Company Profile Section */}
       <section className="py-14 md:py-20">
-        <div className="container">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">
               Tentang <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>
@@ -51,7 +51,7 @@ export default function AboutPage() {
 
       {/* Vision & Mission Section */}
       <section className="py-14 bg-[hsl(152,15%,97%)]">
-        <div className="container">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="grid gap-6 md:grid-cols-2">
             <Card className="border-0 shadow-lg bg-white rounded-2xl overflow-hidden">
               <CardContent className="p-8 flex flex-col items-center text-center h-full">
@@ -93,7 +93,7 @@ export default function AboutPage() {
 
       {/* Legalitas Section */}
       <section className="py-14 md:py-20">
-        <div className="container">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
               Legalitas <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>

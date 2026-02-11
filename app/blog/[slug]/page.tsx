@@ -50,7 +50,7 @@ export default async function BlogDetailPage(props: { params: Promise<{ slug: st
       />
 
       <article className="py-12 md:py-16">
-        <div className="container max-w-3xl">
+        <div className="container max-w-3xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="mb-8 flex flex-wrap items-center gap-4 text-sm text-gray-500">
             <Badge className="bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)] border-0 hover:bg-[hsl(152,69%,31%)]/15">{blog.category}</Badge>
             <div className="flex items-center gap-1.5">

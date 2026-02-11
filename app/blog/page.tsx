@@ -22,7 +22,7 @@ export default function BlogPage() {
       />
 
       <section className="py-12 md:py-16">
-        <div className="container">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {blogs.map((blog) => (
               <Card key={blog.slug} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">

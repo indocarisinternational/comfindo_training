@@ -52,7 +52,7 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
       />
 
       <section className="py-12 md:py-16">
-        <div className="container grid gap-10 lg:grid-cols-3">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 grid gap-10 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-10">
             <div>

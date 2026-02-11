@@ -38,53 +38,64 @@ export default function TrainingPage() {
       />
 
       <section className="py-12 md:py-16">
-        <div className="container">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           {/* Filters */}
-          <div className="flex flex-col gap-4 mb-10">
-            {/* Top row: Category Tabs + Month + Search */}
-            <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
-              {/* Category Tabs */}
-              <div className="flex flex-wrap gap-2">
+          <div className="space-y-8 mb-12">
+            {/* Primary Filter: Categories */}
+            <div className="flex flex-col gap-4">
+              <label className="text-xs font-bold uppercase tracking-wider text-gray-400">Kategori Program</label>
+              <div className="flex flex-wrap gap-2.5">
                 {categories.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${selectedCategory === cat
-                      ? "bg-[hsl(152,69%,31%)] text-white shadow-md"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${selectedCategory === cat
+                      ? "bg-esas-green text-white shadow-lg shadow-esas-green/20 border border-esas-green"
+                      : "bg-white text-gray-600 border border-gray-200 shadow-sm hover:border-esas-green/30 hover:shadow-md hover:text-gray-900"
                       }`}
                   >
                     {cat}
                   </button>
                 ))}
               </div>
+            </div>
 
-              <div className="flex gap-3 md:ml-auto">
+            {/* Secondary Filters: Month & Search */}
+            <div className="flex flex-col md:flex-row gap-5 items-stretch md:items-center pt-2 border-t border-gray-100">
+              <div className="flex flex-col sm:flex-row gap-4 flex-1">
+                {/* Search */}
+                <div className="relative flex-1">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                    <Search className="h-4.5 w-4.5" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Cari kursus atau sertifikasi..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-11 pr-4 py-3 rounded-2xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-4 focus:ring-esas-green/5 focus:border-esas-green/50 placeholder:text-gray-300 transition-all shadow-sm"
+                  />
+                </div>
+
                 {/* Month Filter */}
-                <div className="relative">
+                <div className="relative min-w-[180px]">
                   <select
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(e.target.value)}
-                    className="appearance-none pl-4 pr-10 py-2.5 rounded-xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[hsl(152,69%,31%)]/20 focus:border-[hsl(152,69%,31%)] transition-all cursor-pointer min-w-[150px]"
+                    className="appearance-none w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-4 focus:ring-esas-green/5 focus:border-esas-green/50 transition-all cursor-pointer shadow-sm"
                   >
                     {months.map((m) => (
                       <option key={m} value={m}>{m}</option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
                 </div>
+              </div>
 
-                {/* Search */}
-                <div className="relative md:w-60">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Cari program..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(152,69%,31%)]/20 focus:border-[hsl(152,69%,31%)] transition-all"
-                  />
-                </div>
+              <div className="hidden md:block">
+                <p className="text-xs font-medium text-gray-400">
+                  <span className="text-gray-900">{filteredTrainings.length}</span> Program tersedia
+                </p>
               </div>
             </div>
           </div>
