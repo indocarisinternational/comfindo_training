@@ -91,10 +91,10 @@ export function Navbar() {
             className="bg-gradient-to-r from-[hsl(152,69%,31%)] to-[hsl(152,50%,35%)] hover:from-[hsl(152,75%,22%)] hover:to-[hsl(152,69%,31%)] text-white shadow-md hover:shadow-lg transition-all duration-200 gap-2"
             size="sm"
           >
-            <Link href="/login">
+            {/* <Link href="/login">
               <User className="h-4 w-4" />
               Akun Saya
-            </Link>
+            </Link> */}
           </Button>
         </div>
 
@@ -140,10 +140,10 @@ export function Navbar() {
                 asChild
                 className="bg-gradient-to-r from-[hsl(152,69%,31%)] to-[hsl(152,50%,35%)] text-white w-full gap-2"
               >
-                <Link href="/login" onClick={() => setIsOpen(false)}>
+                {/* <Link href="/login" onClick={() => setIsOpen(false)}>
                   <User className="h-4 w-4" />
                   Akun Saya
-                </Link>
+                </Link> */}
               </Button>
             </nav>
           </SheetContent>
