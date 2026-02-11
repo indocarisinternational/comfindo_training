@@ -1,50 +1,50 @@
 export const blogs = [
   {
-    slug: "manfaat-sertifikasi-iso-9001",
-    title: "5 Manfaat Utama Sertifikasi ISO 9001 untuk Bisnis Anda",
-    excerpt: "Ketahui bagaimana standar manajemen mutu ISO 9001 dapat meningkatkan efisiensi dan kepuasan pelanggan bisnis Anda.",
-    date: "10 Oktober 2024",
-    author: "Tim MSI",
-    category: "ISO 9001",
-    image: "/images/blog/iso-9001.jpg", // Placeholder
+    slug: "pentingnya-sertifikasi-kompetensi-bnsp",
+    title: "Pentingnya Sertifikasi Kompetensi BNSP di Dunia Kerja",
+    excerpt: "Ketahui mengapa sertifikasi BNSP menjadi semakin penting untuk karier profesional Anda di era kompetitif saat ini.",
+    date: "15 Januari 2025",
+    author: "Tim ESAS",
+    category: "Sertifikasi",
+    image: "/images/blog/bnsp.jpg",
     content: `
-      <p>Sertifikasi ISO 9001 bukan hanya sekadar lencana atau sertifikat untuk dipajang di dinding kantor. Lebih dari itu, ISO 9001 adalah alat strategis yang dapat mengubah cara perusahaan Anda beroperasi.</p>
-      <h3>1. Meningkatkan Kepuasan Pelanggan</h3>
-      <p>Fokus utama ISO 9001 adalah pelanggan. Dengan menerapkan standar ini, perusahaan akan memiliki prosedur yang jelas untuk menangani keluhan, memastikan kualitas produk, dan memenuhi ekspektasi pelanggan secara konsisten.</p>
-      <h3>2. Efisiensi Operasional</h3>
-      <p>Standar ini mendorong perusahaan untuk memetakan proses bisnis mereka. Hal ini membantu mengidentifikasi inefisiensi, pemborosan, dan area yang perlu perbaikan.</p>
-      <h3>3. Pemenuhan Persyaratan Tender</h3>
-      <p>Banyak perusahaan besar dan instansi pemerintah mensyaratkan vendor mereka memiliki sertifikasi ISO 9001 sebagai bukti kredibilitas.</p>
-      <h3>4. Pengambilan Keputusan Berbasis Fakta</h3>
-      <p>ISO 9001 menekankan pentingnya data. Keputusan manajemen tidak lagi didasarkan pada asumsi, melainkan pada analisis data kinerja yang akurat.</p>
-      <h3>5. Budaya Perbaikan Berkelanjutan</h3>
-      <p>Prinsip <em>Continuous Improvement</em> memastikan bahwa perusahaan tidak berpuas diri, melainkan terus mencari cara untuk menjadi lebih baik.</p>
+      <p>Di era persaingan kerja yang semakin ketat, memiliki sertifikasi kompetensi dari BNSP (Badan Nasional Sertifikasi Profesi) menjadi nilai tambah yang signifikan bagi para profesional.</p>
+      <h3>1. Pengakuan Kompetensi Nasional</h3>
+      <p>Sertifikasi BNSP merupakan bukti formal bahwa seseorang memiliki kompetensi kerja yang sesuai dengan Standar Kompetensi Kerja Nasional Indonesia (SKKNI).</p>
+      <h3>2. Meningkatkan Daya Saing</h3>
+      <p>Dengan memiliki sertifikat BNSP, Anda memiliki keunggulan kompetitif dibanding kandidat lain saat melamar pekerjaan atau mengikuti tender proyek.</p>
+      <h3>3. Standar Kualitas Terukur</h3>
+      <p>Proses sertifikasi melibatkan uji kompetensi yang ketat, sehingga pemegang sertifikat terbukti memiliki keterampilan yang terstandar.</p>
+      <h3>4. Berlaku di Seluruh Indonesia</h3>
+      <p>Sertifikat BNSP diakui di seluruh wilayah Indonesia, memberikan mobilitas karier yang lebih luas.</p>
+      <h3>5. Masa Berlaku dan Perpanjangan</h3>
+      <p>Sertifikat BNSP berlaku selama 3 tahun dan dapat diperpanjang melalui proses re-asesmen, memastikan kompetensi tetap terjaga.</p>
     `,
-    seoTitle: "Manfaat Sertifikasi ISO 9001 bagi Perusahaan",
-    seoDescription: "Pelajari 5 manfaat utama penerapan ISO 9001:2015 untuk meningkatkan kinerja dan profitabilitas bisnis Anda."
+    seoTitle: "Pentingnya Sertifikasi Kompetensi BNSP | ESAS Management",
+    seoDescription: "Pelajari mengapa sertifikasi BNSP penting untuk karier Anda. Tingkatkan kompetensi bersama ESAS Management."
   },
   {
-    slug: "tahapan-sertifikasi-iso-27001",
-    title: "Tahapan Implementasi ISO 27001 dari Nol Hingga Lulus",
-    excerpt: "Panduan lengkap langkah demi langkah menerapkan Sistem Manajemen Keamanan Informasi ISO 27001.",
-    date: "15 Oktober 2024",
-    author: "Tim MSI",
-    category: "ISO 27001",
-    image: "/images/blog/iso-27001.jpg",
+    slug: "tips-mempersiapkan-uji-kompetensi",
+    title: "Tips Mempersiapkan Diri untuk Uji Kompetensi Sertifikasi",
+    excerpt: "Panduan lengkap persiapan menghadapi uji kompetensi agar Anda sukses meraih sertifikasi profesional.",
+    date: "20 Januari 2025",
+    author: "Tim ESAS",
+    category: "Tips Karier",
+    image: "/images/blog/tips.jpg",
     content: `
-      <p>Implementasi ISO 27001 bisa terlihat rumit, namun dengan roadmap yang jelas, proses ini dapat dilalui dengan sukses.</p>
-      <h3>Tahap 1: Gap Analysis</h3>
-      <p>Lakukan penilaian awal untuk melihat sejauh mana sistem keamanan informasi saat ini memenuhi standar ISO 27001.</p>
-      <h3>Tahap 2: Manajemen Risiko</h3>
-      <p>Identifikasi aset informasi, ancaman, dan kerentanan. Lakukan penilaian risiko dan tentukan rencana penanganan risiko (Risk Treatment Plan).</p>
-      <h3>Tahap 3: Pembuatan Kebijakan & Prosedur</h3>
-      <p>Susun dokumen yang diperlukan seperti Kebijakan Keamanan Informasi, Sasaran Keamanan, dan prosedur operasional standar.</p>
-      <h3>Tahap 4: Implementasi & Sosialisasi</h3>
-      <p>Terapkan kebijakan yang telah dibuat. Lakukan pelatihan awareness kepada seluruh karyawan.</p>
-      <h3>Tahap 5: Audit Internal & Tinjauan Manajemen</h3>
-      <p>Lakukan audit internal untuk memastikan kepatuhan dan efektivitas sistem. Hasil audit dilaporkan dalam Tinjauan Manajemen.</p>
+      <p>Menghadapi uji kompetensi memerlukan persiapan yang matang. Berikut tips dari ESAS Management untuk membantu Anda sukses.</p>
+      <h3>Tip 1: Pahami Skema Sertifikasi</h3>
+      <p>Pelajari skema sertifikasi yang akan Anda ikuti. Pahami unit-unit kompetensi yang akan diujikan dan kriteria kelulusannya.</p>
+      <h3>Tip 2: Siapkan Bukti Portofolio</h3>
+      <p>Kumpulkan bukti-bukti kompetensi Anda seperti sertifikat pelatihan, pengalaman kerja, dan hasil karya yang relevan.</p>
+      <h3>Tip 3: Latihan Praktik</h3>
+      <p>Lakukan latihan praktik sesuai dengan standar yang ditetapkan. Simulasi uji kompetensi dapat membantu meningkatkan kesiapan Anda.</p>
+      <h3>Tip 4: Ikuti Pre-Assessment</h3>
+      <p>Manfaatkan sesi pre-assessment jika tersedia untuk mengetahui sejauh mana kesiapan Anda sebelum uji kompetensi yang sebenarnya.</p>
+      <h3>Tip 5: Jaga Kondisi Fisik dan Mental</h3>
+      <p>Istirahat yang cukup dan tetap tenang saat uji kompetensi akan membantu Anda tampil maksimal.</p>
     `,
-    seoTitle: "Tahapan Implementasi ISO 27001 Lengkap",
-    seoDescription: "Panduan praktis langkah-langkah mendapatkan sertifikasi ISO 27001:2022 untuk keamanan informasi perusahaan."
+    seoTitle: "Tips Persiapan Uji Kompetensi Sertifikasi | ESAS Management",
+    seoDescription: "Panduan praktis mempersiapkan diri menghadapi uji kompetensi. Tips dari ESAS Management untuk sukses meraih sertifikasi."
   },
 ]

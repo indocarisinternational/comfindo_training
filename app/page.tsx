@@ -1,11 +1,11 @@
 import { Hero } from "@/components/sections/Hero"
 import { ServicesSection } from "@/components/sections/Services"
 import { WhyUsSection } from "@/components/sections/WhyUs"
-import { ClientsSection } from "@/components/sections/Clients"
-import { TestimonialsSection } from "@/components/sections/Testimonials"
 import { LatestTrainingSection } from "@/components/sections/LatestTraining"
+import { TestimonialsSection } from "@/components/sections/Testimonials"
 import { FAQSection } from "@/components/sections/FAQ"
 import { CTASection } from "@/components/sections/CTA"
+import { ClientsSection } from "@/components/sections/Clients"
 
 export default function Home() {
   return (

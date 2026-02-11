@@ -1,46 +1,66 @@
-import { Zap, CheckCircle2, Users, Trophy } from "lucide-react"
+import { Award, Shield, Users, BookOpen, TrendingUp, CheckCircle } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
-const features = [
+const reasons = [
   {
-    name: "Terjamin Lulus",
-    description: "Garansi kelulusan sertifikasi ISO dengan pendampingan penuh hingga audit selesai.",
-    icon: Trophy,
+    icon: Award,
+    title: "Bersertifikat BNSP",
+    description: "Program sertifikasi diakui secara nasional oleh Badan Nasional Sertifikasi Profesi.",
   },
   {
-    name: "Konsultan Berpengalaman",
-    description: "Tim ahli dengan pengalaman lebih dari 10 tahun di berbagai industri.",
+    icon: BookOpen,
+    title: "Silabus Berbasis SKKNI",
+    description: "Kurikulum disusun mengacu pada Standar Kompetensi Kerja Nasional Indonesia.",
+  },
+  {
     icon: Users,
+    title: "Trainer Profesional",
+    description: "Para praktisi berpengalaman dan ahli di bidangnya masing-masing.",
   },
   {
-    name: "Proses Cepat & Efisien",
-    description: "Metodologi yang terstruktur untuk menghemat waktu dan biaya perusahaan Anda.",
-    icon: Zap,
+    icon: Shield,
+    title: "Legalitas Resmi",
+    description: "Lembaga pelatihan dan sertifikasi terdaftar secara resmi.",
   },
   {
-    name: "Legalitas Resmi",
-    description: "Lembaga resmi dan terpercaya dengan legalitas yang jelas.",
-    icon: CheckCircle2, // Corrected icon name
+    icon: TrendingUp,
+    title: "Jadwal Fleksibel",
+    description: "Tersedia program online dan offline dengan jadwal yang beragam.",
+  },
+  {
+    icon: CheckCircle,
+    title: "Harga Terjangkau",
+    description: "Investasi terbaik untuk peningkatan kompetensi dan karier Anda.",
   },
 ]
 
 export function WhyUsSection() {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-16 md:py-24 bg-[hsl(152,20%,97%)]">
       <div className="container">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">Mengapa Memilih Kami?</h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Komitmen kami untuk memberikan layanan terbaik bagi pertumbuhan bisnis Anda.
+        <div className="text-center mb-12">
+          <Badge variant="outline" className="mb-4 px-4 py-1 text-[hsl(152,69%,31%)] border-[hsl(152,69%,31%)]/30 bg-[hsl(152,69%,31%)]/5">
+            Mengapa ESAS?
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+            Keunggulan <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>
+          </h2>
+          <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+            Kami berkomitmen menghadirkan pelatihan dan sertifikasi terbaik untuk menciptakan SDM yang kompeten.
           </p>
         </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature) => (
-            <div key={feature.name} className="flex flex-col items-center text-center">
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <feature.icon className="h-8 w-8" />
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {reasons.map((reason) => (
+            <div
+              key={reason.title}
+              className="group bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)] mb-5 group-hover:bg-[hsl(152,69%,31%)] group-hover:text-white transition-all duration-300">
+                <reason.icon className="h-7 w-7" />
               </div>
-              <h3 className="mb-2 text-xl font-bold">{feature.name}</h3>
-              <p className="text-muted-foreground">{feature.description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{reason.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{reason.description}</p>
             </div>
           ))}
         </div>

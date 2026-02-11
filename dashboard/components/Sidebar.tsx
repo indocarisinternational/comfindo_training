@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function DashboardSidebar({ className }: SidebarProps) {
   const pathname = usePathname()
@@ -55,7 +55,7 @@ export function DashboardSidebar({ className }: SidebarProps) {
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-            MSI Admin
+            ESAS Admin
           </h2>
           <div className="space-y-1">
             {routes.map((route) => (
@@ -75,10 +75,10 @@ export function DashboardSidebar({ className }: SidebarProps) {
         </div>
       </div>
       <div className="px-3 py-2 absolute bottom-4 w-full">
-         <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleLogout}>
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-         </Button>
+        <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50" onClick={handleLogout}>
+          <LogOut className="mr-2 h-4 w-4" />
+          Logout
+        </Button>
       </div>
     </div>
   )

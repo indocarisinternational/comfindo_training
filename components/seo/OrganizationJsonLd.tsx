@@ -1,30 +1,31 @@
 export function OrganizationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "ConsultingService",
-    "name": "MSI Consulting",
-    "url": "https://msiconsulting.com",
-    "logo": "https://msiconsulting.com/logo.png", // Placeholder
-    "description": "Jasa Konsultasi ISO 9001, 14001, 45001, 27001 dan Training Profesional.",
+    "@type": "EducationalOrganization",
+    "name": "ESAS Management",
+    "url": "https://esasmanagement.com",
+    "logo": "https://esasmanagement.com/logo.png",
+    "description": "Lembaga pelatihan dan sertifikasi. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Jl. Jendral Sudirman No. Kav 52-53",
+      "streetAddress": "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat",
       "addressLocality": "Jakarta Selatan",
       "addressRegion": "DKI Jakarta",
-      "postalCode": "12190",
+      "postalCode": "12530",
       "addressCountry": "ID"
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+62-812-3456-7890",
+      "telephone": "+62-858-7066-3856",
       "contactType": "customer service",
       "areaServed": "ID",
       "availableLanguage": ["Indonesian", "English"]
     },
     "sameAs": [
-      "https://www.facebook.com/msiconsulting",
-      "https://www.instagram.com/msiconsulting",
-      "https://www.linkedin.com/company/msiconsulting"
+      "https://www.facebook.com/profile.php?id=100083385664789",
+      "https://www.instagram.com/esas.management/",
+      "http://www.linkedin.com/company/esasmanagement",
+      "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ"
     ]
   }
 

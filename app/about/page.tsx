@@ -1,87 +1,89 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import { PageHeader } from "@/components/common/PageHeader"
-import { ClientsSection } from "@/components/sections/Clients"
 import { CTASection } from "@/components/sections/CTA"
 import { Card, CardContent } from "@/components/ui/card"
-import { CheckCircle2, Target, Eye } from "lucide-react"
+import { CheckCircle2, Target, Eye, MapPin, Phone, Mail, Building } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Tentang Kami - MSI Consulting",
-  description: "Profil perusahaan MSI Consulting, visi misi, dan pengalaman kami dalam jasa konsultasi ISO dan training profesional.",
+  title: "Profile - ESAS Management",
+  description: "Profile ESAS Management - Lembaga pelatihan dan sertifikasi. Visi, Misi, dan Legalitas ESAS Management.",
 }
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <PageHeader
-        title="Tentang Kami"
-        description="Mitra terpercaya Anda dalam meraih standar internasional dan keunggulan operasional."
-        breadcrumbs={[{ label: "About", href: "/about" }]}
+        title="Profile ESAS Management"
+        description="Lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa."
+        breadcrumbs={[{ label: "Profil", href: "/about" }]}
       />
 
       {/* Company Profile Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-14 md:py-20">
         <div className="container">
-          <div className="grid gap-12 lg:grid-cols-2 items-center">
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold tracking-tight text-primary">Siapa Kami?</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                MSI Consulting adalah perusahaan konsultan manajemen bisnis dan pelatihan profesional yang berdedikasi untuk membantu organisasi mencapai potensi maksimalnya melalui penerapan standar internasional (ISO).
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Didirikan oleh para praktisi berpengalaman, kami menawarkan pendekatan praktis dan solutif yang tidak hanya fokus pada sertifikasi, tetapi juga pada peningkatan kinerja bisnis klien kami secara berkelanjutan.
-              </p>
-              <div className="space-y-4">
-                {[
-                  "Tim Konsultan Berpengalaman & Tersertifikasi",
-                  "Pendampingan End-to-End hingga Lulus Audit",
-                  "Metode Pelatihan Interaktif & Aplikatif",
-                  "Jaringan Luas dengan Badan Sertifikasi Terakreditasi",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                    <span className="text-muted-foreground font-medium">{item}</span>
-                  </div>
-                ))}
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">
+              Tentang <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>
+            </h2>
+            <p className="text-lg text-gray-500 leading-relaxed">
+              ESAS Management adalah lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya. Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI).
+            </p>
+            <p className="text-lg text-gray-500 leading-relaxed mt-4">
+              Program unggulan kami adalah Pelatihan & Sertifikasi Kompetensi Bersertifikat BNSP dan Non BNSP.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+            {[
+              { value: "500+", label: "Alumni Bersertifikat" },
+              { value: "50+", label: "Program Pelatihan" },
+              { value: "10+", label: "Trainer Ahli" },
+              { value: "4.9★", label: "Rating Kepuasan" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center bg-[hsl(152,15%,97%)] rounded-2xl p-6 border border-gray-100">
+                <div className="text-3xl font-extrabold text-[hsl(152,69%,31%)]">{stat.value}</div>
+                <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
               </div>
-            </div>
-            <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-muted">
-               {/* Placeholder for About Image */}
-               <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400 font-bold text-xl">
-                 Image: Team Meeting / Office
-               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Vision & Mission Section */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-14 bg-[hsl(152,15%,97%)]">
         <div className="container">
-          <div className="grid gap-8 md:grid-cols-2">
-            <Card className="border-none shadow-md bg-background">
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card className="border-0 shadow-lg bg-white rounded-2xl overflow-hidden">
               <CardContent className="p-8 flex flex-col items-center text-center h-full">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)]">
                   <Eye className="h-8 w-8" />
                 </div>
-                <h3 className="mb-4 text-2xl font-bold text-primary">Visi Kami</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Menjadi perusahaan konsultan dan pelatihan terdepan di Indonesia yang dipercaya karena integritas, profesionalisme, dan hasil nyata dalam mengembangkan mutu dan produktivitas klien.
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">Visi</h3>
+                <p className="text-gray-500 leading-relaxed">
+                  Menjadi Pusat Lembaga Pendidikan, Pelatihan dan Sertifikasi &ldquo;Terbesar&rdquo; dengan jadwal &ldquo;Terbanyak&rdquo; yang memberikan keterampilan dan pengetahuan berkualitas untuk menghasilkan SDM Kompeten.
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-none shadow-md bg-background">
+
+            <Card className="border-0 shadow-lg bg-white rounded-2xl overflow-hidden">
               <CardContent className="p-8 flex flex-col items-center text-center h-full">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)]">
                   <Target className="h-8 w-8" />
                 </div>
-                <h3 className="mb-4 text-2xl font-bold text-primary">Misi Kami</h3>
-                <ul className="text-muted-foreground text-left space-y-3 list-disc list-inside">
-                  <li>Memberikan layanan konsultasi yang solutif dan tepat sasaran.</li>
-                  <li>Menyediakan program pelatihan yang relevan dengan kebutuhan industri.</li>
-                  <li>Membangun kemitraan jangka panjang dengan klien berdasarkan kepercayaan.</li>
-                  <li>Terus berinovasi dalam metode dan materi pembelajaran.</li>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">Misi</h3>
+                <ul className="text-gray-500 text-left space-y-3">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-[hsl(152,69%,31%)] mt-0.5 shrink-0" />
+                    <span>Melaksanakan pelatihan keterampilan yang berbasis kompetensi.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-[hsl(152,69%,31%)] mt-0.5 shrink-0" />
+                    <span>Menyediakan program pelatihan yang relevan dan terkini sesuai dengan kebutuhan dunia kerja.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-[hsl(152,69%,31%)] mt-0.5 shrink-0" />
+                    <span>Menyediakan lingkungan belajar yang mendukung dan menginspirasi peserta pelatihan.</span>
+                  </li>
                 </ul>
               </CardContent>
             </Card>
@@ -89,7 +91,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <ClientsSection />
+      {/* Legalitas Section */}
+      <section className="py-14 md:py-20">
+        <div className="container">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
+              Legalitas <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>
+            </h2>
+          </div>
+
+          <div className="max-w-2xl mx-auto space-y-5">
+            {[
+              { icon: Building, label: "Nama Lembaga", value: "ESAS Management" },
+              { icon: MapPin, label: "Alamat", value: "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
+              { icon: Phone, label: "Kontak", value: "0858-7066-3856 / 0821-1199-5378" },
+              { icon: Mail, label: "Email", value: "esas.management@gmail.com" },
+            ].map((item) => (
+              <div key={item.label} className="flex items-start gap-4 p-5 rounded-2xl bg-[hsl(152,15%,97%)] border border-gray-100">
+                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)] shrink-0">
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-0.5">{item.label}</p>
+                  <p className="font-medium text-gray-900">{item.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <CTASection />
     </div>
   )

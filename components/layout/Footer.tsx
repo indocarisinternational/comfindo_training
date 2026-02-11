@@ -1,78 +1,144 @@
 import Link from "next/link"
-import { Facebook, Instagram, Linkedin, Twitter, MapPin, Phone, Mail } from "lucide-react"
+import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, GraduationCap } from "lucide-react"
+
+const footerLinks = [
+  { name: "Home", href: "/" },
+  { name: "Pelatihan", href: "/training" },
+  { name: "Cek Sertifikat", href: "/services" },
+  { name: "Profil", href: "/about" },
+  { name: "Kontak", href: "/contact" },
+  { name: "Blog", href: "/blog" },
+]
+
+const socialLinks = [
+  { name: "Facebook", href: "https://www.facebook.com/profile.php?id=100083385664789", icon: Facebook },
+  { name: "Instagram", href: "https://www.instagram.com/esas.management/", icon: Instagram },
+  { name: "LinkedIn", href: "http://www.linkedin.com/company/esasmanagement", icon: Linkedin },
+  { name: "YouTube", href: "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ", icon: Youtube },
+]
 
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/40">
-      <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold text-primary">MSI Consulting</h3>
-            <p className="text-sm text-muted-foreground w-[90%]">
-              Trusted partner for ISO Certification and Professional Training services. Elevate your business standards with us.
-            </p>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-muted-foreground hover:text-primary">
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
+    <footer className="relative overflow-hidden">
+      {/* Main Footer */}
+      <div className="bg-[hsl(210,50%,12%)] text-white">
+        <div className="container py-12 md:py-16">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+            {/* Brand Column */}
+            <div className="space-y-5 lg:col-span-1">
+              <Link href="/" className="flex items-center gap-2.5 group">
+                <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-[hsl(152,69%,31%)] to-[hsl(152,50%,45%)] text-white shadow-md">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <span className="text-lg font-bold tracking-tight text-white">
+                  ESAS Management
+                </span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya.
+              </p>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Program unggulan kami adalah Pelatihan & Sertifikasi Kompetensi Bersertifikat BNSP dan Non BNSP.
+              </p>
+            </div>
+
+            {/* Address Column */}
+            <div className="space-y-5">
+              <h4 className="text-sm font-semibold text-[hsl(152,50%,55%)] uppercase tracking-wider">
+                Alamat Perusahaan
+              </h4>
+              <ul className="space-y-4 text-sm text-gray-300">
+                <li className="flex items-start gap-3">
+                  <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-[hsl(152,50%,55%)]" />
+                  <span>
+                    Office Center : Perkantoran Tanjung Mas Raya Blok B1 No.44 Tanjung Barat Jakarta Selatan
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 shrink-0 text-[hsl(152,50%,55%)]" />
+                  <div>
+                    <span>0858-7066-3856</span>
+                    <br />
+                    <span>0821-1199-5378</span>
+                  </div>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail className="h-4 w-4 shrink-0 text-[hsl(152,50%,55%)]" />
+                  <span>esas.management@gmail.com</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Pages Column */}
+            <div className="space-y-5">
+              <h4 className="text-sm font-semibold text-[hsl(152,50%,55%)] uppercase tracking-wider">
+                Halaman
+              </h4>
+              <ul className="space-y-3 text-sm text-gray-300">
+                {footerLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="hover:text-[hsl(152,50%,55%)] transition-colors duration-200 inline-flex items-center gap-1.5"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[hsl(152,69%,31%)] inline-block" />
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Social Column */}
+            <div className="space-y-5">
+              <h4 className="text-sm font-semibold text-[hsl(152,50%,55%)] uppercase tracking-wider">
+                Sosial Media
+              </h4>
+              <div className="flex flex-wrap gap-3">
+                {socialLinks.map(({ name, href, icon: Icon }) => (
+                  <a
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-gray-300 hover:bg-[hsl(152,69%,31%)] hover:text-white transition-all duration-200 hover:scale-110"
+                    title={name}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span className="sr-only">{name}</span>
+                  </a>
+                ))}
+              </div>
+              <div className="pt-3">
+                <p className="text-xs text-gray-400">Ikuti kami di sosial media untuk informasi terbaru seputar pelatihan dan sertifikasi.</p>
+              </div>
             </div>
           </div>
-          
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold">Services</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/services/iso-9001" className="hover:text-primary">ISO 9001 Consultation</Link></li>
-              <li><Link href="/services/iso-27001" className="hover:text-primary">ISO 27001 Consultation</Link></li>
-              <li><Link href="/services/iso-45001" className="hover:text-primary">ISO 45001 Consultation</Link></li>
-              <li><Link href="/services/iso-14001" className="hover:text-primary">ISO 14001 Consultation</Link></li>
-              <li><Link href="/services" className="hover:text-primary">All Services</Link></li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-             <h4 className="text-sm font-semibold">Company</h4>
-             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/about" className="hover:text-primary">About Us</Link></li>
-              <li><Link href="/blog" className="hover:text-primary">Blog & Insights</Link></li>
-              <li><Link href="/training" className="hover:text-primary">Training Schedule</Link></li>
-              <li><Link href="/contact" className="hover:text-primary">Contact Us</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary">Privacy Policy</Link></li>
-             </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold">Contact</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-                <span>Jl. Jendral Sudirman No. Kav 52-53, Jakarta Selatan, 12190</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0" />
-                <span>+62 812-3456-7890</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0" />
-                <span>info@msiconsulting.com</span>
-              </li>
-            </ul>
-          </div>
         </div>
-        <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} MSI Consulting. All rights reserved.</p>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="bg-[hsl(210,50%,8%)]">
+        <div className="container py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-xs text-gray-400">
+            Copyright © {new Date().getFullYear()} | esasmanagement.com . All right reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            {["Home", "Pelatihan", "Sertifikat", "Akun"].map((item) => (
+              <Link
+                key={item}
+                href={
+                  item === "Home" ? "/" :
+                    item === "Pelatihan" ? "/training" :
+                      item === "Sertifikat" ? "/services" :
+                        "/login"
+                }
+                className="text-xs text-gray-400 hover:text-[hsl(152,50%,55%)] transition-colors"
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

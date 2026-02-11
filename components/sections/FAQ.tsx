@@ -4,36 +4,62 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
 
 const faqs = [
   {
-    question: "Berapa lama proses sertifikasi ISO?",
-    answer: "Durasi proses sertifikasi bervariasi tergantung pada ukuran dan kompleksitas organisasi Anda, serta jenis standar ISO yang diterapkan. Umumnya berkisar antara 3 hingga 6 bulan.",
+    question: "Apa itu ESAS Management?",
+    answer: "ESAS Management adalah lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya. Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI).",
   },
   {
-    question: "Apakah sertifikat ISO diakui secara internasional?",
-    answer: "Ya, sertifikat ISO yang kami bantu proseskan diterbitkan oleh Badan Sertifikasi yang terakreditasi KAN (Komite Akreditasi Nasional) atau badan akreditasi internasional lainnya, sehingga diakui secara global.",
+    question: "Apa perbedaan sertifikasi BNSP dan Non BNSP?",
+    answer: "Sertifikasi BNSP adalah sertifikasi kompetensi yang diakui secara nasional oleh Badan Nasional Sertifikasi Profesi, sementara sertifikasi Non BNSP (Sertifikasi ESAS) adalah sertifikasi kompetensi yang dikeluarkan oleh ESAS Management sebagai bukti telah mengikuti pelatihan.",
   },
   {
-    question: "Apa perbedaan konsultasi dan training?",
-    answer: "Konsultasi berfokus pada pendampingan penerapan sistem manajemen hingga sertifikasi, sedangkan training berfokus pada peningkatan kompetensi personel dalam memahami dan menjalankan standar ISO.",
+    question: "Bagaimana cara mendaftar pelatihan?",
+    answer: "Anda bisa mendaftar melalui website kami dengan memilih program pelatihan yang diminati, lalu klik tombol 'Daftar'. Anda juga bisa menghubungi kami melalui WhatsApp di 0858-7066-3856.",
   },
   {
-    question: "Apakah tersedia training online?",
-    answer: "Ya, kami menyediakan training secara online (via Zoom) maupun offline (in-house atau public training) sesuai kebutuhan perusahaan Anda.",
+    question: "Apakah pelatihan tersedia online?",
+    answer: "Ya, sebagian besar program pelatihan kami tersedia secara online melalui platform Zoom, sehingga Anda bisa mengikuti pelatihan dari mana saja.",
+  },
+  {
+    question: "Berapa lama proses mendapatkan sertifikat?",
+    answer: "Sertifikat akan dikirimkan dalam waktu 7-14 hari kerja setelah program pelatihan selesai dan Anda dinyatakan kompeten.",
+  },
+  {
+    question: "Apakah ada program In House Training?",
+    answer: "Ya, kami menyediakan program In House Training untuk perusahaan atau instansi yang ingin melatih karyawannya secara khusus. Hubungi kami untuk penawaran khusus.",
   },
 ]
 
 export function FAQSection() {
   return (
-    <section className="bg-muted/30 py-16">
+    <section className="py-16 md:py-24 bg-white">
       <div className="container max-w-3xl">
-        <h2 className="mb-8 text-center text-3xl font-bold tracking-tight text-primary">Pertanyaan yang Sering Diajukan</h2>
-        <Accordion type="single" collapsible className="w-full">
+        <div className="text-center mb-12">
+          <Badge variant="outline" className="mb-4 px-4 py-1 text-[hsl(152,69%,31%)] border-[hsl(152,69%,31%)]/30 bg-[hsl(152,69%,31%)]/5">
+            FAQ
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+            Pertanyaan <span className="text-[hsl(152,69%,31%)]">Umum</span>
+          </h2>
+          <p className="mt-4 text-lg text-gray-500">
+            Jawaban untuk pertanyaan yang sering diajukan tentang ESAS Management.
+          </p>
+        </div>
+
+        <Accordion type="single" collapsible className="w-full space-y-3">
           {faqs.map((faq, i) => (
-            <AccordionItem key={i} value={`item-${i}`}>
-              <AccordionTrigger className="text-left font-medium">{faq.question}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">
+            <AccordionItem
+              key={i}
+              value={`item-${i}`}
+              className="border border-gray-100 rounded-xl px-6 data-[state=open]:border-[hsl(152,69%,31%)]/30 data-[state=open]:bg-[hsl(152,69%,31%)]/3 transition-all shadow-sm"
+            >
+              <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-[hsl(152,69%,31%)] hover:no-underline py-5">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-500 leading-relaxed pb-5">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

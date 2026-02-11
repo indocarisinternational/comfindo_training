@@ -3,23 +3,21 @@ import { services } from "@/lib/data/services"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 import { CTASection } from "@/components/sections/CTA"
-import { CheckCircle, ArrowRight } from "lucide-react"
+import { CheckCircle, ArrowRight, MessageCircle } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 interface Props {
   params: { slug: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const slug = (await params).slug // Correctly await params in Next 15 if needed, or treated as plain obj in 14. 
-  // Note: Next.js 15 treats params as a Promise in some contexts, but usually Page props are async.
-  // Ideally, 'params' in current stable Next.js 14 is synchronous object in generateMetadata but types might say otherwise.
-  // Safe approach: access directly.
-  
-  const service = services.find((s) => s.slug === slug) // Accessing slug directly
-  
+  const slug = (await params).slug
+  const service = services.find((s) => s.slug === slug)
+
   if (!service) {
     return {
-      title: "Service Not Found - MSI Consulting",
+      title: "Layanan Tidak Ditemukan - ESAS Management",
     }
   }
 
@@ -48,60 +46,57 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
       <PageHeader
         title={service.title}
         breadcrumbs={[
-          { label: "Services", href: "/services" },
-          { label: service.slug, href: `/services/${params.slug}` },
+          { label: "Layanan", href: "/services" },
+          { label: service.title, href: `/services/${params.slug}` },
         ]}
       />
 
-      <section className="py-16 md:py-24">
-        <div className="container grid gap-12 lg:grid-cols-3">
+      <section className="py-12 md:py-16">
+        <div className="container grid gap-10 lg:grid-cols-3">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-12">
+          <div className="lg:col-span-2 space-y-10">
             <div>
-              <h2 className="text-2xl font-bold mb-4 text-primary">Deskripsi Layanan</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <h2 className="text-xl font-bold mb-4 text-gray-900">Deskripsi Layanan</h2>
+              <p className="text-gray-500 leading-relaxed">
                 {service.content}
-              </p>
-              <p className="mt-4 text-muted-foreground leading-relaxed">
-                 Kami menyediakan pendekatan komprehensif untuk membantu organisasi Anda tidak hanya mendapatkan sertifikat, tetapi juga membangun sistem manajemen yang efektif dan berkelanjutan.
               </p>
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold mb-6 text-primary">Manfaat Penerapan</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <h2 className="text-xl font-bold mb-5 text-gray-900">Manfaat</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
                 {service.benefits.map((benefit, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-muted/40">
-                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 shrink-0" />
-                    <span>{benefit}</span>
+                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[hsl(152,15%,97%)] border border-gray-100">
+                    <CheckCircle className="h-5 w-5 text-[hsl(152,69%,31%)] mt-0.5 shrink-0" />
+                    <span className="text-gray-700 text-sm">{benefit}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold mb-6 text-primary">Proses Konsultasi</h2>
-              <div className="space-y-4">
+              <h2 className="text-xl font-bold mb-5 text-gray-900">Proses</h2>
+              <div className="space-y-3">
                 {service.process.map((step, i) => (
-                    <div key={i} className="flex items-center gap-4">
-                       <div className="flex-none flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold text-sm">
-                         {i + 1}
-                       </div>
-                       <div className="p-4 rounded-lg border w-full hover:bg-muted/20 transition-colors">
-                          <span className="font-medium">{step}</span>
-                       </div>
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="flex-none flex items-center justify-center w-8 h-8 rounded-lg bg-[hsl(152,69%,31%)] text-white font-bold text-sm">
+                      {i + 1}
                     </div>
+                    <div className="p-4 rounded-xl border border-gray-100 bg-white w-full hover:border-[hsl(152,69%,31%)]/30 transition-colors shadow-sm">
+                      <span className="font-medium text-gray-700">{step}</span>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
 
-             <div>
-              <h2 className="text-2xl font-bold mb-6 text-primary">FAQ</h2>
-               <div className="space-y-4">
+            <div>
+              <h2 className="text-xl font-bold mb-5 text-gray-900">FAQ</h2>
+              <div className="space-y-3">
                 {service.faq.map((item, i) => (
-                  <div key={i} className="rounded-lg border p-4">
-                    <h3 className="font-semibold text-lg mb-2">{item.q}</h3>
-                    <p className="text-muted-foreground">{item.a}</p>
+                  <div key={i} className="rounded-xl border border-gray-100 p-5 bg-white">
+                    <h3 className="font-semibold text-gray-900 mb-2">{item.q}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.a}</p>
                   </div>
                 ))}
               </div>
@@ -109,46 +104,54 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-8">
-            <div className="rounded-xl border bg-card text-card-foreground shadow-sm p-6 sticky top-24">
-              <h3 className="text-xl font-semibold mb-4">Butuh Konsultasi?</h3>
-              <p className="text-muted-foreground mb-6">
-                Diskusikan kebutuhan sertifikasi perusahaan Anda dengan ahli kami.
+          <div className="lg:col-span-1 space-y-6">
+            <div className="rounded-2xl border border-gray-100 bg-white shadow-lg p-6 sticky top-24">
+              <h3 className="text-lg font-bold mb-2 text-gray-900">Butuh Konsultasi?</h3>
+              <p className="text-gray-500 text-sm mb-5">
+                Diskusikan kebutuhan pelatihan dan sertifikasi Anda dengan tim ESAS.
               </p>
               <div className="space-y-3">
-                 <a 
-                   href="https://wa.me/6281234567890?text=Halo%20MSI%20Consulting" 
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="flex items-center justify-center w-full h-10 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md font-medium transition-colors"
-                 >
-                   Chat WhatsApp
-                 </a>
-                  <a 
-                   href="/contact" 
-                   className="flex items-center justify-center w-full h-10 px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-medium transition-colors"
-                 >
-                   Isi Form Konsultasi
-                 </a>
+                <Button
+                  asChild
+                  className="w-full bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl"
+                >
+                  <a
+                    href="https://wa.me/6285870663856?text=Halo%20ESAS%20Management"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    Chat WhatsApp
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full border-[hsl(152,69%,31%)] text-[hsl(152,69%,31%)] hover:bg-[hsl(152,69%,31%)] hover:text-white rounded-xl"
+                >
+                  <Link href="/contact">
+                    Isi Form Konsultasi
+                  </Link>
+                </Button>
               </div>
             </div>
-            
-             <div className="rounded-xl bg-muted p-6">
-               <h4 className="font-semibold mb-2">Layanan Lainnya</h4>
-               <ul className="space-y-2">
-                 {services.filter(s => s.slug !== params.slug).map(s => (
-                   <li key={s.slug}>
-                     <a href={`/services/${s.slug}`} className="text-sm text-primary hover:underline flex items-center gap-2">
-                       <ArrowRight className="h-3 w-3" /> {s.title}
-                     </a>
-                   </li>
-                 ))}
-               </ul>
-             </div>
+
+            <div className="rounded-2xl bg-[hsl(152,15%,97%)] p-6 border border-gray-100">
+              <h4 className="font-semibold text-gray-900 mb-3">Layanan Lainnya</h4>
+              <ul className="space-y-2">
+                {services.filter(s => s.slug !== params.slug).map(s => (
+                  <li key={s.slug}>
+                    <Link href={`/services/${s.slug}`} className="text-sm text-[hsl(152,69%,31%)] hover:underline flex items-center gap-2">
+                      <ArrowRight className="h-3 w-3" /> {s.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
-      
+
       <CTASection />
     </div>
   )

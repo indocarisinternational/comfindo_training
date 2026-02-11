@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://msiconsulting.com/sitemap.xml',
+    sitemap: 'https://esasmanagement.com/sitemap.xml',
   }
 }
