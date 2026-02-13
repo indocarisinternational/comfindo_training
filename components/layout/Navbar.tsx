@@ -53,7 +53,7 @@ export function Navbar() {
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-bold tracking-tight text-[hsl(152,69%,31%)] leading-tight">
-              ESAS Management
+              comfindo Management
             </span>
             <span className="text-[10px] text-gray-400 font-medium leading-tight hidden sm:block">
               Lembaga Pelatihan & Sertifikasi

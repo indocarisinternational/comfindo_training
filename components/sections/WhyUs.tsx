@@ -40,10 +40,10 @@ export function WhyUsSection() {
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
         <div className="text-center mb-14">
           <Badge variant="outline" className="mb-4 px-4 py-1 text-[hsl(152,69%,31%)] border-[hsl(152,69%,31%)]/30 bg-[hsl(152,69%,31%)]/5">
-            Mengapa ESAS?
+            Mengapa comfindo?
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-            Keunggulan <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>
+            Keunggulan <span className="text-[hsl(152,69%,31%)]">comfindo Management</span>
           </h2>
           <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
             Kami berkomitmen menghadirkan pelatihan dan sertifikasi terbaik untuk menciptakan SDM yang kompeten.

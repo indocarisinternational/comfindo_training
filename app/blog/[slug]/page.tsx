@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!blog) {
     return {
-      title: "Artikel Tidak Ditemukan - ESAS Management",
+      title: "Artikel Tidak Ditemukan - comfindo Management",
     }
   }
 

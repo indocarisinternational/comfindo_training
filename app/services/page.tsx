@@ -7,13 +7,13 @@ import { ChevronRight, Shield, Award, Building2, Search } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Cek Sertifikat & Layanan - ESAS Management",
-  description: "Cek sertifikat peserta pelatihan ESAS Management. Layanan sertifikasi BNSP, sertifikasi ESAS, dan In House Training.",
+  title: "Cek Sertifikat & Layanan - comfindo Management",
+  description: "Cek sertifikat peserta pelatihan comfindo Management. Layanan sertifikasi BNSP, sertifikasi comfindo, dan In House Training.",
 }
 
 const serviceIcons: Record<string, typeof Shield> = {
   "sertifikasi-bnsp": Award,
-  "sertifikasi-esas": Shield,
+  "sertifikasi-comfindo": Shield,
   "in-house-training": Building2,
   "cek-sertifikat": Search,
 }
@@ -23,7 +23,7 @@ export default function ServicesPage() {
     <div className="flex flex-col min-h-screen">
       <PageHeader
         title="Layanan & Cek Sertifikat"
-        description="Verifikasi sertifikat peserta pelatihan dan jelajahi layanan ESAS Management."
+        description="Verifikasi sertifikat peserta pelatihan dan jelajahi layanan comfindo Management."
         breadcrumbs={[{ label: "Cek Sertifikat", href: "/services" }]}
       />
 
@@ -69,7 +69,7 @@ export default function ServicesPage() {
               Layanan <span className="text-[hsl(152,69%,31%)]">Kami</span>
             </h2>
             <p className="mt-3 text-gray-500 max-w-xl mx-auto">
-              Jelajahi berbagai layanan pelatihan dan sertifikasi dari ESAS Management.
+              Jelajahi berbagai layanan pelatihan dan sertifikasi dari comfindo Management.
             </p>
           </div>
 

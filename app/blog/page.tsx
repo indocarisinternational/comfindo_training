@@ -8,8 +8,8 @@ import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Blog & Artikel - ESAS Management",
-  description: "Insight dan informasi terbaru seputar pelatihan, sertifikasi kompetensi, dan dunia kerja dari ESAS Management.",
+  title: "Blog & Artikel - comfindo Management",
+  description: "Insight dan informasi terbaru seputar pelatihan, sertifikasi kompetensi, dan dunia kerja dari comfindo Management.",
 }
 
 export default function BlogPage() {
@@ -28,7 +28,7 @@ export default function BlogPage() {
               <Card key={blog.slug} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 {/* Image placeholder */}
                 <div className="h-48 bg-gradient-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] w-full flex items-center justify-center overflow-hidden">
-                  <div className="text-[hsl(152,69%,31%)] opacity-15 text-4xl font-black">ESAS</div>
+                  <div className="text-[hsl(152,69%,31%)] opacity-15 text-4xl font-black">comfindo</div>
                 </div>
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-center mb-2">

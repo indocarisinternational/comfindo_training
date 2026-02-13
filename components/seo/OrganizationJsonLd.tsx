@@ -2,9 +2,9 @@ export function OrganizationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    "name": "ESAS Management",
-    "url": "https://esasmanagement.com",
-    "logo": "https://esasmanagement.com/logo.png",
+    "name": "comfindo Management",
+    "url": "https://comfindomanagement.com",
+    "logo": "https://comfindomanagement.com/logo.png",
     "description": "Lembaga pelatihan dan sertifikasi. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
     "address": {
       "@type": "PostalAddress",
@@ -23,8 +23,8 @@ export function OrganizationJsonLd() {
     },
     "sameAs": [
       "https://www.facebook.com/profile.php?id=100083385664789",
-      "https://www.instagram.com/esas.management/",
-      "http://www.linkedin.com/company/esasmanagement",
+      "https://www.instagram.com/comfindo.management/",
+      "http://www.linkedin.com/company/comfindomanagement",
       "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ"
     ]
   }

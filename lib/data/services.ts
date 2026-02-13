@@ -2,8 +2,8 @@ export const services = [
   {
     slug: "sertifikasi-bnsp",
     title: "Sertifikasi BNSP",
-    seoTitle: "Sertifikasi Kompetensi BNSP | ESAS Management",
-    seoDescription: "Dapatkan sertifikasi kompetensi yang diakui secara nasional oleh Badan Nasional Sertifikasi Profesi (BNSP) melalui ESAS Management.",
+    seoTitle: "Sertifikasi Kompetensi BNSP | comfindo Management",
+    seoDescription: "Dapatkan sertifikasi kompetensi yang diakui secara nasional oleh Badan Nasional Sertifikasi Profesi (BNSP) melalui comfindo Management.",
     content: "Sertifikasi BNSP adalah pengakuan terhadap kompetensi kerja seseorang sesuai dengan standar kompetensi yang ditetapkan oleh BNSP. Sertifikat ini berlaku secara nasional dan diakui oleh dunia industri.",
     benefits: [
       "Diakui secara nasional oleh Badan Nasional Sertifikasi Profesi.",
@@ -23,11 +23,11 @@ export const services = [
     ],
   },
   {
-    slug: "sertifikasi-esas",
-    title: "Sertifikasi ESAS",
-    seoTitle: "Sertifikasi Kompetensi ESAS Management | ESAS Management",
-    seoDescription: "Ikuti program sertifikasi kompetensi dari ESAS Management sebagai bukti telah mengikuti pelatihan profesional.",
-    content: "Sertifikasi ESAS adalah sertifikat kompetensi yang diterbitkan oleh ESAS Management sebagai bukti bahwa peserta telah mengikuti program pelatihan dan dinyatakan kompeten sesuai standar yang ditetapkan.",
+    slug: "sertifikasi-comfindo",
+    title: "Sertifikasi comfindo",
+    seoTitle: "Sertifikasi Kompetensi comfindo Management | comfindo Management",
+    seoDescription: "Ikuti program sertifikasi kompetensi dari comfindo Management sebagai bukti telah mengikuti pelatihan profesional.",
+    content: "Sertifikasi comfindo adalah sertifikat kompetensi yang diterbitkan oleh comfindo Management sebagai bukti bahwa peserta telah mengikuti program pelatihan dan dinyatakan kompeten sesuai standar yang ditetapkan.",
     benefits: [
       "Bukti kompetensi yang terpercaya.",
       "Harga pelatihan terjangkau.",
@@ -41,14 +41,14 @@ export const services = [
       "Selesaikan ujian/tugas dan dapatkan sertifikat.",
     ],
     faq: [
-      { q: "Apakah sertifikasi ESAS sama dengan BNSP?", a: "Berbeda. Sertifikasi ESAS adalah sertifikat non-BNSP dari ESAS Management, sedangkan sertifikasi BNSP dikeluarkan oleh Badan Nasional Sertifikasi Profesi." },
+      { q: "Apakah sertifikasi comfindo sama dengan BNSP?", a: "Berbeda. Sertifikasi comfindo adalah sertifikat non-BNSP dari comfindo Management, sedangkan sertifikasi BNSP dikeluarkan oleh Badan Nasional Sertifikasi Profesi." },
     ],
   },
   {
     slug: "in-house-training",
     title: "In House Training",
-    seoTitle: "In House Training Perusahaan | ESAS Management",
-    seoDescription: "Program In House Training dari ESAS Management untuk meningkatkan kompetensi karyawan perusahaan Anda.",
+    seoTitle: "In House Training Perusahaan | comfindo Management",
+    seoDescription: "Program In House Training dari comfindo Management untuk meningkatkan kompetensi karyawan perusahaan Anda.",
     content: "Program In House Training dirancang khusus untuk perusahaan atau instansi yang ingin meningkatkan kompetensi karyawannya secara kolektif. Materi dapat disesuaikan dengan kebutuhan spesifik organisasi.",
     benefits: [
       "Materi disesuaikan dengan kebutuhan perusahaan.",
@@ -70,9 +70,9 @@ export const services = [
   {
     slug: "cek-sertifikat",
     title: "Cek Sertifikat",
-    seoTitle: "Cek Sertifikat Peserta | ESAS Management",
-    seoDescription: "Pencarian Sertifikat Peserta Pelatihan ESAS Management. Cek sertifikat Anda sekarang.",
-    content: "Layanan pencarian dan verifikasi sertifikat peserta pelatihan ESAS Management. Pastikan keaslian sertifikat Anda melalui layanan ini.",
+    seoTitle: "Cek Sertifikat Peserta | comfindo Management",
+    seoDescription: "Pencarian Sertifikat Peserta Pelatihan comfindo Management. Cek sertifikat Anda sekarang.",
+    content: "Layanan pencarian dan verifikasi sertifikat peserta pelatihan comfindo Management. Pastikan keaslian sertifikat Anda melalui layanan ini.",
     benefits: [
       "Verifikasi keaslian sertifikat secara online.",
       "Proses pengecekan cepat dan mudah.",

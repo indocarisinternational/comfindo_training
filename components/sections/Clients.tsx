@@ -2,7 +2,7 @@
 
 const partners = [
   "BNSP", "Kemnaker RI", "BKSP", "LSP", "SKKNI", "Kemendikbud",
-  "ESAS", "ISO 9001", "Kemenkes RI", "BAN-PT"
+  "comfindo", "ISO 9001", "Kemenkes RI", "BAN-PT"
 ]
 
 export function ClientsSection() {
@@ -35,9 +35,9 @@ export function ClientsSection() {
             {marqueeItems.map((partner, i) => (
               <div
                 key={`${partner}-${i}`}
-                className="flex-shrink-0 flex items-center justify-center px-8 py-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-esas-green/20 transition-all duration-300 hover:-translate-y-1 cursor-default"
+                className="flex-shrink-0 flex items-center justify-center px-8 py-4 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-comfindo-green/20 transition-all duration-300 hover:-translate-y-1 cursor-default"
               >
-                <span className="text-base font-bold text-gray-400 hover:text-esas-green transition-colors whitespace-nowrap">
+                <span className="text-base font-bold text-gray-400 hover:text-comfindo-green transition-colors whitespace-nowrap">
                   {partner}
                 </span>
               </div>

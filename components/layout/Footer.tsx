@@ -12,8 +12,8 @@ const footerLinks = [
 
 const socialLinks = [
   { name: "Facebook", href: "https://www.facebook.com/profile.php?id=100083385664789", icon: Facebook },
-  { name: "Instagram", href: "https://www.instagram.com/esas.management/", icon: Instagram },
-  { name: "LinkedIn", href: "http://www.linkedin.com/company/esasmanagement", icon: Linkedin },
+  { name: "Instagram", href: "https://www.instagram.com/comfindo.management/", icon: Instagram },
+  { name: "LinkedIn", href: "http://www.linkedin.com/company/comfindomanagement", icon: Linkedin },
   { name: "YouTube", href: "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ", icon: Youtube },
 ]
 
@@ -31,7 +31,7 @@ export function Footer() {
                   <GraduationCap className="h-5 w-5" />
                 </div>
                 <span className="text-lg font-bold tracking-tight text-white">
-                  ESAS Management
+                  comfindo Management
                 </span>
               </Link>
               <p className="text-sm text-gray-300 leading-relaxed">
@@ -64,7 +64,7 @@ export function Footer() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="h-4 w-4 shrink-0 text-[hsl(152,50%,55%)]" />
-                  <span>esas.management@gmail.com</span>
+                  <span>comfindo.management@gmail.com</span>
                 </li>
               </ul>
             </div>
@@ -121,7 +121,7 @@ export function Footer() {
       <div className="bg-[hsl(210,50%,8%)]">
         <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-400">
-            Copyright © {new Date().getFullYear()} | esasmanagement.com . All right reserved.
+            Copyright © {new Date().getFullYear()} | comfindomanagement.com . All right reserved.
           </p>
           <div className="flex items-center gap-4">
             {["Home", "Pelatihan", "Sertifikat", "Akun"].map((item) => (

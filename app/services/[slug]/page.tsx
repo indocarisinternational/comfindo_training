@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!service) {
     return {
-      title: "Layanan Tidak Ditemukan - ESAS Management",
+      title: "Layanan Tidak Ditemukan - comfindo Management",
     }
   }
 
@@ -108,7 +108,7 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
             <div className="rounded-2xl border border-gray-100 bg-white shadow-lg p-6 sticky top-24">
               <h3 className="text-lg font-bold mb-2 text-gray-900">Butuh Konsultasi?</h3>
               <p className="text-gray-500 text-sm mb-5">
-                Diskusikan kebutuhan pelatihan dan sertifikasi Anda dengan tim ESAS.
+                Diskusikan kebutuhan pelatihan dan sertifikasi Anda dengan tim comfindo.
               </p>
               <div className="space-y-3">
                 <Button
@@ -116,7 +116,7 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
                   className="w-full bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl"
                 >
                   <a
-                    href="https://wa.me/6285870663856?text=Halo%20ESAS%20Management"
+                    href="https://wa.me/6285870663856?text=Halo%20comfindo%20Management"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

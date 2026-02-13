@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!training) {
     return {
-      title: "Program Tidak Ditemukan - ESAS Management",
+      title: "Program Tidak Ditemukan - comfindo Management",
     }
   }
 
@@ -140,7 +140,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
                   asChild
                 >
                   <a
-                    href={`https://wa.me/6285870663856?text=Halo%20ESAS%20Management%2C%20saya%20ingin%20daftar%20${encodeURIComponent(training.title)}`}
+                    href={`https://wa.me/6285870663856?text=Halo%20comfindo%20Management%2C%20saya%20ingin%20daftar%20${encodeURIComponent(training.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -151,7 +151,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
               </div>
 
               <div className="mt-5 pt-5 border-t border-gray-100 space-y-2 text-xs text-gray-400">
-                <p>✅ Sertifikat resmi ESAS Management</p>
+                <p>✅ Sertifikat resmi comfindo Management</p>
                 <p>✅ Materi pelatihan digital</p>
                 <p>✅ Akses grup alumni</p>
               </div>

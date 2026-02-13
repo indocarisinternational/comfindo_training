@@ -5,21 +5,21 @@ const testimonials = [
   {
     name: "Rina Amelia, S.Pd",
     role: "Guru / Pengajar",
-    content: "Pelatihan di ESAS Management sangat membantu saya mendapatkan sertifikasi yang diakui secara nasional. Materinya relevan dan trainer sangat kompeten.",
+    content: "Pelatihan di comfindo Management sangat membantu saya mendapatkan sertifikasi yang diakui secara nasional. Materinya relevan dan trainer sangat kompeten.",
     rating: 5,
     initial: "R",
   },
   {
     name: "Ahmad Fauzi, S.E",
     role: "Staff HRD",
-    content: "Proses sertifikasi BNSP berjalan lancar dengan bimbingan dari tim ESAS. Harganya juga sangat terjangkau dibanding lembaga lain.",
+    content: "Proses sertifikasi BNSP berjalan lancar dengan bimbingan dari tim comfindo. Harganya juga sangat terjangkau dibanding lembaga lain.",
     rating: 5,
     initial: "A",
   },
   {
     name: "Dewi Lestari, M.M",
     role: "Manajer Operasional",
-    content: "Saya sangat puas dengan program In House Training dari ESAS Management. Tim kami sekarang lebih kompeten dan tersertifikasi.",
+    content: "Saya sangat puas dengan program In House Training dari comfindo Management. Tim kami sekarang lebih kompeten dan tersertifikasi.",
     rating: 5,
     initial: "D",
   },
@@ -37,7 +37,7 @@ export function TestimonialsSection() {
             Apa Kata <span className="text-[hsl(152,69%,31%)]">Alumni</span> Kami?
           </h2>
           <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
-            Dengarkan pengalaman para alumni ESAS Management yang telah meningkatkan kompetensinya.
+            Dengarkan pengalaman para alumni comfindo Management yang telah meningkatkan kompetensinya.
           </p>
         </div>
 

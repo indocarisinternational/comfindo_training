@@ -19,7 +19,7 @@ export function ServicesSection() {
             Program <span className="text-[hsl(152,69%,31%)]">Sertifikasi</span> Terbaru
           </h2>
           <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
-            Tingkatkan kompetensi Anda dengan program pelatihan dan sertifikasi berkualitas dari ESAS Management.
+            Tingkatkan kompetensi Anda dengan program pelatihan dan sertifikasi berkualitas dari comfindo Management.
           </p>
         </div>
 

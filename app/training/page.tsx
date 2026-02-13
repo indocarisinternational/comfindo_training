@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, MapPin, Tag, ArrowRight, Search, ChevronDown } from "lucide-react"
 import { useState, useMemo } from "react"
 
-const categories = ["Semua", "Sertifikasi BNSP", "Sertifikasi ESAS", "In House Training"]
+const categories = ["Semua", "Sertifikasi BNSP", "Sertifikasi comfindo", "In House Training"]
 const months = [
   "Semua Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
   "Juli", "Agustus", "September", "Oktober", "November", "Desember"
@@ -50,8 +50,8 @@ export default function TrainingPage() {
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
                     className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${selectedCategory === cat
-                      ? "bg-esas-green text-white shadow-lg shadow-esas-green/20 border border-esas-green"
-                      : "bg-white text-gray-600 border border-gray-200 shadow-sm hover:border-esas-green/30 hover:shadow-md hover:text-gray-900"
+                      ? "bg-comfindo-green text-white shadow-lg shadow-comfindo-green/20 border border-comfindo-green"
+                      : "bg-white text-gray-600 border border-gray-200 shadow-sm hover:border-comfindo-green/30 hover:shadow-md hover:text-gray-900"
                       }`}
                   >
                     {cat}
@@ -73,7 +73,7 @@ export default function TrainingPage() {
                     placeholder="Cari kursus atau sertifikasi..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 rounded-2xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-4 focus:ring-esas-green/5 focus:border-esas-green/50 placeholder:text-gray-300 transition-all shadow-sm"
+                    className="w-full pl-11 pr-4 py-3 rounded-2xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-4 focus:ring-comfindo-green/5 focus:border-comfindo-green/50 placeholder:text-gray-300 transition-all shadow-sm"
                   />
                 </div>
 
@@ -82,7 +82,7 @@ export default function TrainingPage() {
                   <select
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(e.target.value)}
-                    className="appearance-none w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-4 focus:ring-esas-green/5 focus:border-esas-green/50 transition-all cursor-pointer shadow-sm"
+                    className="appearance-none w-full pl-4 pr-10 py-3 rounded-2xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-4 focus:ring-comfindo-green/5 focus:border-comfindo-green/50 transition-all cursor-pointer shadow-sm"
                   >
                     {months.map((m) => (
                       <option key={m} value={m}>{m}</option>

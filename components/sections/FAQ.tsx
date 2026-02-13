@@ -8,12 +8,12 @@ import { Badge } from "@/components/ui/badge"
 
 const faqs = [
   {
-    question: "Apa itu ESAS Management?",
-    answer: "ESAS Management adalah lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya. Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI).",
+    question: "Apa itu comfindo Management?",
+    answer: "comfindo Management adalah lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya. Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI).",
   },
   {
     question: "Apa perbedaan sertifikasi BNSP dan Non BNSP?",
-    answer: "Sertifikasi BNSP adalah sertifikasi kompetensi yang diakui secara nasional oleh Badan Nasional Sertifikasi Profesi, sementara sertifikasi Non BNSP (Sertifikasi ESAS) adalah sertifikasi kompetensi yang dikeluarkan oleh ESAS Management sebagai bukti telah mengikuti pelatihan.",
+    answer: "Sertifikasi BNSP adalah sertifikasi kompetensi yang diakui secara nasional oleh Badan Nasional Sertifikasi Profesi, sementara sertifikasi Non BNSP (Sertifikasi comfindo) adalah sertifikasi kompetensi yang dikeluarkan oleh comfindo Management sebagai bukti telah mengikuti pelatihan.",
   },
   {
     question: "Bagaimana cara mendaftar pelatihan?",
@@ -45,7 +45,7 @@ export function FAQSection() {
             Pertanyaan <span className="text-[hsl(152,69%,31%)]">Umum</span>
           </h2>
           <p className="mt-4 text-lg text-gray-500">
-            Jawaban untuk pertanyaan yang sering diajukan tentang ESAS Management.
+            Jawaban untuk pertanyaan yang sering diajukan tentang comfindo Management.
           </p>
         </div>
 

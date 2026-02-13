@@ -7,14 +7,14 @@ import { Toaster } from "@/components/ui/sonner";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
 export const metadata: Metadata = {
-  title: "ESAS Management | Lembaga Pelatihan dan Sertifikasi",
+  title: "comfindo Management | Lembaga Pelatihan dan Sertifikasi",
   description: "Lembaga pelatihan dan sertifikasi. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://esasmanagement.com",
-    siteName: "ESAS Management",
-    title: "ESAS Management | Lembaga Pelatihan dan Sertifikasi",
+    url: "https://comfindomanagement.com",
+    siteName: "comfindo Management",
+    title: "comfindo Management | Lembaga Pelatihan dan Sertifikasi",
     description: "Lembaga pelatihan dan sertifikasi. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
   },
 };

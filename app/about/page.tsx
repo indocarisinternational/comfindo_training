@@ -5,15 +5,15 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle2, Target, Eye, MapPin, Phone, Mail, Building } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Profile - ESAS Management",
-  description: "Profile ESAS Management - Lembaga pelatihan dan sertifikasi. Visi, Misi, dan Legalitas ESAS Management.",
+  title: "Profile - comfindo Management",
+  description: "Profile comfindo Management - Lembaga pelatihan dan sertifikasi. Visi, Misi, dan Legalitas comfindo Management.",
 }
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <PageHeader
-        title="Profile ESAS Management"
+        title="Profile comfindo Management"
         description="Lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa."
         breadcrumbs={[{ label: "Profil", href: "/about" }]}
       />
@@ -23,10 +23,10 @@ export default function AboutPage() {
         <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">
-              Tentang <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>
+              Tentang <span className="text-[hsl(152,69%,31%)]">comfindo Management</span>
             </h2>
             <p className="text-lg text-gray-500 leading-relaxed">
-              ESAS Management adalah lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya. Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI).
+              comfindo Management adalah lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya. Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI).
             </p>
             <p className="text-lg text-gray-500 leading-relaxed mt-4">
               Program unggulan kami adalah Pelatihan & Sertifikasi Kompetensi Bersertifikat BNSP dan Non BNSP.
@@ -96,16 +96,16 @@ export default function AboutPage() {
         <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
-              Legalitas <span className="text-[hsl(152,69%,31%)]">ESAS Management</span>
+              Legalitas <span className="text-[hsl(152,69%,31%)]">comfindo Management</span>
             </h2>
           </div>
 
           <div className="max-w-2xl mx-auto space-y-5">
             {[
-              { icon: Building, label: "Nama Lembaga", value: "ESAS Management" },
+              { icon: Building, label: "Nama Lembaga", value: "comfindo Management" },
               { icon: MapPin, label: "Alamat", value: "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
               { icon: Phone, label: "Kontak", value: "0858-7066-3856 / 0821-1199-5378" },
-              { icon: Mail, label: "Email", value: "esas.management@gmail.com" },
+              { icon: Mail, label: "Email", value: "comfindo.management@gmail.com" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-4 p-5 rounded-2xl bg-[hsl(152,15%,97%)] border border-gray-100">
                 <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)] shrink-0">

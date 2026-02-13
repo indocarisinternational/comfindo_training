@@ -8,14 +8,14 @@ import { Suspense } from "react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Kontak - ESAS Management",
-  description: "Hubungi ESAS Management untuk informasi pelatihan dan sertifikasi. Kantor kami berlokasi di Tanjung Barat, Jakarta Selatan.",
+  title: "Kontak - comfindo Management",
+  description: "Hubungi comfindo Management untuk informasi pelatihan dan sertifikasi. Kantor kami berlokasi di Tanjung Barat, Jakarta Selatan.",
 }
 
 const socialLinks = [
   { name: "Facebook", href: "https://www.facebook.com/profile.php?id=100083385664789", icon: Facebook },
-  { name: "Instagram", href: "https://www.instagram.com/esas.management/", icon: Instagram },
-  { name: "LinkedIn", href: "http://www.linkedin.com/company/esasmanagement", icon: Linkedin },
+  { name: "Instagram", href: "https://www.instagram.com/comfindo.management/", icon: Instagram },
+  { name: "LinkedIn", href: "http://www.linkedin.com/company/comfindomanagement", icon: Linkedin },
   { name: "YouTube", href: "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ", icon: Youtube },
 ]
 
@@ -49,7 +49,7 @@ export default function ContactPage() {
                   {
                     icon: Mail,
                     title: "Email",
-                    content: "esas.management@gmail.com",
+                    content: "comfindo.management@gmail.com",
                   },
                   {
                     icon: Clock,

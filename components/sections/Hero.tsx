@@ -18,7 +18,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden min-h-[600px] md:min-h-[700px] flex items-center">
       {/* Background */}
-      <div className="absolute inset-0 esas-hero-gradient" />
+      <div className="absolute inset-0 comfindo-hero-gradient" />
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzEuNjU3IDAgMy0xLjM0MyAzLTNzLTEuMzQzLTMtMy0zLTMgMS4zNDMtMyAzIDEuMzQzIDMgMyAzem0wIDM2YzEuNjU3IDAgMy0xLjM0MyAzLTNzLTEuMzQzLTMtMy0zLTMgMS4zNDMtMyAzIDEuMzQzIDMgMyAzeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
 
       {/* Floating decorations */}
@@ -37,7 +37,7 @@ export function Hero() {
                 <span className="text-sm font-medium text-white/90">{dateStr}</span>
               </div>
               <div className="bg-[hsl(45,100%,51%)] text-[hsl(210,50%,10%)] text-xs font-bold px-3 py-1.5 rounded-full">
-                Sertifikasi ESAS
+                Sertifikasi comfindo
               </div>
             </div>
 
@@ -55,7 +55,7 @@ export function Hero() {
             </h1>
 
             <p className="text-lg text-white/80 mb-8 leading-relaxed">
-              Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP. Wujudkan SDM kompeten bersama ESAS Management.
+              Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP. Wujudkan SDM kompeten bersama comfindo Management.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -100,7 +100,7 @@ export function Hero() {
               { icon: Award, title: "Bersertifikat BNSP", desc: "Pengakuan kompetensi nasional" },
               { icon: BookOpen, title: "Silabus SKKNI", desc: "Kurikulum berbasis standar nasional" },
               { icon: Users, title: "Trainer Berpengalaman", desc: "Praktisi profesional di bidangnya" },
-              { icon: CheckCircle, title: "Non BNSP", desc: "Sertifikasi kompetensi ESAS" },
+              { icon: CheckCircle, title: "Non BNSP", desc: "Sertifikasi kompetensi comfindo" },
             ].map((feature) => (
               <div
                 key={feature.title}

@@ -36,11 +36,11 @@
 
   --radius: 0.625rem;
 
-  --esas-green: 152 69% 31%;
-  --esas-green-light: 152 50% 45%;
-  --esas-green-dark: 152 75% 22%;
-  --esas-gold: 45 100% 51%;
-  --esas-navy: 210 50% 15%;
+  --comfindo-green: 152 69% 31%;
+  --comfindo-green-light: 152 50% 45%;
+  --comfindo-green-dark: 152 75% 22%;
+  --comfindo-gold: 45 100% 51%;
+  --comfindo-navy: 210 50% 15%;
 }
 
 .dark {
@@ -101,11 +101,11 @@
 
   --font-sans: "Poppins", "Inter", system-ui, sans-serif;
 
-  --color-esas-green: hsl(152, 69%, 31%);
-  --color-esas-green-light: hsl(152, 50%, 45%);
-  --color-esas-green-dark: hsl(152, 75%, 22%);
-  --color-esas-gold: hsl(45, 100%, 51%);
-  --color-esas-navy: hsl(210, 50%, 15%);
+  --color-comfindo-green: hsl(152, 69%, 31%);
+  --color-comfindo-green-light: hsl(152, 50%, 45%);
+  --color-comfindo-green-dark: hsl(152, 75%, 22%);
+  --color-comfindo-gold: hsl(45, 100%, 51%);
+  --color-comfindo-navy: hsl(210, 50%, 15%);
 
   @keyframes marquee {
     from {
@@ -124,8 +124,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ESAS gradient backgrounds */
-.esas-gradient {
+/* comfindo gradient backgrounds */
+.comfindo-gradient {
   background: linear-gradient(
     135deg,
     hsl(152, 69%, 31%) 0%,
@@ -134,7 +134,7 @@ body {
   );
 }
 
-.esas-gradient-light {
+.comfindo-gradient-light {
   background: linear-gradient(
     135deg,
     hsl(152, 50%, 45%) 0%,
@@ -142,7 +142,7 @@ body {
   );
 }
 
-.esas-hero-gradient {
+.comfindo-hero-gradient {
   background: linear-gradient(
     160deg,
     hsl(152, 75%, 22%) 0%,
@@ -152,11 +152,11 @@ body {
 }
 
 /* Card hover animation */
-.esas-card-hover {
+.comfindo-card-hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.esas-card-hover:hover {
+.comfindo-card-hover:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
 }

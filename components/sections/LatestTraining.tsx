@@ -19,7 +19,7 @@ export function LatestTrainingSection() {
             Program <span className="text-[hsl(152,69%,31%)]">Pelatihan</span> Mendatang
           </h2>
           <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
-            Jangan lewatkan program pelatihan dan sertifikasi terbaru dari ESAS Management.
+            Jangan lewatkan program pelatihan dan sertifikasi terbaru dari comfindo Management.
           </p>
         </div>
 

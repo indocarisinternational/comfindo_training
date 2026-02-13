@@ -4,7 +4,7 @@ import { trainings } from '@/lib/data/trainings'
 import { blogs } from '@/lib/data/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://esasmanagement.com'
+  const baseUrl = 'https://comfindomanagement.com'
 
   const staticRoutes = [
     '',
