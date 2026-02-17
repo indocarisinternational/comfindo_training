@@ -16,11 +16,16 @@ import {
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Pelatihan", href: "/training" },
-  { name: "Cek Sertifikat", href: "/services" },
-  { name: "Profil", href: "/about" },
-  { name: "Kontak", href: "/contact" },
-  { name: "Blog", href: "/blog" },
+  // { name: "Pelatihan", href: "/training" },
+  { name: "Pelatihan", href: "/coming-soon" },
+  // { name: "Cek Sertifikat", href: "/services" },
+  { name: "Cek Sertifikat", href: "/coming-soon" },
+  // { name: "Profil", href: "/about" },
+  { name: "Profil", href: "/coming-soon" },
+  // { name: "Kontak", href: "/contact" },
+  { name: "Kontak", href: "/coming-soon" },
+  // { name: "Blog", href: "/blog" },
+  { name: "Blog", href: "/coming-soon" },
 ];
 
 export function Navbar() {
