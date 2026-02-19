@@ -32,10 +32,14 @@ export default function ComingSoonPage() {
             Sedang Pengembangan
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-comfindo-navy tracking-tight">
-            Sesuatu yang <span className="text-comfindo-green italic">Luar Biasa</span> Sedang Disiapkan
+            Sesuatu yang{" "}
+            <span className="text-comfindo-green italic">Luar Biasa</span>{" "}
+            Sedang Disiapkan
           </h1>
           <p className="text-lg text-gray-600 max-w-lg mx-auto leading-relaxed">
-            Kami sedang bekerja keras untuk memberikan pengalaman pelatihan dan sertifikasi terbaik bagi Anda. Sampai jumpa segera dengan fitur-fitur baru!
+            Kami sedang bekerja keras untuk memberikan pengalaman pelatihan dan
+            sertifikasi terbaik bagi Anda. Sampai jumpa segera dengan
+            fitur-fitur baru!
           </p>
         </div>
 
@@ -50,7 +54,7 @@ export default function ComingSoonPage() {
               Kembali ke Beranda
             </Link>
           </Button>
-          <Button
+          {/* <Button
             variant="outline"
             asChild
             className="w-full sm:w-auto px-8 border-comfindo-green/20 text-comfindo-green hover:bg-comfindo-green/5 rounded-xl h-12 text-base font-semibold"
@@ -58,7 +62,7 @@ export default function ComingSoonPage() {
             <Link href="/contact">
               Hubungi Kami
             </Link>
-          </Button>
+          </Button> */}
         </div>
 
         {/* Contact Info Shorthand */}
