@@ -3,7 +3,7 @@
 import { MessageCircle } from "lucide-react"
 
 export function FloatingWhatsApp() {
-  const phoneNumber = "6285870663856"
+  const phoneNumber = "62817210875";
   const message = encodeURIComponent("Halo comfindo Management, saya ingin bertanya tentang pelatihan dan sertifikasi")
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`
 
