@@ -82,7 +82,7 @@ export function Hero() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4">
               {[
-                { value: "500+", label: "Alumni" },
+                { value: "550+", label: "Alumni" },
                 { value: "50+", label: "Program" },
                 { value: "4.9★", label: "Rating" },
               ].map((stat) => (
