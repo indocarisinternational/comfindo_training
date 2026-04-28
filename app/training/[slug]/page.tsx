@@ -61,7 +61,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
                 { icon: Calendar, label: "Jadwal", value: training.date, color: "bg-blue-50 text-blue-600" },
                 { icon: Clock, label: "Durasi", value: `${training.duration}`, color: "bg-purple-50 text-purple-600" },
                 { icon: MapPin, label: "Metode", value: training.method, color: "bg-orange-50 text-orange-600" },
-                { icon: Tag, label: "Investasi", value: training.price, color: "bg-green-50 text-[hsl(152,69%,31%)]" },
+                { icon: Tag, label: "Investasi", value: training.price, color: "bg-green-50 text-comfindo-green" },
               ].map((item) => (
                 <div key={item.label} className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${item.color} mb-3`}>
@@ -76,13 +76,13 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
             {/* Syllabus */}
             <div>
               <h2 className="text-xl font-bold mb-5 text-gray-900 flex items-center gap-2">
-                <FileText className="h-5 w-5 text-[hsl(152,69%,31%)]" />
+                <FileText className="h-5 w-5 text-comfindo-green" />
                 Materi Pelatihan
               </h2>
               <div className="grid gap-3">
                 {training.syllabus.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[hsl(152,15%,97%)] border border-gray-100 hover:border-[hsl(152,69%,31%)]/30 transition-colors">
-                    <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-[hsl(152,69%,31%)] text-white text-xs font-bold shrink-0 mt-0.5">
+                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[hsl(152,15%,97%)] border border-gray-100 hover:border-comfindo-green/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-comfindo-green text-white text-xs font-bold shrink-0 mt-0.5">
                       {i + 1}
                     </div>
                     <span className="text-gray-700">{item}</span>
@@ -96,7 +96,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
               <h2 className="text-xl font-bold mb-5 text-gray-900">Fasilitas</h2>
               <div className="flex flex-wrap gap-2">
                 {training.facilities.map((facility, i) => (
-                  <Badge key={i} variant="secondary" className="px-4 py-2 text-sm font-medium bg-[hsl(152,69%,31%)]/8 text-[hsl(152,69%,31%)] border-0 rounded-xl">
+                  <Badge key={i} variant="secondary" className="px-4 py-2 text-sm font-medium bg-comfindo-green/8 text-comfindo-green border-0 rounded-xl">
                     <CheckCircle2 className="h-3.5 w-3.5 mr-1.5" />
                     {facility}
                   </Badge>
@@ -110,12 +110,12 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
             <div className="rounded-2xl border border-gray-100 bg-white shadow-lg p-6 sticky top-24">
               <div className="text-center mb-5">
                 <p className="text-sm text-gray-400 mb-1">Investasi</p>
-                <p className="text-3xl font-extrabold text-[hsl(152,69%,31%)]">{training.price}</p>
+                <p className="text-3xl font-extrabold text-comfindo-green">{training.price}</p>
               </div>
 
               <div className="space-y-3">
                 <Button
-                  className="w-full h-12 bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl shadow-md hover:shadow-lg text-sm font-semibold"
+                  className="w-full h-12 bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl shadow-md hover:shadow-lg text-sm font-semibold"
                   size="lg"
                   asChild
                 >

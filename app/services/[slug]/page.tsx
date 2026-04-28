@@ -67,7 +67,7 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
               <div className="grid gap-3 sm:grid-cols-2">
                 {service.benefits.map((benefit, i) => (
                   <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[hsl(152,15%,97%)] border border-gray-100">
-                    <CheckCircle className="h-5 w-5 text-[hsl(152,69%,31%)] mt-0.5 shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-comfindo-green mt-0.5 shrink-0" />
                     <span className="text-gray-700 text-sm">{benefit}</span>
                   </div>
                 ))}
@@ -79,10 +79,10 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
               <div className="space-y-3">
                 {service.process.map((step, i) => (
                   <div key={i} className="flex items-center gap-4">
-                    <div className="flex-none flex items-center justify-center w-8 h-8 rounded-lg bg-[hsl(152,69%,31%)] text-white font-bold text-sm">
+                    <div className="flex-none flex items-center justify-center w-8 h-8 rounded-lg bg-comfindo-green text-white font-bold text-sm">
                       {i + 1}
                     </div>
-                    <div className="p-4 rounded-xl border border-gray-100 bg-white w-full hover:border-[hsl(152,69%,31%)]/30 transition-colors shadow-sm">
+                    <div className="p-4 rounded-xl border border-gray-100 bg-white w-full hover:border-comfindo-green/30 transition-colors shadow-sm">
                       <span className="font-medium text-gray-700">{step}</span>
                     </div>
                   </div>
@@ -108,12 +108,12 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
             <div className="rounded-2xl border border-gray-100 bg-white shadow-lg p-6 sticky top-24">
               <h3 className="text-lg font-bold mb-2 text-gray-900">Butuh Konsultasi?</h3>
               <p className="text-gray-500 text-sm mb-5">
-                Diskusikan kebutuhan pelatihan dan sertifikasi Anda dengan tim comfindo.
+                Diskusikan kebutuhan pelatihan dan Konsultan Manajemen Anda dengan tim comfindo.
               </p>
               <div className="space-y-3">
                 <Button
                   asChild
-                  className="w-full bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl"
+                  className="w-full bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl"
                 >
                   <a
                     href="https://wa.me/6285870663856?text=Halo%20comfindo%20Management"
@@ -127,7 +127,7 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-[hsl(152,69%,31%)] text-[hsl(152,69%,31%)] hover:bg-[hsl(152,69%,31%)] hover:text-white rounded-xl"
+                  className="w-full border-comfindo-green text-comfindo-green hover:bg-comfindo-green hover:text-white rounded-xl"
                 >
                   <Link href="/contact">
                     Isi Form Konsultasi
@@ -141,7 +141,7 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
               <ul className="space-y-2">
                 {services.filter(s => s.slug !== params.slug).map(s => (
                   <li key={s.slug}>
-                    <Link href={`/services/${s.slug}`} className="text-sm text-[hsl(152,69%,31%)] hover:underline flex items-center gap-2">
+                    <Link href={`/services/${s.slug}`} className="text-sm text-comfindo-green hover:underline flex items-center gap-2">
                       <ArrowRight className="h-3 w-3" /> {s.title}
                     </Link>
                   </li>

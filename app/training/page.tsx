@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, MapPin, Tag, ArrowRight, Search, ChevronDown } from "lucide-react"
 import { useState, useMemo } from "react"
 
-const categories = ["Semua", "Sertifikasi BNSP", "Sertifikasi comfindo", "In House Training"]
+const categories = ["Semua", "Public Training (Offline)", "Public Training (Online)", "In House Training"]
 const months = [
   "Semua Bulan", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
   "Juli", "Agustus", "September", "Oktober", "November", "Desember"
@@ -110,44 +110,44 @@ export default function TrainingPage() {
             {filteredTrainings.map((training) => (
               <Card key={training.slug} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                 {/* Image area */}
-                <div className="relative h-44 bg-gradient-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  <div className="text-[hsl(152,69%,31%)] opacity-15 text-5xl font-black">
+                <div className="relative h-44 bg-linear-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                  <div className="text-comfindo-green opacity-15 text-5xl font-black">
                     {training.category.split(" ").pop()}
                   </div>
-                  <Badge className="absolute top-3 left-3 bg-[hsl(152,69%,31%)] text-white text-xs shadow-md">
+                  <Badge className="absolute top-3 left-3 bg-comfindo-green text-white text-xs shadow-md">
                     {training.category}
                   </Badge>
                 </div>
 
                 <CardContent className="flex-1 p-5 space-y-3">
-                  <h3 className="font-semibold text-gray-900 line-clamp-2 min-h-[48px] text-sm group-hover:text-[hsl(152,69%,31%)] transition-colors">
+                  <h3 className="font-semibold text-gray-900 line-clamp-2 min-h-[48px] text-sm group-hover:text-comfindo-green transition-colors">
                     {training.title}
                   </h3>
                   <div className="space-y-1.5 text-xs text-gray-500">
                     <div className="flex items-center gap-1.5">
-                      <Calendar className="h-3 w-3 text-[hsl(152,69%,31%)]" />
+                      <Calendar className="h-3 w-3 text-comfindo-green" />
                       <span>{training.date}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Clock className="h-3 w-3 text-[hsl(152,69%,31%)]" />
+                      <Clock className="h-3 w-3 text-comfindo-green" />
                       <span>{training.duration}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="h-3 w-3 text-[hsl(152,69%,31%)]" />
+                      <MapPin className="h-3 w-3 text-comfindo-green" />
                       <span>{training.method}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5 pt-1">
-                    <Tag className="h-3.5 w-3.5 text-[hsl(152,69%,31%)]" />
-                    <span className="font-bold text-sm text-[hsl(152,69%,31%)]">{training.price}</span>
+                    <Tag className="h-3.5 w-3.5 text-comfindo-green" />
+                    <span className="font-bold text-sm text-comfindo-green">{training.price}</span>
                   </div>
                 </CardContent>
 
                 <CardFooter className="p-5 pt-0">
                   <Button
                     asChild
-                    className="w-full bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl shadow-sm text-sm"
+                    className="w-full bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl shadow-sm text-sm"
                   >
                     <Link href={`/training/${training.slug}`}>
                       Lihat Detail

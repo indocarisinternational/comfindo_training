@@ -11,11 +11,11 @@ export function CTASection() {
 
       {/* Floating decoration */}
       <div className="absolute top-10 right-20 w-48 h-48 rounded-full bg-white/5 blur-2xl" />
-      <div className="absolute bottom-10 left-20 w-64 h-64 rounded-full bg-[hsl(45,100%,51%)]/5 blur-3xl" />
+      <div className="absolute bottom-10 left-20 w-64 h-64 rounded-full bg-comfindo-gold/5 blur-3xl" />
 
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 relative z-10 text-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
-          Siap Meningkatkan <span className="text-[hsl(45,100%,60%)]">Kompetensi</span> Anda?
+          Siap Meningkatkan <span className="text-comfindo-gold">Kompetensi</span> Anda?
         </h2>
         <p className="text-lg text-white/75 max-w-2xl mx-auto mb-12 leading-relaxed">
           Bergabunglah dengan ratusan alumni comfindo Management yang telah meningkatkan kompetensi dan karier mereka. Hubungi kami sekarang!
@@ -24,7 +24,7 @@ export function CTASection() {
           <Button
             asChild
             size="lg"
-            className="h-14 px-10 text-base font-semibold bg-[hsl(45,100%,51%)] text-[hsl(210,50%,10%)] hover:bg-[hsl(45,100%,58%)] shadow-xl hover:shadow-2xl transition-all rounded-xl gap-2"
+            className="h-14 px-10 text-base font-semibold bg-comfindo-gold text-[hsl(210,50%,10%)] hover:bg-[#eab308] shadow-xl hover:shadow-2xl transition-all rounded-xl gap-2"
           >
             <Link href="/training">
               Lihat Program

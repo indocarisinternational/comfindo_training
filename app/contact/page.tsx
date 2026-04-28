@@ -9,7 +9,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Kontak - comfindo Management",
-  description: "Hubungi comfindo Management untuk informasi pelatihan dan sertifikasi. Kantor kami berlokasi di Tanjung Barat, Jakarta Selatan.",
+  description: "Hubungi comfindo Management untuk informasi pelatihan dan Konsultan Manajemen. Kantor kami berlokasi di Tanjung Barat, Jakarta Selatan.",
 }
 
 const socialLinks = [
@@ -57,8 +57,8 @@ export default function ContactPage() {
                     content: "Senin - Jumat, 08.00 - 17.00 WIB",
                   },
                 ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-4 p-4 rounded-2xl bg-[hsl(152,15%,97%)] border border-gray-100 hover:border-[hsl(152,69%,31%)]/20 transition-colors">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)]">
+                  <div key={item.title} className="flex items-start gap-4 p-4 rounded-2xl bg-[hsl(152,15%,97%)] border border-gray-100 hover:border-comfindo-green/20 transition-colors">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-comfindo-green/10 text-comfindo-green">
                       <item.icon className="h-5 w-5" />
                     </div>
                     <div>
@@ -80,7 +80,7 @@ export default function ContactPage() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center w-11 h-11 rounded-xl bg-[hsl(152,69%,31%)]/10 text-[hsl(152,69%,31%)] hover:bg-[hsl(152,69%,31%)] hover:text-white transition-all duration-200 hover:scale-110"
+                    className="flex items-center justify-center w-11 h-11 rounded-xl bg-comfindo-green/10 text-comfindo-green hover:bg-comfindo-green hover:text-white transition-all duration-200 hover:scale-110"
                     title={name}
                   >
                     <Icon className="h-5 w-5" />
@@ -114,13 +114,13 @@ export default function ContactPage() {
                   <TabsList className="grid w-full grid-cols-2 mb-6 bg-gray-100 rounded-xl p-1">
                     <TabsTrigger
                       value="consultation"
-                      className="rounded-lg data-[state=active]:bg-[hsl(152,69%,31%)] data-[state=active]:text-white text-sm"
+                      className="rounded-lg data-[state=active]:bg-comfindo-green data-[state=active]:text-white text-sm"
                     >
                       Konsultasi
                     </TabsTrigger>
                     <TabsTrigger
                       value="registration"
-                      className="rounded-lg data-[state=active]:bg-[hsl(152,69%,31%)] data-[state=active]:text-white text-sm"
+                      className="rounded-lg data-[state=active]:bg-comfindo-green data-[state=active]:text-white text-sm"
                     >
                       Registrasi
                     </TabsTrigger>

@@ -73,17 +73,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[hsl(152,20%,97%)] via-white to-[hsl(152,15%,95%)] px-4 py-16">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-[hsl(152,20%,97%)] via-white to-[hsl(152,15%,95%)] px-4 py-16">
       {/* Background decoration */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-20 -right-20 w-96 h-96 rounded-full bg-[hsl(152,69%,31%)]/5 blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-[hsl(152,50%,45%)]/5 blur-3xl" />
+        <div className="absolute top-20 -right-20 w-96 h-96 rounded-full bg-comfindo-green/5 blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-comfindo-green-light/5 blur-3xl" />
       </div>
 
       <Card className="w-full max-w-md relative z-10 border-0 shadow-xl rounded-2xl">
         <CardHeader className="space-y-1 text-center pb-2">
           <Link href="/" className="inline-flex items-center justify-center gap-2 mb-4 group">
-            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[hsl(152,69%,31%)] to-[hsl(152,75%,22%)] text-white shadow-lg group-hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-linear-to-br from-comfindo-green to-comfindo-green-dark text-white shadow-lg group-hover:shadow-xl transition-shadow">
               <GraduationCap className="h-6 w-6" />
             </div>
           </Link>
@@ -105,7 +105,7 @@ export default function LoginPage() {
                 type="button"
                 onClick={() => setIsRegister(false)}
                 className={`py-2.5 rounded-lg text-sm font-medium transition-all ${!isRegister
-                  ? "bg-[hsl(152,69%,31%)] text-white shadow-sm"
+                  ? "bg-comfindo-green text-white shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
                   }`}
               >
@@ -115,7 +115,7 @@ export default function LoginPage() {
                 type="button"
                 onClick={() => setIsRegister(true)}
                 className={`py-2.5 rounded-lg text-sm font-medium transition-all ${isRegister
-                  ? "bg-[hsl(152,69%,31%)] text-white shadow-sm"
+                  ? "bg-comfindo-green text-white shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
                   }`}
               >
@@ -134,7 +134,7 @@ export default function LoginPage() {
                     placeholder="Nama lengkap Anda"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10 h-11 rounded-xl border-gray-200 focus:border-[hsl(152,69%,31%)] focus:ring-[hsl(152,69%,31%)]/20"
+                    className="pl-10 h-11 rounded-xl border-gray-200 focus:border-comfindo-green focus:ring-comfindo-green/20"
                     required
                   />
                 </div>
@@ -151,7 +151,7 @@ export default function LoginPage() {
                   placeholder="email@anda.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-11 rounded-xl border-gray-200 focus:border-[hsl(152,69%,31%)] focus:ring-[hsl(152,69%,31%)]/20"
+                  className="pl-10 h-11 rounded-xl border-gray-200 focus:border-comfindo-green focus:ring-comfindo-green/20"
                   required
                 />
               </div>
@@ -166,7 +166,7 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 pr-10 h-11 rounded-xl border-gray-200 focus:border-[hsl(152,69%,31%)] focus:ring-[hsl(152,69%,31%)]/20"
+                  className="pl-10 pr-10 h-11 rounded-xl border-gray-200 focus:border-comfindo-green focus:ring-comfindo-green/20"
                   required
                 />
                 <button
@@ -182,7 +182,7 @@ export default function LoginPage() {
 
           <CardFooter className="flex flex-col gap-3 pt-2">
             <Button
-              className="w-full h-12 bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl shadow-md hover:shadow-lg font-semibold transition-all"
+              className="w-full h-12 bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl shadow-md hover:shadow-lg font-semibold transition-all"
               type="submit"
               disabled={loading}
             >
@@ -200,7 +200,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setIsRegister(!isRegister)}
-                className="text-[hsl(152,69%,31%)] font-medium hover:underline"
+                className="text-comfindo-green font-medium hover:underline"
               >
                 {isRegister ? "Masuk di sini" : "Daftar di sini"}
               </button>

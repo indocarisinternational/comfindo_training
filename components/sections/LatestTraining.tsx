@@ -12,11 +12,11 @@ export function LatestTrainingSection() {
     <section className="py-20 md:py-28 bg-white">
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
         <div className="text-center mb-14">
-          <Badge variant="outline" className="mb-4 px-4 py-1 text-[hsl(152,69%,31%)] border-[hsl(152,69%,31%)]/30 bg-[hsl(152,69%,31%)]/5">
+          <Badge variant="outline" className="mb-4 px-4 py-1 text-comfindo-green border-comfindo-green/30 bg-comfindo-green/5">
             Jadwal Terbaru
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-            Program <span className="text-[hsl(152,69%,31%)]">Pelatihan</span> Mendatang
+            Program <span className="text-comfindo-green">Pelatihan</span> Mendatang
           </h2>
           <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
             Jangan lewatkan program pelatihan dan sertifikasi terbaru dari comfindo Management.
@@ -27,13 +27,13 @@ export function LatestTrainingSection() {
           {latestTrainings.map((training) => (
             <Card key={training.slug} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               {/* Image area */}
-              <div className="relative h-44 bg-gradient-to-br from-[hsl(152,40%,90%)] to-[hsl(152,30%,82%)] flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                <div className="text-[hsl(152,69%,31%)] opacity-15 text-5xl font-black">
+              <div className="relative h-44 bg-linear-to-br from-[hsl(152,40%,90%)] to-[hsl(152,30%,82%)] flex items-center justify-center">
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                <div className="text-comfindo-green opacity-15 text-5xl font-black">
                   {training.category}
                 </div>
                 <div className="absolute top-3 left-3 flex gap-2">
-                  <Badge className="bg-[hsl(152,69%,31%)] text-white text-xs shadow-md">
+                  <Badge className="bg-comfindo-green text-white text-xs shadow-md">
                     {training.category}
                   </Badge>
                   <Badge variant="secondary" className="text-xs bg-white/90 text-gray-700 shadow-sm">
@@ -43,24 +43,24 @@ export function LatestTrainingSection() {
               </div>
 
               <CardContent className="flex-1 p-5 space-y-3">
-                <h3 className="font-semibold text-gray-900 line-clamp-2 min-h-[48px] group-hover:text-[hsl(152,69%,31%)] transition-colors">
+                <h3 className="font-semibold text-gray-900 line-clamp-2 min-h-[48px] group-hover:text-comfindo-green transition-colors">
                   {training.title}
                 </h3>
                 <div className="space-y-2 text-sm text-gray-500">
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-3.5 w-3.5 text-[hsl(152,69%,31%)]" />
+                    <Calendar className="h-3.5 w-3.5 text-comfindo-green" />
                     <span>{training.date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="h-3.5 w-3.5 text-[hsl(152,69%,31%)]" />
+                    <Clock className="h-3.5 w-3.5 text-comfindo-green" />
                     <span>{training.duration} | {training.time}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-3.5 w-3.5 text-[hsl(152,69%,31%)]" />
+                    <MapPin className="h-3.5 w-3.5 text-comfindo-green" />
                     <span>{training.method}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 pt-1 text-[hsl(152,69%,31%)]">
+                <div className="flex items-center gap-1.5 pt-1 text-comfindo-green">
                   <Tag className="h-3.5 w-3.5" />
                   <span className="font-bold text-sm">{training.price}</span>
                 </div>
@@ -69,7 +69,7 @@ export function LatestTrainingSection() {
               <CardFooter className="p-5 pt-0">
                 <Button
                   asChild
-                  className="w-full bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl shadow-sm"
+                  className="w-full bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl shadow-sm"
                 >
                   <Link href={`/training/${training.slug}`}>
                     Lihat Detail & Daftar
@@ -86,7 +86,7 @@ export function LatestTrainingSection() {
             asChild
             variant="outline"
             size="lg"
-            className="border-[hsl(152,69%,31%)] text-[hsl(152,69%,31%)] hover:bg-[hsl(152,69%,31%)] hover:text-white rounded-xl h-12 px-8 transition-all"
+            className="border-comfindo-green text-comfindo-green hover:bg-comfindo-green hover:text-white rounded-xl h-12 px-8 transition-all"
           >
             <Link href="/training">
               Lihat Semua Jadwal

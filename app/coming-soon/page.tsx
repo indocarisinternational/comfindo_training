@@ -17,7 +17,7 @@ export default function ComingSoonPage() {
         <div className="flex justify-center">
           <div className="relative">
             <div className="absolute -inset-4 bg-comfindo-green/10 rounded-full animate-pulse-glow" />
-            <div className="relative flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-comfindo-green to-comfindo-green-dark text-white shadow-2xl rotate-3 transform hover:rotate-0 transition-transform duration-500">
+            <div className="relative flex items-center justify-center w-24 h-24 rounded-2xl bg-linear-to-br from-comfindo-green to-comfindo-green-dark text-white shadow-2xl rotate-3 transform hover:rotate-0 transition-transform duration-500">
               <GraduationCap className="h-12 w-12" />
             </div>
             <div className="absolute -bottom-2 -right-2 bg-comfindo-gold text-comfindo-navy p-1.5 rounded-lg shadow-lg rotate-12">
@@ -38,7 +38,7 @@ export default function ComingSoonPage() {
           </h1>
           <p className="text-lg text-gray-600 max-w-lg mx-auto leading-relaxed">
             Kami sedang bekerja keras untuk memberikan pengalaman pelatihan dan
-            sertifikasi terbaik bagi Anda. Sampai jumpa segera dengan
+            Konsultan Manajemen terbaik bagi Anda. Sampai jumpa segera dengan
             fitur-fitur baru!
           </p>
         </div>

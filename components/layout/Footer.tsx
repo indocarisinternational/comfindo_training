@@ -27,7 +27,7 @@ export function Footer() {
             {/* Brand Column */}
             <div className="space-y-5 lg:col-span-1">
               <Link href="/" className="flex items-center gap-2.5 group">
-                <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-[hsl(152,69%,31%)] to-[hsl(152,50%,45%)] text-white shadow-md">
+                <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-linear-to-br from-comfindo-green to-comfindo-green-light text-white shadow-md">
                   <GraduationCap className="h-5 w-5" />
                 </div>
                 <span className="text-lg font-bold tracking-tight text-white">
@@ -35,10 +35,10 @@ export function Footer() {
                 </span>
               </Link>
               <p className="text-sm text-gray-300 leading-relaxed">
-                Lembaga pelatihan dan sertifikasi yang bertujuan untuk mencerdaskan kehidupan bangsa dan menciptakan alumni yang kompeten dibidangnya.
+                Lembaga Pelatihan dan Konsultan Manajemen yang berkomitmen mendukung pengembangan kompetensi sumber daya manusia sekaligus pertumbuhan bisnis perusahaan Anda.
               </p>
               <p className="text-sm text-gray-300 leading-relaxed">
-                Kami berfokus pada silabus berbasis Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Program unggulan kami adalah Pelatihan & Sertifikasi Kompetensi Bersertifikat BNSP dan Non BNSP.
+                Kami hadir bukan hanya sebagai penyelenggara pelatihan, tetapi sebagai mitra strategis yang membantu organisasi meningkatkan daya saing melalui program yang relevan, terukur, dan terpercaya.
               </p>
             </div>
 
@@ -81,7 +81,7 @@ export function Footer() {
                       href={link.href}
                       className="hover:text-[hsl(152,50%,55%)] transition-colors duration-200 inline-flex items-center gap-1.5"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[hsl(152,69%,31%)] inline-block" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-comfindo-green inline-block" />
                       {link.name}
                     </Link>
                   </li>
@@ -101,7 +101,7 @@ export function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-gray-300 hover:bg-[hsl(152,69%,31%)] hover:text-white transition-all duration-200 hover:scale-110"
+                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-gray-300 hover:bg-comfindo-green hover:text-white transition-all duration-200 hover:scale-110"
                     title={name}
                   >
                     <Icon className="h-4 w-4" />
@@ -110,7 +110,7 @@ export function Footer() {
                 ))}
               </div>
               <div className="pt-3">
-                <p className="text-xs text-gray-400">Ikuti kami di sosial media untuk informasi terbaru seputar pelatihan dan sertifikasi.</p>
+                <p className="text-xs text-gray-400">Ikuti kami di sosial media untuk informasi terbaru seputar pelatihan dan Konsultasi Manajemen.</p>
               </div>
             </div>
           </div>

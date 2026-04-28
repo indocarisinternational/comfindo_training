@@ -5,7 +5,7 @@ export function OrganizationJsonLd() {
     "name": "comfindo Management",
     "url": "https://comfindomanagement.com",
     "logo": "https://comfindomanagement.com/logo.png",
-    "description": "Lembaga pelatihan dan sertifikasi. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
+    "description": "Lembaga Pelatihan dan Konsultan Manajemen. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat",

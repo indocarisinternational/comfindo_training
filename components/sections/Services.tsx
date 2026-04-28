@@ -12,11 +12,11 @@ export function ServicesSection() {
     <section className="py-20 md:py-28 bg-white">
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
         <div className="text-center mb-14">
-          <Badge variant="outline" className="mb-4 px-4 py-1 text-[hsl(152,69%,31%)] border-[hsl(152,69%,31%)]/30 bg-[hsl(152,69%,31%)]/5">
+          <Badge variant="outline" className="mb-4 px-4 py-1 text-comfindo-green border-comfindo-green/30 bg-comfindo-green/5">
             Produk Unggulan
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
-            Program <span className="text-[hsl(152,69%,31%)]">Sertifikasi</span> Terbaru
+            Program <span className="text-comfindo-green">Sertifikasi</span> Terbaru
           </h2>
           <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
             Tingkatkan kompetensi Anda dengan program pelatihan dan sertifikasi berkualitas dari comfindo Management.
@@ -27,20 +27,20 @@ export function ServicesSection() {
           {featured.map((item) => (
             <Card key={item.slug} className="group flex flex-col overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-2xl">
               {/* Image placeholder */}
-              <div className="relative h-48 bg-gradient-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                <div className="text-[hsl(152,69%,31%)] opacity-20 text-6xl font-black">
+              <div className="relative h-48 bg-linear-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+                <div className="text-comfindo-green opacity-20 text-6xl font-black">
                   {item.category.charAt(0)}
                 </div>
-                <Badge className="absolute top-3 left-3 bg-[hsl(152,69%,31%)] text-white text-xs shadow-md">
+                <Badge className="absolute top-3 left-3 bg-comfindo-green text-white text-xs shadow-md">
                   {item.category}
                 </Badge>
               </div>
               <CardContent className="flex-1 p-5">
-                <h3 className="font-semibold text-gray-900 line-clamp-2 min-h-[48px] group-hover:text-[hsl(152,69%,31%)] transition-colors">
+                <h3 className="font-semibold text-gray-900 line-clamp-2 min-h-[48px] group-hover:text-comfindo-green transition-colors">
                   {item.title}
                 </h3>
-                <div className="flex items-center gap-1.5 mt-3 text-[hsl(152,69%,31%)]">
+                <div className="flex items-center gap-1.5 mt-3 text-comfindo-green">
                   <Tag className="h-3.5 w-3.5" />
                   <span className="font-bold text-sm">{item.price}</span>
                 </div>
@@ -49,7 +49,7 @@ export function ServicesSection() {
                 <Button
                   asChild
                   variant="ghost"
-                  className="w-full justify-between text-[hsl(152,69%,31%)] hover:bg-[hsl(152,69%,31%)]/5 group/btn rounded-xl"
+                  className="w-full justify-between text-comfindo-green hover:bg-comfindo-green/5 group/btn rounded-xl"
                 >
                   <Link href={`/training/${item.slug}`}>
                     Lihat Detail
@@ -65,7 +65,7 @@ export function ServicesSection() {
           <Button
             asChild
             size="lg"
-            className="bg-[hsl(152,69%,31%)] hover:bg-[hsl(152,75%,22%)] text-white rounded-xl h-12 px-8 shadow-md hover:shadow-lg transition-all"
+            className="bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl h-12 px-8 shadow-md hover:shadow-lg transition-all"
           >
             <Link href="/training">
               Lihat Semua Program
