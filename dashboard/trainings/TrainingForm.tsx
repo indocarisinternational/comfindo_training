@@ -100,7 +100,7 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
             toast.success("Training created successfully.")
         }
         router.refresh()
-        router.push("/dashboard/trainings")
+        router.push("/admin/trainings")
     } catch (error: any) {
         toast.error("Something went wrong.", { description: error.message })
     } finally {
@@ -118,7 +118,7 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
     <div className="space-y-6">
         <div className="flex items-center gap-4">
              <Button variant="outline" size="icon" asChild>
-                <Link href="/dashboard/trainings">
+                <Link href="/admin/trainings">
                     <ArrowLeft className="h-4 w-4" />
                 </Link>
              </Button>

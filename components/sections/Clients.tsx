@@ -1,13 +1,17 @@
 "use client"
 
-const partners = [
+const defaultPartners = [
   "BNSP", "Kemnaker RI", "BKSP", "LSP", "SKKNI", "Kemendikbud",
   "comfindo", "ISO 9001", "Kemenkes RI", "BAN-PT"
 ]
 
-export function ClientsSection() {
-  // Duplicate for seamless loop
-  const marqueeItems = [...partners, ...partners]
+interface ClientsProps {
+  partners?: string[]
+}
+
+export function ClientsSection({ partners }: ClientsProps) {
+  const displayPartners = partners?.length ? partners : defaultPartners
+  const marqueeItems = [...displayPartners, ...displayPartners]
 
   return (
     <section className="py-14 md:py-20 bg-[hsl(152,15%,96%)] border-y border-gray-100 overflow-hidden">
@@ -17,10 +21,8 @@ export function ClientsSection() {
         </div>
       </div>
 
-      {/* Marquee Wrapper with limited width */}
       <div className="mx-auto max-w-6xl px-4">
         <div className="relative overflow-hidden rounded-2xl border border-gray-100/50">
-          {/* Fade edges */}
           <div
             className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
             style={{ background: "linear-gradient(to right, hsl(152,15%,96%), transparent)" }}
@@ -30,7 +32,6 @@ export function ClientsSection() {
             style={{ background: "linear-gradient(to left, hsl(152,15%,96%), transparent)" }}
           />
 
-          {/* Scrolling track - using global animate-marquee class */}
           <div className="flex items-center gap-6 animate-marquee pause-hover w-max py-4">
             {marqueeItems.map((partner, i) => (
               <div
@@ -48,4 +49,3 @@ export function ClientsSection() {
     </section>
   )
 }
-

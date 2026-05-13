@@ -93,7 +93,7 @@ export const columns: ColumnDef<Training>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-                <Link href={`/dashboard/trainings/${training.id}/edit`}>Edit Training</Link>
+                <Link href={`/admin/trainings/${training.id}/edit`}>Edit Training</Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => {
                 // Implement delete logic here or trigger a dialog

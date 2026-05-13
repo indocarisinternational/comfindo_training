@@ -37,9 +37,9 @@ export default function LoginPage() {
       setLoading(false)
     } else {
       toast.success("Login Berhasil", {
-        description: "Mengalihkan ke dashboard...",
+        description: "Mengalihkan ke admin panel...",
       })
-      router.push("/dashboard")
+      router.push("/admin")
       router.refresh()
     }
   }

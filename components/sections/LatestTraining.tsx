@@ -1,11 +1,14 @@
 import Link from "next/link"
-import { trainings } from "@/lib/data/trainings"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, MapPin, Tag, ArrowRight } from "lucide-react"
 
-export function LatestTrainingSection() {
+interface LatestTrainingProps {
+  trainings?: any[]
+}
+
+export function LatestTrainingSection({ trainings = [] }: LatestTrainingProps) {
   const latestTrainings = trainings.slice(0, 3)
 
   return (
@@ -25,8 +28,7 @@ export function LatestTrainingSection() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {latestTrainings.map((training) => (
-            <Card key={training.slug} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              {/* Image area */}
+            <Card key={training.slug || training.id} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative h-44 bg-linear-to-br from-[hsl(152,40%,90%)] to-[hsl(152,30%,82%)] flex items-center justify-center">
                 <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 <div className="text-comfindo-green opacity-15 text-5xl font-black">
@@ -37,7 +39,7 @@ export function LatestTrainingSection() {
                     {training.category}
                   </Badge>
                   <Badge variant="secondary" className="text-xs bg-white/90 text-gray-700 shadow-sm">
-                    {training.method.includes("Online") ? "Online" : "Offline"}
+                    {(training.method || "").includes("Online") ? "Online" : "Offline"}
                   </Badge>
                 </div>
               </div>

@@ -2,7 +2,19 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, MessageCircle } from "lucide-react"
 
-export function CTASection() {
+interface CTAProps {
+  title?: string
+  subtitle?: string
+  phone?: string
+  whatsappUrl?: string
+}
+
+export function CTASection({
+  title = "Siap Meningkatkan Kompetensi Anda?",
+  subtitle = "Bergabunglah dengan ratusan alumni comfindo Management yang telah meningkatkan kompetensi dan karier mereka. Hubungi kami sekarang!",
+  phone = "0858-7066-3856",
+  whatsappUrl = "https://wa.me/6285870663856",
+}: CTAProps) {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden">
       {/* Background */}
@@ -15,10 +27,14 @@ export function CTASection() {
 
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 relative z-10 text-center">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
-          Siap Meningkatkan <span className="text-comfindo-gold">Kompetensi</span> Anda?
+          {title.includes("Kompetensi") ? (
+            <>Siap Meningkatkan <span className="text-comfindo-gold">Kompetensi</span> Anda?</>
+          ) : (
+            title
+          )}
         </h2>
         <p className="text-lg text-white/75 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Bergabunglah dengan ratusan alumni comfindo Management yang telah meningkatkan kompetensi dan karier mereka. Hubungi kami sekarang!
+          {subtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
@@ -37,7 +53,7 @@ export function CTASection() {
             size="lg"
             className="h-14 px-10 text-base font-semibold border-2 border-white/30 text-white bg-white/5 hover:bg-white/15 hover:border-white/50 backdrop-blur-sm rounded-xl gap-2"
           >
-            <a href="https://wa.me/6285870663856" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="h-5 w-5" />
               WhatsApp Kami
             </a>
@@ -47,7 +63,7 @@ export function CTASection() {
         {/* Contact info */}
         <div className="mt-10 flex items-center justify-center gap-2 text-white/60">
           <Phone className="h-4 w-4" />
-          <span className="text-sm">Atau hubungi: 0858-7066-3856</span>
+          <span className="text-sm">Atau hubungi: {phone}</span>
         </div>
       </div>
     </section>

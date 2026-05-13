@@ -1,120 +1,135 @@
-import type { Metadata } from "next"
 import { PageHeader } from "@/components/common/PageHeader"
 import { CTASection } from "@/components/sections/CTA"
-import { Card, CardContent } from "@/components/ui/card"
-import { CheckCircle2, Target, Eye, MapPin, Phone, Mail, Building } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
+import { CheckCircle, Target, Users, GraduationCap, Star, Shield, Building2 } from "lucide-react"
+import type { Metadata } from "next"
+
+export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: "Profile - comfindo Management",
-  description: "Profile comfindo Management - Lembaga Pelatihan dan Konsultan Manajemen. Visi, Misi, dan Legalitas comfindo Management.",
+  title: "Profil Perusahaan - comfindo Management",
+  description: "Profil comfindo Management, lembaga pelatihan dan konsultan manajemen terpercaya di Indonesia.",
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const supabase = await createClient()
+  const { data: about } = await supabase.from("about_content").select("*").limit(1).single()
+
+  const company_name = about?.company_name || "comfindo Management"
+  const vision = about?.vision || "Menjadi lembaga pelatihan dan konsultan manajemen terpercaya yang mendukung pengembangan kompetensi sumber daya manusia serta pertumbuhan bisnis berkelanjutan bagi perusahaan di Indonesia."
+  const mission = Array.isArray(about?.mission) ? about.mission : [
+    { title: "Meningkatkan Keterampilan Kerja Karyawan", description: "Menyelenggarakan public training dan in-house training secara berkala untuk meningkatkan keterampilan kerja karyawan." },
+    { title: "Mendukung Pertumbuhan Bisnis Perusahaan", description: "Memberikan layanan konsultasi manajemen yang membantu perusahaan mengoptimalkan operasional." },
+    { title: "Menyediakan Program Sertifikasi Kompetensi", description: "Menyelenggarakan pelatihan dan sertifikasi kompetensi bersertifikat BNSP maupun Non-BNSP." },
+  ]
+  const stats = Array.isArray(about?.stats) ? about.stats : [
+    { value: "500+", label: "Alumni Bersertifikat" },
+    { value: "50+", label: "Program Pelatihan" },
+    { value: "10+", label: "Trainer Ahli" },
+    { value: "4.9★", label: "Rating Kepuasan" },
+  ]
+  const legalitas = Array.isArray(about?.legalitas) ? about.legalitas : [
+    { label: "Nama Lembaga", value: "comfindo Management" },
+    { label: "Alamat", value: "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
+    { label: "Kontak", value: "0858-7066-3856 / 0821-1199-5378" },
+    { label: "Email", value: "comfindo.management@gmail.com" },
+  ]
+
+  const statIcons = [GraduationCap, Users, Star, Shield]
+
   return (
     <div className="flex flex-col min-h-screen">
       <PageHeader
-        title="Profile comfindo Management"
-        description="Lembaga Pelatihan dan Konsultan Manajemen mendukung pengembangan kompetensi dan bisnis Perusahaan anda."
+        title="Profil Perusahaan"
+        description="Mengenal lebih dekat comfindo Management sebagai mitra pengembangan SDM dan bisnis Anda."
         breadcrumbs={[{ label: "Profil", href: "/about" }]}
       />
 
-      {/* Company Profile Section */}
-      <section className="py-14 md:py-20">
+      {/* Company Intro */}
+      <section className="py-16 md:py-20 bg-white">
         <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mb-6">
-              Tentang <span className="text-comfindo-green">comfindo Management</span>
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-comfindo-green/10 text-comfindo-green mb-6">
+              <Building2 className="h-8 w-8" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Tentang <span className="text-comfindo-green">{company_name}</span>
             </h2>
-            <p className="text-lg text-gray-500 leading-relaxed">
-              Comfindo Management adalah Lembaga Pelatihan dan Konsultan Manajemen yang berkomitmen mendukung pengembangan kompetensi sumber daya manusia sekaligus pertumbuhan bisnis perusahaan Anda.
-            </p>
-            <p className="text-lg text-gray-500 leading-relaxed mt-4">
-              Kami hadir bukan hanya sebagai penyelenggara pelatihan, tetapi sebagai mitra strategis yang membantu organisasi meningkatkan daya saing melalui program yang relevan, terukur, dan terpercaya.
+            <p className="text-gray-500 text-lg leading-relaxed">
+              {company_name} adalah Lembaga Pelatihan dan Konsultan Manajemen yang berkomitmen mendukung pengembangan kompetensi sumber daya manusia sekaligus pertumbuhan bisnis perusahaan Anda. Kami hadir bukan hanya sebagai penyelenggara pelatihan, tetapi sebagai mitra strategis yang membantu organisasi meningkatkan daya saing melalui program yang relevan, terukur, dan terpercaya.
             </p>
           </div>
+        </div>
+      </section>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-12">
-            {[
-              { value: "500+", label: "Alumni Bersertifikat" },
-              { value: "50+", label: "Program Pelatihan" },
-              { value: "10+", label: "Trainer Ahli" },
-              { value: "4.9★", label: "Rating Kepuasan" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center bg-[hsl(152,15%,97%)] rounded-2xl p-6 border border-gray-100">
-                <div className="text-3xl font-extrabold text-comfindo-green">{stat.value}</div>
-                <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+      {/* Stats */}
+      <section className="py-14 bg-[hsl(152,20%,97%)]">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat: any, i: number) => {
+              const Icon = statIcons[i % statIcons.length]
+              return (
+                <div key={stat.label} className="text-center bg-white rounded-2xl p-6 shadow-md border border-gray-50">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-comfindo-green/10 text-comfindo-green mb-3">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div className="text-3xl font-extrabold text-comfindo-green">{stat.value}</div>
+                  <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Vision & Mission */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 grid gap-12 lg:grid-cols-2">
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="p-3 rounded-xl bg-comfindo-green/10 text-comfindo-green">
+                <Target className="h-6 w-6" />
               </div>
-            ))}
+              <h2 className="text-2xl font-bold text-gray-900">Visi</h2>
+            </div>
+            <div className="bg-[hsl(152,15%,97%)] rounded-2xl p-6 border border-gray-100">
+              <p className="text-gray-600 leading-relaxed italic text-lg">&ldquo;{vision}&rdquo;</p>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="p-3 rounded-xl bg-comfindo-green/10 text-comfindo-green">
+                <CheckCircle className="h-6 w-6" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900">Misi</h2>
+            </div>
+            <div className="space-y-4">
+              {mission.map((item: any, i: number) => (
+                <div key={i} className="flex items-start gap-4 p-5 bg-white rounded-xl border border-gray-100 shadow-sm">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-comfindo-green text-white font-bold text-sm shrink-0">{i + 1}</div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Vision & Mission Section */}
-      <section className="py-14 bg-[hsl(152,15%,97%)]">
-        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
-          <div className="grid gap-6 md:grid-cols-2">
-            <Card className="border-0 shadow-lg bg-white rounded-2xl overflow-hidden">
-              <CardContent className="p-8 flex flex-col items-center text-center h-full">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-comfindo-green/10 text-comfindo-green">
-                  <Eye className="h-8 w-8" />
-                </div>
-                <h3 className="mb-4 text-2xl font-bold text-gray-900">Visi</h3>
-                <p className="text-gray-500 leading-relaxed">
-                  Menjadi lembaga pelatihan dan konsultan manajemen terpercaya yang mendukung pengembangan kompetensi sumber daya manusia serta pertumbuhan bisnis berkelanjutan bagi perusahaan di Indonesia.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg bg-white rounded-2xl overflow-hidden">
-              <CardContent className="p-8 flex flex-col items-center text-center h-full">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-comfindo-green/10 text-comfindo-green">
-                  <Target className="h-8 w-8" />
-                </div>
-                <h3 className="mb-4 text-2xl font-bold text-gray-900">Misi</h3>
-                <ul className="text-gray-500 text-left space-y-3">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-comfindo-green mt-0.5 shrink-0" />
-                    <span><b>Meningkatkan Keterampilan Kerja Karyawan.</b> Menyelenggarakan public training dan in-house training secara berkala, baik offline maupun online, untuk mendukung pengembangan kompetensi yang berkesinambungan.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-comfindo-green mt-0.5 shrink-0" />
-                    <span><b>Mendukung Pertumbuhan Bisnis Perusahaan.</b> Memberikan layanan konsultasi manajemen yang membantu organisasi meningkatkan efektivitas, efisiensi, serta daya saing di pasar.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-comfindo-green mt-0.5 shrink-0" />
-                    <span><b>Menyediakan Program Sertifikasi Kompetensi.</b> Menyelenggarakan pelatihan dan sertifikasi kompetensi bersertifikat BNSP maupun Non-BNSP sebagai pengakuan resmi atas kompetensi yang diakui secara nasional.</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Legalitas Section */}
-      <section className="py-14 md:py-20">
-        <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
-              Legalitas <span className="text-comfindo-green">comfindo Management</span>
-            </h2>
-          </div>
-
-          <div className="max-w-2xl mx-auto space-y-5">
-            {[
-              { icon: Building, label: "Nama Lembaga", value: "comfindo Management" },
-              { icon: MapPin, label: "Alamat", value: "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
-              { icon: Phone, label: "Kontak", value: "0858-7066-3856 / 0821-1199-5378" },
-              { icon: Mail, label: "Email", value: "comfindo.management@gmail.com" },
-            ].map((item) => (
-              <div key={item.label} className="flex items-start gap-4 p-5 rounded-2xl bg-[hsl(152,15%,97%)] border border-gray-100">
-                <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-comfindo-green/10 text-comfindo-green shrink-0">
-                  <item.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-400 mb-0.5">{item.label}</p>
-                  <p className="font-medium text-gray-900">{item.value}</p>
-                </div>
+      {/* Legalitas */}
+      <section className="py-16 md:py-20 bg-[hsl(152,20%,97%)]">
+        <div className="container max-w-4xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            Legalitas <span className="text-comfindo-green">Perusahaan</span>
+          </h2>
+          <div className="bg-white rounded-2xl shadow-md border border-gray-50 overflow-hidden">
+            {legalitas.map((item: any, i: number) => (
+              <div key={i} className={`flex items-center gap-4 px-6 py-4 ${i < legalitas.length - 1 ? "border-b border-gray-100" : ""}`}>
+                <span className="text-sm font-medium text-gray-400 w-40 shrink-0">{item.label}</span>
+                <span className="text-sm text-gray-700">{item.value}</span>
               </div>
             ))}
           </div>

@@ -1,31 +1,19 @@
 import { Star, Quote } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-const testimonials = [
-  {
-    name: "Rina Amelia, S.Pd",
-    role: "Guru / Pengajar",
-    content: "Pelatihan di comfindo Management sangat membantu saya mendapatkan sertifikasi yang diakui secara nasional. Materinya relevan dan trainer sangat kompeten.",
-    rating: 5,
-    initial: "R",
-  },
-  {
-    name: "Ahmad Fauzi, S.E",
-    role: "Staff HRD",
-    content: "Proses sertifikasi BNSP berjalan lancar dengan bimbingan dari tim comfindo. Harganya juga sangat terjangkau dibanding lembaga lain.",
-    rating: 5,
-    initial: "A",
-  },
-  {
-    name: "Dewi Lestari, M.M",
-    role: "Manajer Operasional",
-    content: "Saya sangat puas dengan program In House Training dari comfindo Management. Tim kami sekarang lebih kompeten dan tersertifikasi.",
-    rating: 5,
-    initial: "D",
-  },
+const defaultTestimonials = [
+  { name: "Rina Amelia, S.Pd", role: "Guru / Pengajar", content: "Pelatihan di comfindo Management sangat membantu saya mendapatkan sertifikasi yang diakui secara nasional. Materinya relevan dan trainer sangat kompeten.", rating: 5 },
+  { name: "Ahmad Fauzi, S.E", role: "Staff HRD", content: "Proses sertifikasi BNSP berjalan lancar dengan bimbingan dari tim comfindo. Harganya juga sangat terjangkau dibanding lembaga lain.", rating: 5 },
+  { name: "Dewi Lestari, M.M", role: "Manajer Operasional", content: "Saya sangat puas dengan program In House Training dari comfindo Management. Tim kami sekarang lebih kompeten dan tersertifikasi.", rating: 5 },
 ]
 
-export function TestimonialsSection() {
+interface TestimonialsProps {
+  testimonials?: { name: string; role: string; content: string; rating: number }[]
+}
+
+export function TestimonialsSection({ testimonials }: TestimonialsProps) {
+  const displayTestimonials = testimonials?.length ? testimonials : defaultTestimonials
+
   return (
     <section className="py-20 md:py-28 bg-[hsl(152,20%,97%)]">
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
@@ -42,32 +30,25 @@ export function TestimonialsSection() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {testimonials.map((t) => (
+          {displayTestimonials.map((t) => (
             <div
               key={t.name}
               className="relative bg-white rounded-2xl p-7 shadow-md border border-gray-50 hover:shadow-lg transition-all duration-300 group"
             >
-              {/* Quote icon */}
               <div className="absolute top-5 right-5 text-comfindo-green/10">
                 <Quote className="h-10 w-10" />
               </div>
-
-              {/* Rating */}
               <div className="flex items-center gap-0.5 mb-4">
-                {Array.from({ length: t.rating }).map((_, i) => (
+                {Array.from({ length: t.rating || 5 }).map((_, i) => (
                   <Star key={i} className="h-4 w-4 fill-comfindo-gold text-comfindo-gold" />
                 ))}
               </div>
-
-              {/* Content */}
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
                 &ldquo;{t.content}&rdquo;
               </p>
-
-              {/* Author */}
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-11 h-11 rounded-full bg-linear-to-br from-comfindo-green to-comfindo-green-dark text-white font-bold text-sm shadow-md">
-                  {t.initial}
+                  {t.name.charAt(0)}
                 </div>
                 <div>
                   <div className="font-semibold text-sm text-gray-900">{t.name}</div>

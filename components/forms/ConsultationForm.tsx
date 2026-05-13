@@ -22,12 +22,18 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { consultationFormSchema, type ConsultationFormValues } from "./form-schema"
-import { services } from "@/lib/data/services"
-
 import { createClient } from "@/lib/supabase/client"
+import { useEffect, useState } from "react"
 
 export function ConsultationForm() {
   const supabase = createClient()
+  const [serviceOptions, setServiceOptions] = useState<{ slug: string; title: string }[]>([])
+
+  useEffect(() => {
+    supabase.from("services").select("slug, title").eq("is_published", true).order("order_index")
+      .then(({ data }) => { if (data) setServiceOptions(data) })
+  }, [])
+
   const form = useForm<ConsultationFormValues>({
     resolver: zodResolver(consultationFormSchema),
     defaultValues: {
@@ -135,7 +141,7 @@ export function ConsultationForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {services.map((service) => (
+                  {serviceOptions.map((service) => (
                     <SelectItem key={service.slug} value={service.title}>{service.title}</SelectItem>
                   ))}
                   <SelectItem value="Other">Lainnya</SelectItem>

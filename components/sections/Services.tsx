@@ -1,11 +1,14 @@
 import Link from "next/link"
-import { trainings } from "@/lib/data/trainings"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Tag } from "lucide-react"
 
-export function ServicesSection() {
+interface ServicesSectionProps {
+  trainings?: any[]
+}
+
+export function ServicesSection({ trainings = [] }: ServicesSectionProps) {
   const featured = trainings.slice(0, 4)
 
   return (
@@ -25,12 +28,11 @@ export function ServicesSection() {
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((item) => (
-            <Card key={item.slug} className="group flex flex-col overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-2xl">
-              {/* Image placeholder */}
+            <Card key={item.slug || item.id} className="group flex flex-col overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-2xl">
               <div className="relative h-48 bg-linear-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
                 <div className="text-comfindo-green opacity-20 text-6xl font-black">
-                  {item.category.charAt(0)}
+                  {(item.category || "T").charAt(0)}
                 </div>
                 <Badge className="absolute top-3 left-3 bg-comfindo-green text-white text-xs shadow-md">
                   {item.category}

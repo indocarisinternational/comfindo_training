@@ -5,8 +5,41 @@ import { Button } from "@/components/ui/button"
 import { Award, Users, BookOpen, CheckCircle, ArrowRight, Calendar } from "lucide-react"
 import { useState, useEffect } from "react"
 
-export function Hero() {
+const defaultStats = [
+  { value: "550+", label: "Alumni" },
+  { value: "50+", label: "Program" },
+  { value: "4.9★", label: "Rating" },
+]
+
+const defaultFeatures = [
+  { title: "Bersertifikat BNSP", description: "Pengakuan kompetensi nasional" },
+  { title: "Silabus SKKNI", description: "Kurikulum berbasis standar nasional" },
+  { title: "Trainer Berpengalaman", description: "Praktisi profesional di bidangnya" },
+  { title: "Non BNSP", description: "Sertifikasi kompetensi comfindo" },
+]
+
+const featureIcons = [Award, BookOpen, Users, CheckCircle]
+
+interface HeroProps {
+  title?: string
+  subtitle?: string
+  ctaText?: string
+  ctaLink?: string
+  stats?: { value: string; label: string }[]
+  heroFeatures?: { title: string; description: string }[]
+}
+
+export function Hero({
+  title,
+  subtitle,
+  ctaText,
+  ctaLink,
+  stats,
+  heroFeatures,
+}: HeroProps) {
   const [dateStr, setDateStr] = useState("")
+  const displayStats = stats?.length ? stats : defaultStats
+  const displayFeatures = heroFeatures?.length ? heroFeatures : defaultFeatures
 
   useEffect(() => {
     const today = new Date()
@@ -42,20 +75,26 @@ export function Hero() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-              Lembaga{" "}
-              <span className="text-comfindo-gold">Pelatihan</span>
-              <br />
-              dan{" "}
-              <span className="relative">
-                Konsultan Manajemen
-                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
-                  <path d="M1 5.5Q50 1 100 5.5T199 5.5" stroke="#facc15" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              </span>
+              {title ? (
+                <span dangerouslySetInnerHTML={{ __html: title.replace("Pelatihan", '<span class="text-comfindo-gold">Pelatihan</span>').replace("Konsultan Manajemen", '<span class="relative">Konsultan Manajemen<svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none"><path d="M1 5.5Q50 1 100 5.5T199 5.5" stroke="#facc15" stroke-width="2" stroke-linecap="round" /></svg></span>') }} />
+              ) : (
+                <>
+                  Lembaga{" "}
+                  <span className="text-comfindo-gold">Pelatihan</span>
+                  <br />
+                  dan{" "}
+                  <span className="relative">
+                    Konsultan Manajemen
+                    <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
+                      <path d="M1 5.5Q50 1 100 5.5T199 5.5" stroke="#facc15" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                </>
+              )}
             </h1>
 
             <p className="text-lg text-white/80 mb-8 leading-relaxed">
-              Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP. Wujudkan SDM kompeten bersama comfindo Management.
+              {subtitle || "Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP. Wujudkan SDM kompeten bersama comfindo Management."}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -64,8 +103,8 @@ export function Hero() {
                 size="lg"
                 className="h-13 px-8 text-base font-semibold bg-comfindo-gold text-[hsl(210,50%,10%)] hover:bg-[#eab308] shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl"
               >
-                <Link href="/training">
-                  Lihat Katalog
+                <Link href={ctaLink || "/training"}>
+                  {ctaText || "Lihat Katalog"}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -81,11 +120,7 @@ export function Hero() {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4">
-              {[
-                { value: "550+", label: "Alumni" },
-                { value: "50+", label: "Program" },
-                { value: "4.9★", label: "Rating" },
-              ].map((stat) => (
+              {displayStats.map((stat) => (
                 <div key={stat.label} className="text-center bg-white/5 backdrop-blur-sm rounded-xl p-3 border border-white/10">
                   <div className="text-xl sm:text-2xl font-bold text-comfindo-gold">{stat.value}</div>
                   <div className="text-xs text-white/60 font-medium">{stat.label}</div>
@@ -96,23 +131,21 @@ export function Hero() {
 
           {/* Right Content - Feature Cards */}
           <div className="hidden lg:grid grid-cols-2 auto-rows-fr gap-5">
-            {[
-              { icon: Award, title: "Bersertifikat BNSP", desc: "Pengakuan kompetensi nasional" },
-              { icon: BookOpen, title: "Silabus SKKNI", desc: "Kurikulum berbasis standar nasional" },
-              { icon: Users, title: "Trainer Berpengalaman", desc: "Praktisi profesional di bidangnya" },
-              { icon: CheckCircle, title: "Non BNSP", desc: "Sertifikasi kompetensi comfindo" },
-            ].map((feature) => (
-              <div
-                key={feature.title}
-                className="group flex flex-col bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-comfindo-gold/15 text-comfindo-gold mb-4 group-hover:scale-110 transition-transform">
-                  <feature.icon className="h-6 w-6" />
+            {displayFeatures.map((feature, i) => {
+              const Icon = featureIcons[i % featureIcons.length]
+              return (
+                <div
+                  key={feature.title}
+                  className="group flex flex-col bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-comfindo-gold/15 text-comfindo-gold mb-4 group-hover:scale-110 transition-transform">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-white font-semibold mb-1">{feature.title}</h3>
+                  <p className="text-white/60 text-sm flex-1">{feature.description}</p>
                 </div>
-                <h3 className="text-white font-semibold mb-1">{feature.title}</h3>
-                <p className="text-white/60 text-sm flex-1">{feature.desc}</p>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

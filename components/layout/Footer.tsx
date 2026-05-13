@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, GraduationCap } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
 
 const footerLinks = [
   { name: "Home", href: "/" },
@@ -10,14 +11,25 @@ const footerLinks = [
   { name: "Blog", href: "/blog" },
 ]
 
-const socialLinks = [
-  { name: "Facebook", href: "https://www.facebook.com/profile.php?id=100083385664789", icon: Facebook },
-  { name: "Instagram", href: "https://www.instagram.com/comfindo.management/", icon: Instagram },
-  { name: "LinkedIn", href: "http://www.linkedin.com/company/comfindomanagement", icon: Linkedin },
-  { name: "YouTube", href: "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ", icon: Youtube },
-]
+const socialIconMap: Record<string, typeof Facebook> = {
+  Facebook, Instagram, LinkedIn: Linkedin, YouTube: Youtube,
+}
 
-export function Footer() {
+export async function Footer() {
+  const supabase = await createClient()
+  const { data: contact } = await supabase.from("contact_info").select("*").limit(1).single()
+
+  const address = contact?.address || "Perkantoran Tanjung Mas Raya Blok B1 No.44 Tanjung Barat Jakarta Selatan"
+  const phone = contact?.phone || "0858-7066-3856"
+  const phone2 = contact?.phone2 || "0821-1199-5378"
+  const email = contact?.email || "comfindo.management@gmail.com"
+  const socialLinks = Array.isArray(contact?.social_links) ? contact.social_links : [
+    { name: "Facebook", url: "https://www.facebook.com/profile.php?id=100083385664789" },
+    { name: "Instagram", url: "https://www.instagram.com/comfindo.management/" },
+    { name: "LinkedIn", url: "http://www.linkedin.com/company/comfindomanagement" },
+    { name: "YouTube", url: "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ" },
+  ]
+
   return (
     <footer className="relative overflow-hidden">
       {/* Main Footer */}
@@ -50,21 +62,19 @@ export function Footer() {
               <ul className="space-y-4 text-sm text-gray-300">
                 <li className="flex items-start gap-3">
                   <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-[hsl(152,50%,55%)]" />
-                  <span>
-                    Office Center : Perkantoran Tanjung Mas Raya Blok B1 No.44 Tanjung Barat Jakarta Selatan
-                  </span>
+                  <span>Office Center : {address}</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="h-4 w-4 shrink-0 text-[hsl(152,50%,55%)]" />
                   <div>
-                    <span>0858-7066-3856</span>
+                    <span>{phone}</span>
                     <br />
-                    <span>0821-1199-5378</span>
+                    <span>{phone2}</span>
                   </div>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail className="h-4 w-4 shrink-0 text-[hsl(152,50%,55%)]" />
-                  <span>comfindo.management@gmail.com</span>
+                  <span>{email}</span>
                 </li>
               </ul>
             </div>
@@ -95,19 +105,22 @@ export function Footer() {
                 Sosial Media
               </h4>
               <div className="flex flex-wrap gap-3">
-                {socialLinks.map(({ name, href, icon: Icon }) => (
-                  <a
-                    key={name}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-gray-300 hover:bg-comfindo-green hover:text-white transition-all duration-200 hover:scale-110"
-                    title={name}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span className="sr-only">{name}</span>
-                  </a>
-                ))}
+                {socialLinks.map((social: any) => {
+                  const Icon = socialIconMap[social.name] || Facebook
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 text-gray-300 hover:bg-comfindo-green hover:text-white transition-all duration-200 hover:scale-110"
+                      title={social.name}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span className="sr-only">{social.name}</span>
+                    </a>
+                  )
+                })}
               </div>
               <div className="pt-3">
                 <p className="text-xs text-gray-400">Ikuti kami di sosial media untuk informasi terbaru seputar pelatihan dan Konsultasi Manajemen.</p>
