@@ -65,7 +65,7 @@ const defaultData: HomepageData = {
       title: "Siap Meningkatkan Kompetensi Anda?",
       subtitle: "Bergabunglah dengan ratusan alumni comfindo Management.",
       phone: "0858-7066-3856",
-      whatsapp_url: "https://wa.me/6285870663856",
+      whatsapp_url: "https://wa.me/62817210875",
     },
   },
 }

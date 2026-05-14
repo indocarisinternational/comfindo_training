@@ -37,7 +37,23 @@ export default function ServicesManager() {
 
   async function loadServices() {
     const { data } = await supabase.from("services").select("*").order("order_index")
-    if (data) setServices(data as Service[])
+    if (data) {
+      const parseJsonArray = (val: any, defaultVal: any[]) => {
+        if (Array.isArray(val)) return val;
+        if (typeof val === 'string') {
+          try { const parsed = JSON.parse(val); if (Array.isArray(parsed)) return parsed; } catch (e) {}
+        }
+        return defaultVal;
+      }
+      
+      const parsedData = (data as Service[]).map(service => ({
+        ...service,
+        benefits: parseJsonArray(service.benefits, [""]),
+        process: parseJsonArray(service.process, [""]),
+        faq: parseJsonArray(service.faq, [{ q: "", a: "" }])
+      }))
+      setServices(parsedData)
+    }
     setLoading(false)
   }
 
@@ -170,10 +186,10 @@ export default function ServicesManager() {
             </div>
           </CardHeader>
           <CardContent className="space-y-2">
-            {editing.benefits.map((b, i) => (
+            {(editing.benefits || []).map((b, i) => (
               <div key={i} className="flex gap-2">
-                <Input value={b} onChange={(e) => { const arr = [...editing.benefits]; arr[i] = e.target.value; setEditing({ ...editing, benefits: arr }) }} />
-                <Button size="icon" variant="ghost" className="text-red-500 shrink-0" onClick={() => setEditing({ ...editing, benefits: editing.benefits.filter((_, j) => j !== i) })}>
+                <Input value={b} onChange={(e) => { const arr = [...(editing.benefits || [])]; arr[i] = e.target.value; setEditing({ ...editing, benefits: arr }) }} />
+                <Button size="icon" variant="ghost" className="text-red-500 shrink-0" onClick={() => setEditing({ ...editing, benefits: (editing.benefits || []).filter((_, j) => j !== i) })}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
@@ -191,11 +207,11 @@ export default function ServicesManager() {
             </div>
           </CardHeader>
           <CardContent className="space-y-2">
-            {editing.process.map((p, i) => (
+            {(editing.process || []).map((p, i) => (
               <div key={i} className="flex gap-2 items-center">
                 <span className="text-sm font-bold text-gray-400 w-6">{i + 1}.</span>
-                <Input value={p} onChange={(e) => { const arr = [...editing.process]; arr[i] = e.target.value; setEditing({ ...editing, process: arr }) }} />
-                <Button size="icon" variant="ghost" className="text-red-500 shrink-0" onClick={() => setEditing({ ...editing, process: editing.process.filter((_, j) => j !== i) })}>
+                <Input value={p} onChange={(e) => { const arr = [...(editing.process || [])]; arr[i] = e.target.value; setEditing({ ...editing, process: arr }) }} />
+                <Button size="icon" variant="ghost" className="text-red-500 shrink-0" onClick={() => setEditing({ ...editing, process: (editing.process || []).filter((_, j) => j !== i) })}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
@@ -213,13 +229,13 @@ export default function ServicesManager() {
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
-            {editing.faq.map((f, i) => (
+            {(editing.faq || []).map((f, i) => (
               <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-gray-50 border">
                 <div className="flex-1 space-y-2">
-                  <Input placeholder="Question" value={f.q} onChange={(e) => { const arr = [...editing.faq]; arr[i] = { ...arr[i], q: e.target.value }; setEditing({ ...editing, faq: arr }) }} />
-                  <Textarea placeholder="Answer" value={f.a} onChange={(e) => { const arr = [...editing.faq]; arr[i] = { ...arr[i], a: e.target.value }; setEditing({ ...editing, faq: arr }) }} rows={2} />
+                  <Input placeholder="Question" value={f.q} onChange={(e) => { const arr = [...(editing.faq || [])]; arr[i] = { ...arr[i], q: e.target.value }; setEditing({ ...editing, faq: arr }) }} />
+                  <Textarea placeholder="Answer" value={f.a} onChange={(e) => { const arr = [...(editing.faq || [])]; arr[i] = { ...arr[i], a: e.target.value }; setEditing({ ...editing, faq: arr }) }} rows={2} />
                 </div>
-                <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setEditing({ ...editing, faq: editing.faq.filter((_, j) => j !== i) })}>
+                <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setEditing({ ...editing, faq: (editing.faq || []).filter((_, j) => j !== i) })}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>

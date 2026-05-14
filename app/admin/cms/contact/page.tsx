@@ -46,7 +46,22 @@ export default function ContactEditor() {
 
   async function loadData() {
     const { data: rows } = await supabase.from("contact_info").select("*").limit(1)
-    if (rows && rows.length > 0) setData({ ...defaultData, ...rows[0] })
+    if (rows && rows.length > 0) {
+      const row = rows[0]
+      const parseJsonArray = (val: any, defaultVal: any[]) => {
+        if (Array.isArray(val)) return val;
+        if (typeof val === 'string') {
+          try { const parsed = JSON.parse(val); if (Array.isArray(parsed)) return parsed; } catch (e) {}
+        }
+        return defaultVal;
+      }
+
+      setData({
+        ...defaultData,
+        ...row,
+        social_links: parseJsonArray(row.social_links, defaultData.social_links),
+      })
+    }
     setLoading(false)
   }
 
@@ -127,11 +142,11 @@ export default function ContactEditor() {
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
-          {data.social_links.map((link, i) => (
+          {(data.social_links || []).map((link, i) => (
             <div key={i} className="flex gap-3 items-center">
-              <Input placeholder="Name (Facebook, Instagram...)" value={link.name} className="w-44" onChange={(e) => { const arr = [...data.social_links]; arr[i] = { ...arr[i], name: e.target.value }; setData({ ...data, social_links: arr }) }} />
-              <Input placeholder="URL" value={link.url} onChange={(e) => { const arr = [...data.social_links]; arr[i] = { ...arr[i], url: e.target.value }; setData({ ...data, social_links: arr }) }} />
-              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, social_links: data.social_links.filter((_, j) => j !== i) })}>
+              <Input placeholder="Name (Facebook, Instagram...)" value={link.name} className="w-44" onChange={(e) => { const arr = [...(data.social_links || [])]; arr[i] = { ...arr[i], name: e.target.value }; setData({ ...data, social_links: arr }) }} />
+              <Input placeholder="URL" value={link.url} onChange={(e) => { const arr = [...(data.social_links || [])]; arr[i] = { ...arr[i], url: e.target.value }; setData({ ...data, social_links: arr }) }} />
+              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, social_links: (data.social_links || []).filter((_, j) => j !== i) })}>
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>

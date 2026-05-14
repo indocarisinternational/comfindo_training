@@ -56,7 +56,23 @@ export default function AboutEditor() {
   async function loadData() {
     const { data: rows } = await supabase.from("about_content").select("*").limit(1)
     if (rows && rows.length > 0) {
-      setData({ ...defaultData, ...rows[0] })
+      const row = rows[0]
+      const parseJsonArray = (val: any, defaultVal: any[]) => {
+        if (Array.isArray(val)) return val;
+        if (typeof val === 'string') {
+          try { const parsed = JSON.parse(val); if (Array.isArray(parsed)) return parsed; } catch (e) {}
+        }
+        return defaultVal;
+      }
+
+      setData({ 
+        ...defaultData, 
+        ...row,
+        mission: parseJsonArray(row.mission, defaultData.mission),
+        stats: parseJsonArray(row.stats, defaultData.stats),
+        legalitas: parseJsonArray(row.legalitas, defaultData.legalitas),
+        team_members: parseJsonArray(row.team_members, defaultData.team_members),
+      })
     }
     setLoading(false)
   }
@@ -125,13 +141,13 @@ export default function AboutEditor() {
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
-          {data.mission.map((m, i) => (
+          {(data.mission || []).map((m, i) => (
             <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-gray-50 border">
               <div className="flex-1 space-y-2">
-                <Input placeholder="Title" value={m.title} onChange={(e) => { const arr = [...data.mission]; arr[i] = { ...arr[i], title: e.target.value }; setData({ ...data, mission: arr }) }} />
-                <Textarea placeholder="Description" value={m.description} onChange={(e) => { const arr = [...data.mission]; arr[i] = { ...arr[i], description: e.target.value }; setData({ ...data, mission: arr }) }} rows={2} />
+                <Input placeholder="Title" value={m.title} onChange={(e) => { const arr = [...(data.mission || [])]; arr[i] = { ...arr[i], title: e.target.value }; setData({ ...data, mission: arr }) }} />
+                <Textarea placeholder="Description" value={m.description} onChange={(e) => { const arr = [...(data.mission || [])]; arr[i] = { ...arr[i], description: e.target.value }; setData({ ...data, mission: arr }) }} rows={2} />
               </div>
-              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, mission: data.mission.filter((_, j) => j !== i) })}>
+              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, mission: (data.mission || []).filter((_, j) => j !== i) })}>
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>
@@ -149,11 +165,11 @@ export default function AboutEditor() {
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
-          {data.stats.map((s, i) => (
+          {(data.stats || []).map((s, i) => (
             <div key={i} className="flex gap-3 items-center">
-              <Input placeholder="Value" value={s.value} className="w-32" onChange={(e) => { const arr = [...data.stats]; arr[i] = { ...arr[i], value: e.target.value }; setData({ ...data, stats: arr }) }} />
-              <Input placeholder="Label" value={s.label} onChange={(e) => { const arr = [...data.stats]; arr[i] = { ...arr[i], label: e.target.value }; setData({ ...data, stats: arr }) }} />
-              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, stats: data.stats.filter((_, j) => j !== i) })}>
+              <Input placeholder="Value" value={s.value} className="w-32" onChange={(e) => { const arr = [...(data.stats || [])]; arr[i] = { ...arr[i], value: e.target.value }; setData({ ...data, stats: arr }) }} />
+              <Input placeholder="Label" value={s.label} onChange={(e) => { const arr = [...(data.stats || [])]; arr[i] = { ...arr[i], label: e.target.value }; setData({ ...data, stats: arr }) }} />
+              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, stats: (data.stats || []).filter((_, j) => j !== i) })}>
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>
@@ -171,11 +187,11 @@ export default function AboutEditor() {
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
-          {data.legalitas.map((l, i) => (
+          {(data.legalitas || []).map((l, i) => (
             <div key={i} className="flex gap-3 items-center">
-              <Input placeholder="Label" value={l.label} className="w-40" onChange={(e) => { const arr = [...data.legalitas]; arr[i] = { ...arr[i], label: e.target.value }; setData({ ...data, legalitas: arr }) }} />
-              <Input placeholder="Value" value={l.value} onChange={(e) => { const arr = [...data.legalitas]; arr[i] = { ...arr[i], value: e.target.value }; setData({ ...data, legalitas: arr }) }} />
-              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, legalitas: data.legalitas.filter((_, j) => j !== i) })}>
+              <Input placeholder="Label" value={l.label} className="w-40" onChange={(e) => { const arr = [...(data.legalitas || [])]; arr[i] = { ...arr[i], label: e.target.value }; setData({ ...data, legalitas: arr }) }} />
+              <Input placeholder="Value" value={l.value} onChange={(e) => { const arr = [...(data.legalitas || [])]; arr[i] = { ...arr[i], value: e.target.value }; setData({ ...data, legalitas: arr }) }} />
+              <Button size="icon" variant="ghost" className="text-red-500" onClick={() => setData({ ...data, legalitas: (data.legalitas || []).filter((_, j) => j !== i) })}>
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>

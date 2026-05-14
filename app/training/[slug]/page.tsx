@@ -112,7 +112,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
                   <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-2 text-gray-400">atau</span></div>
                 </div>
                 <Button variant="outline" className="w-full border-green-500 text-green-600 hover:bg-green-50 rounded-xl" asChild>
-                  <a href={`https://wa.me/6285870663856?text=Halo%20comfindo%20Management%2C%20saya%20ingin%20daftar%20${encodeURIComponent(training.title)}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://wa.me/62817210875?text=Halo%20comfindo%20Management%2C%20saya%20ingin%20daftar%20${encodeURIComponent(training.title)}`} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp Admin
                   </a>
                 </Button>

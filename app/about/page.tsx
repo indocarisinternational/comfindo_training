@@ -15,25 +15,36 @@ export default async function AboutPage() {
   const supabase = await createClient()
   const { data: about } = await supabase.from("about_content").select("*").limit(1).single()
 
+  const parseJsonArray = (val: any, defaultVal: any[]) => {
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string') {
+      try {
+        const parsed = JSON.parse(val);
+        if (Array.isArray(parsed)) return parsed;
+      } catch (e) {}
+    }
+    return defaultVal;
+  }
+
   const company_name = about?.company_name || "comfindo Management"
   const vision = about?.vision || "Menjadi lembaga pelatihan dan konsultan manajemen terpercaya yang mendukung pengembangan kompetensi sumber daya manusia serta pertumbuhan bisnis berkelanjutan bagi perusahaan di Indonesia."
-  const mission = Array.isArray(about?.mission) ? about.mission : [
+  const mission = parseJsonArray(about?.mission, [
     { title: "Meningkatkan Keterampilan Kerja Karyawan", description: "Menyelenggarakan public training dan in-house training secara berkala untuk meningkatkan keterampilan kerja karyawan." },
     { title: "Mendukung Pertumbuhan Bisnis Perusahaan", description: "Memberikan layanan konsultasi manajemen yang membantu perusahaan mengoptimalkan operasional." },
     { title: "Menyediakan Program Sertifikasi Kompetensi", description: "Menyelenggarakan pelatihan dan sertifikasi kompetensi bersertifikat BNSP maupun Non-BNSP." },
-  ]
-  const stats = Array.isArray(about?.stats) ? about.stats : [
+  ])
+  const stats = parseJsonArray(about?.stats, [
     { value: "500+", label: "Alumni Bersertifikat" },
     { value: "50+", label: "Program Pelatihan" },
     { value: "10+", label: "Trainer Ahli" },
     { value: "4.9★", label: "Rating Kepuasan" },
-  ]
-  const legalitas = Array.isArray(about?.legalitas) ? about.legalitas : [
+  ])
+  const legalitas = parseJsonArray(about?.legalitas, [
     { label: "Nama Lembaga", value: "comfindo Management" },
     { label: "Alamat", value: "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
     { label: "Kontak", value: "0858-7066-3856 / 0821-1199-5378" },
     { label: "Email", value: "comfindo.management@gmail.com" },
-  ]
+  ])
 
   const statIcons = [GraduationCap, Users, Star, Shield]
 

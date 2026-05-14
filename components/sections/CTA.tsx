@@ -13,7 +13,7 @@ export function CTASection({
   title = "Siap Meningkatkan Kompetensi Anda?",
   subtitle = "Bergabunglah dengan ratusan alumni comfindo Management yang telah meningkatkan kompetensi dan karier mereka. Hubungi kami sekarang!",
   phone = "0858-7066-3856",
-  whatsappUrl = "https://wa.me/6285870663856",
+  whatsappUrl = "https://wa.me/62817210875",
 }: CTAProps) {
   return (
     <section className="relative py-24 md:py-32 overflow-hidden">
