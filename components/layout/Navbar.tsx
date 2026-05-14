@@ -85,7 +85,7 @@ export function Navbar() {
         </nav>
 
         {/* Desktop Account Button */}
-        <div className="hidden lg:flex items-center gap-3">
+        {/* <div className="hidden lg:flex items-center gap-3">
           <Button
             asChild
             className="bg-linear-to-r from-comfindo-green to-[hsl(152,50%,35%)] hover:from-comfindo-green-dark hover:to-comfindo-green text-white shadow-md hover:shadow-lg transition-all duration-200 gap-2"
@@ -96,7 +96,7 @@ export function Navbar() {
               Akun Saya
             </Link>
           </Button>
-        </div>
+        </div> */}
 
         {/* Mobile Navigation */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
