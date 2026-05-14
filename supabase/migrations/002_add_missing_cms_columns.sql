@@ -1,11 +1,20 @@
--- FIX 1: Add missing 'benefits' column to services table
-ALTER TABLE services
-ADD COLUMN IF NOT EXISTS benefits jsonb DEFAULT '[]'::jsonb;
+-- ============================================
+-- COMFINDO CMS SCHEMA MIGRATION
+-- Fix: Add missing columns to CMS tables
+-- ============================================
 
--- FIX 2: Add missing 'legalitas' column to about_content table
-ALTER TABLE about_content
-ADD COLUMN IF NOT EXISTS legalitas text DEFAULT '';
+-- TABLE: services — Add missing 'benefits' column
+ALTER TABLE public.services 
+ADD COLUMN IF NOT EXISTS benefits JSONB DEFAULT '[]'::jsonb;
 
--- FIX 3: Add missing 'office_hours' column to contact_info table
-ALTER TABLE contact_info
-ADD COLUMN IF NOT EXISTS office_hours jsonb DEFAULT '{}'::jsonb;
+-- TABLE: about_content — Add missing 'legalitas' column
+ALTER TABLE public.about_content 
+ADD COLUMN IF NOT EXISTS legalitas JSONB DEFAULT '[]'::jsonb;
+
+-- TABLE: contact_info — Add missing 'office_hours' column
+ALTER TABLE public.contact_info 
+ADD COLUMN IF NOT EXISTS office_hours TEXT DEFAULT NULL;
+
+-- TABLE: blog_posts — Add missing 'seo_description' column
+ALTER TABLE public.blog_posts 
+ADD COLUMN IF NOT EXISTS seo_description TEXT DEFAULT NULL;
