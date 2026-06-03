@@ -243,3 +243,63 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(152, 75%, 22%);
 }
+
+/* --- Admin UI Override (Minimalist SaaS) --- */
+.admin-ui {
+  --background: 0 0% 98%; /* #FBFBFA off-white */
+  --foreground: 0 0% 7%; /* #111111 off-black */
+  
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 7%;
+  
+  --primary: 0 0% 7%; /* #111111 */
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 0 0% 96%; /* #f5f5f5 */
+  --secondary-foreground: 0 0% 20%;
+  
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+  
+  --accent: 0 0% 96%;
+  --accent-foreground: 0 0% 7%;
+  
+  --destructive: 0 72% 51%; /* Slightly muted red */
+  --destructive-foreground: 0 0% 100%;
+  
+  --border: 0 0% 92%; /* #EAEAEA */
+  --input: 0 0% 92%;
+  --ring: 0 0% 7%;
+  
+  --radius: 0.5rem; /* 8px max radius */
+  
+  font-family: var(--font-sans);
+}
+
+.admin-ui .shadow-md,
+.admin-ui .shadow-lg,
+.admin-ui .shadow-xl,
+.admin-ui .shadow-sm,
+.admin-ui .shadow {
+  box-shadow: none !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.admin-ui button {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s;
+}
+
+.admin-ui button:active {
+  transform: scale(0.98);
+}
+
+.admin-ui .rounded-full {
+  border-radius: var(--radius) !important;
+}
+
+/* Pastels for badges */
+.admin-ui .bg-red-100 { background-color: #FDEBEC !important; color: #9F2F2D !important; }
+.admin-ui .bg-blue-100 { background-color: #E1F3FE !important; color: #1F6C9F !important; }
+.admin-ui .bg-green-100 { background-color: #EDF3EC !important; color: #346538 !important; }
+.admin-ui .bg-yellow-100 { background-color: #FBF3DB !important; color: #956400 !important; }
+

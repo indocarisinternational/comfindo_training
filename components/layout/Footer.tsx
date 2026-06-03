@@ -31,7 +31,7 @@ export async function Footer() {
   ]
 
   return (
-    <footer className="relative overflow-hidden">
+    <footer id="public-footer" className="relative overflow-hidden">
       {/* Main Footer */}
       <div className="bg-[hsl(210,50%,12%)] text-white">
         <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-14 md:py-20">

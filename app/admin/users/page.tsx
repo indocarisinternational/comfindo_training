@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { createNewAdmin } from "./actions"
-import { PageHeader } from "@/components/common/PageHeader"
+import { AdminPageHeader } from "@/components/admin/AdminPageHeader"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
@@ -35,7 +35,7 @@ export default function UsersAdminPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
+      <AdminPageHeader
         title="Tambah Admin Baru"
         description="Daftarkan akun admin baru. Link verifikasi akan otomatis dikirimkan ke email yang didaftarkan."
         breadcrumbs={[
@@ -45,14 +45,14 @@ export default function UsersAdminPage() {
       />
 
       <div className="max-w-xl">
-        <div className="bg-white p-6 rounded-2xl shadow-xs border border-gray-100">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-50">
-            <div className="p-2.5 rounded-xl bg-comfindo-green/10 text-comfindo-green">
+        <div className="bg-white p-6 rounded-xl border border-[#EAEAEA] shadow-none">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#EAEAEA]">
+            <div className="p-2.5 rounded-md bg-[#111111] text-white">
               <UserPlus className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">Registrasi Admin</h3>
-              <p className="text-sm text-gray-500">Buat akun untuk pengelola website baru</p>
+              <h3 className="text-lg font-semibold text-[#111111] tracking-tight">Registrasi Admin</h3>
+              <p className="text-sm text-[#787774]">Buat akun untuk pengelola website baru</p>
             </div>
           </div>
           
@@ -100,7 +100,7 @@ export default function UsersAdminPage() {
             <Button 
               type="submit" 
               disabled={loading}
-              className="w-full h-11 bg-comfindo-green hover:bg-comfindo-green-dark mt-4"
+              className="w-full h-10 bg-[#111111] hover:bg-[#333333] text-white rounded-md mt-4 transition-colors"
             >
               {loading ? "Mendaftarkan..." : "Daftarkan Admin"}
             </Button>

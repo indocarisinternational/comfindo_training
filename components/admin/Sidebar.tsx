@@ -103,15 +103,15 @@ export function AdminSidebar() {
   ]
 
   return (
-    <div className="pb-12 min-h-screen border-r bg-white flex flex-col">
+    <div className="pb-12 min-h-screen border-r border-[#EAEAEA] bg-[#FBFBFA] flex flex-col">
       <div className="space-y-4 py-4 flex-1">
         <div className="px-3 py-2">
           <Link href="/admin" className="flex items-center gap-2 px-4 mb-6">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-comfindo-green to-comfindo-green-dark text-white">
+            <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[#111111] text-white">
               <GraduationCap className="h-4 w-4" />
             </div>
-            <span className="text-base font-bold tracking-tight text-gray-900">
-              comfindo Admin
+            <span className="text-sm font-semibold tracking-tight text-[#111111]">
+              Comfindo Admin
             </span>
           </Link>
 
@@ -120,10 +120,12 @@ export function AdminSidebar() {
             {mainRoutes.map((route) => (
               <Button
                 key={route.href}
-                variant={route.active ? "secondary" : "ghost"}
+                variant="ghost"
                 className={cn(
-                  "w-full justify-start text-sm",
-                  route.active && "bg-comfindo-green/10 text-comfindo-green font-semibold"
+                  "w-full justify-start text-sm h-9 px-3 transition-colors",
+                  route.active 
+                    ? "bg-[#EAEAEA] text-[#111111] font-medium" 
+                    : "text-[#787774] hover:bg-[#F7F6F3] hover:text-[#111111]"
                 )}
                 asChild
               >
@@ -139,7 +141,7 @@ export function AdminSidebar() {
           <div className="mt-6">
             <button
               onClick={() => setCmsOpen(!cmsOpen)}
-              className="flex items-center justify-between w-full px-4 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-gray-600 transition-colors"
+              className="flex items-center justify-between w-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.05em] text-[#787774] hover:text-[#111111] transition-colors"
             >
               <span>Content Manager</span>
               <ChevronDown className={cn("h-3 w-3 transition-transform", cmsOpen && "rotate-180")} />
@@ -149,10 +151,12 @@ export function AdminSidebar() {
                 {cmsRoutes.map((route) => (
                   <Button
                     key={route.href}
-                    variant={route.active ? "secondary" : "ghost"}
+                    variant="ghost"
                     className={cn(
-                      "w-full justify-start text-sm",
-                      route.active && "bg-comfindo-green/10 text-comfindo-green font-semibold"
+                      "w-full justify-start text-sm h-9 px-3 transition-colors",
+                      route.active 
+                        ? "bg-[#EAEAEA] text-[#111111] font-medium" 
+                        : "text-[#787774] hover:bg-[#F7F6F3] hover:text-[#111111]"
                     )}
                     asChild
                   >
@@ -168,10 +172,10 @@ export function AdminSidebar() {
         </div>
       </div>
 
-      <div className="px-3 py-4 border-t">
+      <div className="px-3 py-4 border-t border-[#EAEAEA]">
         <Button
-          variant="outline"
-          className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 text-sm"
+          variant="ghost"
+          className="w-full justify-start text-[#9F2F2D] hover:text-[#9F2F2D] hover:bg-[#FDEBEC] text-sm h-9 transition-colors"
           onClick={handleLogout}
         >
           <LogOut className="mr-2 h-4 w-4" />

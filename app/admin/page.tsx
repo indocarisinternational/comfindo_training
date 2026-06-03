@@ -14,10 +14,10 @@ export default async function AdminDashboard() {
   ])
 
   const stats = [
-    { title: "Total Registrasi", value: registrations.count || 0, icon: Users, color: "text-blue-600 bg-blue-50" },
-    { title: "Konsultasi", value: consultations.count || 0, icon: FileText, color: "text-purple-600 bg-purple-50" },
-    { title: "Training Aktif", value: trainings.count || 0, icon: GraduationCap, color: "text-comfindo-green bg-comfindo-green/10" },
-    { title: "Blog Posts", value: blogPosts.count || 0, icon: PenTool, color: "text-orange-600 bg-orange-50" },
+    { title: "Total Registrasi", value: registrations.count || 0, icon: Users },
+    { title: "Konsultasi", value: consultations.count || 0, icon: FileText },
+    { title: "Training Aktif", value: trainings.count || 0, icon: GraduationCap },
+    { title: "Blog Posts", value: blogPosts.count || 0, icon: PenTool },
   ]
 
   const cmsPages = [
@@ -32,24 +32,24 @@ export default async function AdminDashboard() {
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-        <p className="text-gray-500 mt-1">Selamat datang di comfindo Admin Panel</p>
+        <h1 className="text-[28px] font-semibold tracking-tight text-[#111111]">Dashboard Overview</h1>
+        <p className="text-[#787774] mt-1 text-[15px]">Selamat datang di Comfindo Admin Panel</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card key={stat.title} className="border-0 shadow-md">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-500">{stat.title}</CardTitle>
-              <div className={`p-2 rounded-lg ${stat.color}`}>
+          <Card key={stat.title} className="border border-[#EAEAEA] shadow-none bg-white rounded-xl">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 pt-5 px-5">
+              <CardTitle className="text-[13px] font-medium text-[#787774]">{stat.title}</CardTitle>
+              <div className="text-[#111111] opacity-50">
                 <stat.icon className="h-4 w-4" />
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+            <CardContent className="px-5 pb-5">
+              <div className="text-3xl font-semibold text-[#111111] tracking-tight">{stat.value}</div>
             </CardContent>
           </Card>
         ))}
@@ -57,18 +57,18 @@ export default async function AdminDashboard() {
 
       {/* CMS Quick Links */}
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Content Manager</h2>
+        <h2 className="text-[15px] font-semibold text-[#111111] mb-5 uppercase tracking-[0.05em]">Content Manager</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {cmsPages.map((page) => (
             <Link key={page.href} href={page.href}>
-              <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 cursor-pointer group">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-comfindo-green/10 text-comfindo-green group-hover:bg-comfindo-green group-hover:text-white transition-all">
-                    <page.icon className="h-5 w-5" />
+              <Card className="border border-[#EAEAEA] shadow-none bg-white hover:bg-[#FBFBFA] transition-colors duration-200 cursor-pointer rounded-xl">
+                <CardContent className="p-5 flex items-start gap-4">
+                  <div className="p-2 rounded-md bg-[#111111] text-white">
+                    <page.icon className="h-4 w-4" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 group-hover:text-comfindo-green transition-colors">{page.title}</h3>
-                    <p className="text-sm text-gray-500 mt-0.5">{page.description}</p>
+                  <div className="pt-0.5">
+                    <h3 className="font-semibold text-[#111111] text-sm tracking-tight">{page.title}</h3>
+                    <p className="text-[13px] text-[#787774] mt-1 leading-relaxed">{page.description}</p>
                   </div>
                 </CardContent>
               </Card>

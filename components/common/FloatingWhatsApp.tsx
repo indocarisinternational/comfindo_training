@@ -9,6 +9,7 @@ export function FloatingWhatsApp() {
 
   return (
     <a
+      id="public-whatsapp"
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"

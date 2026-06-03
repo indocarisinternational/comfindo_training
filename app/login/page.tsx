@@ -44,7 +44,10 @@ export default function LoginPage() {
 
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-[hsl(152,20%,97%)] via-white to-[hsl(152,15%,95%)] px-4 py-16">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-[hsl(152,20%,97%)] via-white to-[hsl(152,15%,95%)] px-4 py-16 admin-ui font-sans">
+      <style dangerouslySetInnerHTML={{ __html: `
+        #public-navbar, #public-footer, #public-whatsapp { display: none !important; }
+      `}} />
       {/* Background decoration */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute top-20 -right-20 w-96 h-96 rounded-full bg-comfindo-green/5 blur-3xl" />
