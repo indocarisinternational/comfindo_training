@@ -184,10 +184,12 @@ async function main() {
   let success = false
   let attempts = 0
   let generatedArticle = null
+  const MAX_RETRIES = 3
 
-  while (!success && attempts < 2) {
+  while (!success && attempts < MAX_RETRIES) {
     attempts++
     try {
+      console.log(`Attempt ${attempts} of ${MAX_RETRIES}...`)
       generatedArticle = await generateArticle(topic)
       if (validateArticle(generatedArticle)) {
         success = true
@@ -196,6 +198,11 @@ async function main() {
       }
     } catch (e) {
       console.error(`Error generating article on attempt ${attempts}:`, e)
+      if (attempts < MAX_RETRIES) {
+        const delayMs = attempts * 10000; // 10s, 20s...
+        console.log(`Waiting ${delayMs}ms before retrying...`)
+        await new Promise(resolve => setTimeout(resolve, delayMs))
+      }
     }
   }
 
