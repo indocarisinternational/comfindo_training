@@ -1,0 +1,37 @@
+[
+  {
+    "title": "ISO 9001 Adalah: Pengertian, Manfaat, dan Penerapannya untuk Perusahaan",
+    "focusKeyword": "ISO 9001 adalah",
+    "intent": "informational",
+    "targetUrl": "/training/iso-9001",
+    "status": "pending"
+  },
+  {
+    "title": "Pelatihan ISO 9001: Tujuan, Materi, dan Manfaat untuk Perusahaan",
+    "focusKeyword": "pelatihan ISO 9001",
+    "intent": "commercial",
+    "targetUrl": "/training/iso-9001",
+    "status": "pending"
+  },
+  {
+    "title": "Training ISO 9001 Awareness: Siapa yang Perlu Ikut dan Apa yang Dipelajari?",
+    "focusKeyword": "training ISO 9001 awareness",
+    "intent": "commercial",
+    "targetUrl": "/training/iso-9001",
+    "status": "pending"
+  },
+  {
+    "title": "Internal Auditor ISO 9001: Tugas, Kompetensi, dan Alur Pelatihannya",
+    "focusKeyword": "internal auditor ISO 9001",
+    "intent": "commercial",
+    "targetUrl": "/training/iso-9001",
+    "status": "pending"
+  },
+  {
+    "title": "Biaya Sertifikasi ISO 9001: Faktor yang Mempengaruhi dan Cara Persiapannya",
+    "focusKeyword": "biaya sertifikasi ISO 9001",
+    "intent": "commercial/informational",
+    "targetUrl": "/training/iso-9001",
+    "status": "pending"
+  }
+]
