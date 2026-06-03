@@ -7,7 +7,7 @@ const TOPICS_PATH = path.join(process.cwd(), 'data', 'article-topics.json')
 const FALLBACK_DIR = path.join(process.cwd(), 'content', 'blog')
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash'
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest'
 const SUPABASE_URL = process.env.SUPABASE_URL
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const AUTO_PUBLISH = process.env.AUTO_PUBLISH === 'true'
