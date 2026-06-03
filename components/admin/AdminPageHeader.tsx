@@ -11,14 +11,14 @@ export function AdminPageHeader({ title, description, breadcrumbs }: AdminPageHe
   return (
     <div className="mb-10 mt-4 max-w-3xl">
       {breadcrumbs && (
-        <nav className="flex items-center gap-1.5 text-xs mb-3 font-medium text-[#787774]" aria-label="Breadcrumb">
-          <Link href="/admin" className="hover:text-[#111111] transition-colors">
+        <nav className="flex items-center gap-1.5 text-xs mb-3 font-medium text-[var(--muted-foreground)]" aria-label="Breadcrumb">
+          <Link href="/admin" className="hover:text-[var(--foreground)] transition-colors">
             Admin
           </Link>
           {breadcrumbs.map((crumb) => (
             <span key={crumb.href} className="flex items-center gap-1.5">
               <ChevronRight className="h-3 w-3" />
-              <Link href={crumb.href} className="text-[#111111]">
+              <Link href={crumb.href} className="text-[var(--foreground)]">
                 {crumb.label}
               </Link>
             </span>
@@ -26,12 +26,12 @@ export function AdminPageHeader({ title, description, breadcrumbs }: AdminPageHe
         </nav>
       )}
 
-      <h1 className="text-3xl font-semibold tracking-tight text-[#111111] leading-tight">
+      <h1 className="text-3xl font-semibold tracking-tight text-[var(--foreground)] leading-tight">
         {title}
       </h1>
       
       {description && (
-        <p className="mt-2 text-[15px] text-[#787774] leading-relaxed">
+        <p className="mt-2 text-[15px] text-[var(--muted-foreground)] leading-relaxed">
           {description}
         </p>
       )}

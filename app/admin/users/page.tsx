@@ -45,22 +45,22 @@ export default function UsersAdminPage() {
       />
 
       <div className="max-w-xl">
-        <div className="bg-white p-6 rounded-xl border border-[#EAEAEA] shadow-none">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#EAEAEA]">
-            <div className="p-2.5 rounded-md bg-[#111111] text-white">
+        <div className="bg-[var(--card)] p-6 rounded-xl border border-[var(--border)] shadow-none">
+          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[var(--border)]">
+            <div className="p-2.5 rounded-md bg-[var(--foreground)] text-[var(--background)]">
               <UserPlus className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-[#111111] tracking-tight">Registrasi Admin</h3>
-              <p className="text-sm text-[#787774]">Buat akun untuk pengelola website baru</p>
+              <h3 className="text-lg font-semibold text-[var(--foreground)] tracking-tight">Registrasi Admin</h3>
+              <p className="text-sm text-[var(--muted-foreground)]">Buat akun untuk pengelola website baru</p>
             </div>
           </div>
           
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
-              <label className="text-sm font-medium text-gray-700 block mb-1.5">Alamat Email</label>
+              <label className="text-sm font-medium text-[var(--foreground)] block mb-1.5">Alamat Email</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]" />
                 <Input
                   type="email"
                   required
@@ -73,9 +73,9 @@ export default function UsersAdminPage() {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700 block mb-1.5">Password Sementara</label>
+              <label className="text-sm font-medium text-[var(--foreground)] block mb-1.5">Password Sementara</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]" />
                 <Input
                   type={showPassword ? "text" : "password"}
                   required
@@ -87,12 +87,12 @@ export default function UsersAdminPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-              <p className="text-xs text-gray-400 mt-2">
+              <p className="text-xs text-[var(--muted-foreground)] mt-2">
                 Password ini akan digunakan untuk login pertama kali. Admin dapat mengubahnya nanti.
               </p>
             </div>
@@ -100,7 +100,7 @@ export default function UsersAdminPage() {
             <Button 
               type="submit" 
               disabled={loading}
-              className="w-full h-10 bg-[#111111] hover:bg-[#333333] text-white rounded-md mt-4 transition-colors"
+              className="w-full h-10 bg-[var(--foreground)] hover:opacity-90 text-[var(--background)] rounded-md mt-4 transition-colors"
             >
               {loading ? "Mendaftarkan..." : "Daftarkan Admin"}
             </Button>

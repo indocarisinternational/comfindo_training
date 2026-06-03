@@ -11,6 +11,8 @@ import { toast } from "sonner"
 import { GraduationCap, Mail, Lock, ArrowRight, Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 
+import { AdminThemeProvider } from "@/components/admin/AdminThemeProvider"
+
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -44,8 +46,20 @@ export default function LoginPage() {
 
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-[hsl(152,20%,97%)] via-white to-[hsl(152,15%,95%)] px-4 py-16 admin-ui font-sans">
-      <style dangerouslySetInnerHTML={{ __html: `
+    <AdminThemeProvider>
+      <div id="admin-wrapper" className="flex min-h-screen items-center justify-center bg-[var(--background)] px-4 py-16 admin-ui font-sans transition-colors duration-300">
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            try {
+              var theme = localStorage.getItem('admin-theme');
+              var system = window.matchMedia('(prefers-color-scheme: dark)').matches;
+              if (theme === 'dark' || (!theme && system)) {
+                document.getElementById('admin-wrapper').classList.add('dark');
+              }
+            } catch (e) {}
+          })();
+        `}} />
+        <style dangerouslySetInnerHTML={{ __html: `
         #public-navbar, #public-footer, #public-whatsapp { display: none !important; }
       `}} />
       {/* Background decoration */}
@@ -54,17 +68,17 @@ export default function LoginPage() {
         <div className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-comfindo-green-light/5 blur-3xl" />
       </div>
 
-      <Card className="w-full max-w-md relative z-10 border-0 shadow-xl rounded-2xl">
+      <Card className="w-full max-w-md relative z-10 border border-[var(--border)] bg-[var(--card)] shadow-none rounded-2xl">
         <CardHeader className="space-y-1 text-center pb-2">
           <Link href="/" className="inline-flex items-center justify-center gap-2 mb-4 group">
             <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-linear-to-br from-comfindo-green to-comfindo-green-dark text-white shadow-lg group-hover:shadow-xl transition-shadow">
               <GraduationCap className="h-6 w-6" />
             </div>
           </Link>
-          <CardTitle className="text-2xl font-bold text-gray-900">
+          <CardTitle className="text-2xl font-bold text-[var(--foreground)]">
             Login Admin
           </CardTitle>
-          <CardDescription className="text-gray-500">
+          <CardDescription className="text-[var(--muted-foreground)]">
             Masukkan email dan password untuk masuk ke panel admin.
           </CardDescription>
         </CardHeader>
@@ -72,9 +86,9 @@ export default function LoginPage() {
         <form onSubmit={handleLogin}>
           <CardContent className="space-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium text-[var(--foreground)]">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]" />
                 <Input
                   id="email"
                   type="email"
@@ -88,9 +102,9 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">Password</Label>
+              <Label htmlFor="password" className="text-sm font-medium text-[var(--foreground)]">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--muted-foreground)]" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
@@ -102,7 +116,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -112,7 +126,7 @@ export default function LoginPage() {
 
           <CardFooter className="flex flex-col gap-3 pt-2">
             <Button
-              className="w-full h-12 bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl shadow-md hover:shadow-lg font-semibold transition-all"
+              className="w-full h-12 bg-[var(--foreground)] hover:opacity-90 text-[var(--background)] rounded-xl font-semibold transition-all"
               type="submit"
               disabled={loading}
             >
@@ -122,6 +136,7 @@ export default function LoginPage() {
           </CardFooter>
         </form>
       </Card>
-    </div>
+      </div>
+    </AdminThemeProvider>
   )
 }

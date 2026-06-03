@@ -303,3 +303,46 @@ body {
 .admin-ui .bg-green-100 { background-color: #EDF3EC !important; color: #346538 !important; }
 .admin-ui .bg-yellow-100 { background-color: #FBF3DB !important; color: #956400 !important; }
 
+/* --- Admin UI Dark Mode (Premium Navy/Neutral) --- */
+.admin-ui.dark {
+  --background: 215 15% 10%; /* #16181C */
+  --foreground: 210 20% 95%; /* #F0F2F5 */
+  
+  --card: 215 15% 12%; /* #1A1D21 */
+  --card-foreground: 210 20% 95%;
+  
+  --primary: 0 0% 100%; /* White button in dark mode */
+  --primary-foreground: 215 15% 10%;
+  
+  --secondary: 215 15% 16%; /* #22252A */
+  --secondary-foreground: 210 20% 85%;
+  
+  --muted: 215 15% 16%;
+  --muted-foreground: 210 15% 65%;
+  
+  --accent: 215 15% 16%;
+  --accent-foreground: 210 20% 95%;
+  
+  --destructive: 0 62% 40%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --border: 215 15% 18%; /* #262A2F */
+  --input: 215 15% 18%;
+  --ring: 0 0% 100%;
+}
+
+.admin-ui.dark .shadow-md,
+.admin-ui.dark .shadow-lg,
+.admin-ui.dark .shadow-xl,
+.admin-ui.dark .shadow-sm,
+.admin-ui.dark .shadow {
+  box-shadow: none !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+/* Pastels for badges in dark mode (slightly darkened/translucent to fit) */
+.admin-ui.dark .bg-red-100 { background-color: rgba(253, 235, 236, 0.1) !important; color: #FCA5A5 !important; }
+.admin-ui.dark .bg-blue-100 { background-color: rgba(225, 243, 254, 0.1) !important; color: #93C5FD !important; }
+.admin-ui.dark .bg-green-100 { background-color: rgba(237, 243, 236, 0.1) !important; color: #86EFAC !important; }
+.admin-ui.dark .bg-yellow-100 { background-color: rgba(251, 243, 219, 0.1) !important; color: #FDE047 !important; }
+

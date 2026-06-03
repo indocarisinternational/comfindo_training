@@ -34,22 +34,22 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-[28px] font-semibold tracking-tight text-[#111111]">Dashboard Overview</h1>
-        <p className="text-[#787774] mt-1 text-[15px]">Selamat datang di Comfindo Admin Panel</p>
+        <h1 className="text-[28px] font-semibold tracking-tight text-[var(--foreground)]">Dashboard Overview</h1>
+        <p className="text-[var(--muted-foreground)] mt-1 text-[15px]">Selamat datang di Comfindo Admin Panel</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card key={stat.title} className="border border-[#EAEAEA] shadow-none bg-white rounded-xl">
+          <Card key={stat.title} className="border border-[var(--border)] shadow-none bg-[var(--card)] rounded-xl">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 pt-5 px-5">
-              <CardTitle className="text-[13px] font-medium text-[#787774]">{stat.title}</CardTitle>
-              <div className="text-[#111111] opacity-50">
+              <CardTitle className="text-[13px] font-medium text-[var(--muted-foreground)]">{stat.title}</CardTitle>
+              <div className="text-[var(--foreground)] opacity-50">
                 <stat.icon className="h-4 w-4" />
               </div>
             </CardHeader>
             <CardContent className="px-5 pb-5">
-              <div className="text-3xl font-semibold text-[#111111] tracking-tight">{stat.value}</div>
+              <div className="text-3xl font-semibold text-[var(--foreground)] tracking-tight">{stat.value}</div>
             </CardContent>
           </Card>
         ))}
@@ -57,18 +57,18 @@ export default async function AdminDashboard() {
 
       {/* CMS Quick Links */}
       <div>
-        <h2 className="text-[15px] font-semibold text-[#111111] mb-5 uppercase tracking-[0.05em]">Content Manager</h2>
+        <h2 className="text-[15px] font-semibold text-[var(--foreground)] mb-5 uppercase tracking-[0.05em]">Content Manager</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {cmsPages.map((page) => (
             <Link key={page.href} href={page.href}>
-              <Card className="border border-[#EAEAEA] shadow-none bg-white hover:bg-[#FBFBFA] transition-colors duration-200 cursor-pointer rounded-xl">
+              <Card className="border border-[var(--border)] shadow-none bg-[var(--card)] hover:bg-[var(--secondary)] transition-colors duration-200 cursor-pointer rounded-xl">
                 <CardContent className="p-5 flex items-start gap-4">
-                  <div className="p-2 rounded-md bg-[#111111] text-white">
+                  <div className="p-2 rounded-md bg-[var(--foreground)] text-[var(--background)]">
                     <page.icon className="h-4 w-4" />
                   </div>
                   <div className="pt-0.5">
-                    <h3 className="font-semibold text-[#111111] text-sm tracking-tight">{page.title}</h3>
-                    <p className="text-[13px] text-[#787774] mt-1 leading-relaxed">{page.description}</p>
+                    <h3 className="font-semibold text-[var(--foreground)] text-sm tracking-tight">{page.title}</h3>
+                    <p className="text-[13px] text-[var(--muted-foreground)] mt-1 leading-relaxed">{page.description}</p>
                   </div>
                 </CardContent>
               </Card>
