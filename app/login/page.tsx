@@ -8,15 +8,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { toast } from "sonner"
-import { GraduationCap, Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react"
+import { GraduationCap, Mail, Lock, ArrowRight, Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [name, setName] = useState("")
   const [loading, setLoading] = useState(false)
-  const [isRegister, setIsRegister] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
   const supabase = createClient()
@@ -44,33 +42,6 @@ export default function LoginPage() {
     }
   }
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: name,
-        },
-      },
-    })
-
-    if (error) {
-      toast.error("Registrasi Gagal", {
-        description: error.message,
-      })
-      setLoading(false)
-    } else {
-      toast.success("Registrasi Berhasil", {
-        description: "Silakan cek email Anda untuk verifikasi.",
-      })
-      setLoading(false)
-      setIsRegister(false)
-    }
-  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-[hsl(152,20%,97%)] via-white to-[hsl(152,15%,95%)] px-4 py-16">
@@ -88,59 +59,15 @@ export default function LoginPage() {
             </div>
           </Link>
           <CardTitle className="text-2xl font-bold text-gray-900">
-            {isRegister ? "Buat Akun Baru" : "Akun Saya"}
+            Login Admin
           </CardTitle>
           <CardDescription className="text-gray-500">
-            {isRegister
-              ? "Daftarkan akun untuk mengakses program pelatihan."
-              : "Masukkan email dan password untuk masuk."}
+            Masukkan email dan password untuk masuk ke panel admin.
           </CardDescription>
         </CardHeader>
 
-        <form onSubmit={isRegister ? handleRegister : handleLogin}>
+        <form onSubmit={handleLogin}>
           <CardContent className="space-y-4 pt-4">
-            {/* Toggle tabs */}
-            <div className="grid grid-cols-2 bg-gray-100 rounded-xl p-1 mb-2">
-              <button
-                type="button"
-                onClick={() => setIsRegister(false)}
-                className={`py-2.5 rounded-lg text-sm font-medium transition-all ${!isRegister
-                  ? "bg-comfindo-green text-white shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
-                  }`}
-              >
-                Masuk
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsRegister(true)}
-                className={`py-2.5 rounded-lg text-sm font-medium transition-all ${isRegister
-                  ? "bg-comfindo-green text-white shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
-                  }`}
-              >
-                Daftar
-              </button>
-            </div>
-
-            {isRegister && (
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-medium text-gray-700">Nama Lengkap</Label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Nama lengkap Anda"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="pl-10 h-11 rounded-xl border-gray-200 focus:border-comfindo-green focus:ring-comfindo-green/20"
-                    required
-                  />
-                </div>
-              </div>
-            )}
-
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email</Label>
               <div className="relative">
@@ -148,7 +75,7 @@ export default function LoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="email@anda.com"
+                  placeholder="admin@comfindo.co.id"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10 h-11 rounded-xl border-gray-200 focus:border-comfindo-green focus:ring-comfindo-green/20"
@@ -186,25 +113,9 @@ export default function LoginPage() {
               type="submit"
               disabled={loading}
             >
-              {loading
-                ? "Memproses..."
-                : isRegister
-                  ? "Daftar Sekarang"
-                  : "Masuk"}
+              {loading ? "Memproses..." : "Masuk"}
               {!loading && <ArrowRight className="ml-2 h-4 w-4" />}
             </Button>
-            <p className="text-xs text-gray-400 text-center">
-              {isRegister
-                ? "Sudah punya akun? "
-                : "Belum punya akun? "}
-              <button
-                type="button"
-                onClick={() => setIsRegister(!isRegister)}
-                className="text-comfindo-green font-medium hover:underline"
-              >
-                {isRegister ? "Masuk di sini" : "Daftar di sini"}
-              </button>
-            </p>
           </CardFooter>
         </form>
       </Card>

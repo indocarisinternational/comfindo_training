@@ -16,6 +16,7 @@ import {
   Phone,
   PenTool,
   ChevronDown,
+  UserCog,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
@@ -59,6 +60,12 @@ export function AdminSidebar() {
       icon: MessageSquare,
       href: "/admin/consultations",
       active: pathname.startsWith("/admin/consultations"),
+    },
+    {
+      label: "Admins",
+      icon: UserCog,
+      href: "/admin/users",
+      active: pathname.startsWith("/admin/users"),
     },
   ]
 

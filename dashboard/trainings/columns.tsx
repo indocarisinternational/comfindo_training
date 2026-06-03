@@ -14,16 +14,16 @@ import {
 import { badgeVariants } from "@/components/ui/badge"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
+import { createClient } from "@/lib/supabase/client"
+import { toast } from "sonner"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Training = {
   id: string
   title: string
   slug: string
-  mode: "Online" | "Offline" | "Hybrid"
-  start_date: string
-  status: "active" | "inactive"
+  method: string
+  date: string
+  is_published: boolean
   price: string
 }
 
@@ -43,30 +43,26 @@ export const columns: ColumnDef<Training>[] = [
     },
   },
   {
-    accessorKey: "mode",
-    header: "Mode",
-    cell: ({ row }) => <Badge variant="outline">{row.getValue("mode")}</Badge>,
+    accessorKey: "method",
+    header: "Method",
+    cell: ({ row }) => <Badge variant="outline">{row.getValue("method")}</Badge>,
   },
   {
-    accessorKey: "start_date",
-    header: "Start Date",
-    cell: ({ row }) => {
-        const date = new Date(row.getValue("start_date"))
-        return <div>{date.toLocaleDateString("id-ID")}</div>
-    }
+    accessorKey: "date",
+    header: "Date/Schedule",
   },
   {
     accessorKey: "price",
     header: "Price",
   },
   {
-    accessorKey: "status",
+    accessorKey: "is_published",
     header: "Status",
     cell: ({ row }) => {
-        const status = row.getValue("status") as string
+        const isPublished = row.getValue("is_published") as boolean
         return (
-            <Badge variant={status === 'active' ? 'default' : 'secondary'}>
-                {status}
+            <Badge variant={isPublished ? 'default' : 'secondary'} className={isPublished ? "bg-green-100 text-green-700 hover:bg-green-100" : ""}>
+                {isPublished ? "Published" : "Draft"}
             </Badge>
         )
     }
@@ -95,10 +91,17 @@ export const columns: ColumnDef<Training>[] = [
             <DropdownMenuItem asChild>
                 <Link href={`/admin/trainings/${training.id}/edit`}>Edit Training</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {
-                // Implement delete logic here or trigger a dialog
-                // For now, we'll handle this in the parent component or a separate cell renderer
-                console.log("Delete", training.id)
+            <DropdownMenuItem onClick={async () => {
+                if (confirm("Hapus program ini?")) {
+                    const supabase = createClient()
+                    const { error } = await supabase.from('training_programs').delete().eq('id', training.id)
+                    if (error) {
+                        toast.error("Gagal menghapus", { description: error.message })
+                    } else {
+                        toast.success("Berhasil menghapus")
+                        window.location.reload()
+                    }
+                }
             }}>
               Delete Training
             </DropdownMenuItem>

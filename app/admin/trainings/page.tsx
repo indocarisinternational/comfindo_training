@@ -8,7 +8,7 @@ import { columns } from "@/dashboard/trainings/columns"
 
 export default async function AdminTrainingsPage() {
   const supabase = await createClient()
-  const { data: trainings } = await supabase.from("trainings").select("*").order("created_at", { ascending: false })
+  const { data: trainings } = await supabase.from("training_programs").select("*").order("created_at", { ascending: false })
 
   return (
     <div className="space-y-6">

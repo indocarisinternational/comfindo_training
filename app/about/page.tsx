@@ -13,7 +13,12 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const supabase = await createClient()
-  const { data: about } = await supabase.from("about_content").select("*").limit(1).single()
+  const [aboutRes, certsRes] = await Promise.all([
+    supabase.from("about_content").select("*").limit(1).single(),
+    supabase.from("certificates").select("*").eq("is_published", true).order("sort_order"),
+  ])
+  const about = aboutRes.data
+  const certificates = certsRes.data || []
 
   const parseJsonArray = (val: any, defaultVal: any[]) => {
     if (Array.isArray(val)) return val;
@@ -146,6 +151,35 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Certificates */}
+      {certificates && certificates.length > 0 && (
+        <section className="py-16 md:py-20 bg-white">
+          <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                Sertifikat <span className="text-comfindo-green">& Akreditasi</span>
+              </h2>
+              <p className="text-gray-500 max-w-2xl mx-auto">Lisensi dan akreditasi resmi comfindo Management sebagai komitmen terhadap standar kualitas pelayanan kami.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {certificates.map((cert) => (
+                <div key={cert.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow text-center flex flex-col items-center">
+                  {cert.image_url ? (
+                    <img src={cert.image_url} alt={cert.title} className="h-28 w-auto object-contain mb-4" />
+                  ) : (
+                    <div className="h-28 w-full bg-gray-50 flex items-center justify-center rounded-xl mb-4">
+                      <Shield className="h-10 w-10 text-gray-300" />
+                    </div>
+                  )}
+                  <h3 className="font-bold text-gray-900 mb-1 line-clamp-2">{cert.title}</h3>
+                  <p className="text-sm text-gray-500">{cert.issuer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <CTASection />
     </div>

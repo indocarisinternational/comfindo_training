@@ -13,13 +13,17 @@ export const revalidate = 300
 export default async function Home() {
   const supabase = await createClient()
 
-  const [homepageRes, trainingsRes] = await Promise.all([
+  const [homepageRes, trainingsRes, faqsRes, testimonialsRes] = await Promise.all([
     supabase.from("homepage_content").select("*").limit(1).single(),
-    supabase.from("training_programs").select("*").eq("is_published", true).order("created_at", { ascending: false }).limit(4),
+    supabase.from("training_programs").select("*").eq("is_published", true).eq("is_featured", true).order("created_at", { ascending: false }).limit(4),
+    supabase.from("faqs").select("*").eq("is_published", true).order("sort_order"),
+    supabase.from("testimonials").select("*").eq("is_published", true).order("sort_order"),
   ])
 
   const homepage = homepageRes.data
   const trainings = trainingsRes.data || []
+  const faqs = faqsRes.data || []
+  const testimonials = testimonialsRes.data || []
   const features = homepage?.features || {}
 
   return (
@@ -36,8 +40,8 @@ export default async function Home() {
       <ServicesSection trainings={trainings} />
       <WhyUsSection reasons={features.why_us} />
       <LatestTrainingSection trainings={trainings} />
-      <TestimonialsSection testimonials={features.testimonials} />
-      <FAQSection faqs={features.faq} />
+      <TestimonialsSection testimonials={testimonials.length > 0 ? testimonials : features.testimonials} />
+      <FAQSection faqs={faqs.length > 0 ? faqs : features.faq} />
       <CTASection
         title={features.cta?.title}
         subtitle={features.cta?.subtitle}

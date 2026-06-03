@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, FileText, GraduationCap, BarChart3, Home, Briefcase, PenTool, Building2 } from "lucide-react"
+import { Users, FileText, GraduationCap, BarChart3, Home, Briefcase, PenTool, Building2, Shield } from "lucide-react"
 import Link from "next/link"
 
 export default async function AdminDashboard() {
@@ -24,9 +24,11 @@ export default async function AdminDashboard() {
     { title: "Homepage", description: "Edit hero, features, FAQ, testimonials", href: "/admin/cms/homepage", icon: Home },
     { title: "Services", description: "Manage service listings", href: "/admin/cms/services", icon: Briefcase },
     { title: "About", description: "Company profile, vision & mission", href: "/admin/cms/about", icon: Building2 },
+    { title: "Certificates", description: "Kelola lisensi & sertifikat BNSP", href: "/admin/cms/certificates", icon: Shield },
     { title: "Contact", description: "Address, phone, social links", href: "/admin/cms/contact", icon: FileText },
     { title: "Blog", description: "Create & manage blog posts", href: "/admin/cms/blog", icon: PenTool },
     { title: "Trainings", description: "Manage training programs", href: "/admin/trainings", icon: GraduationCap },
+    { title: "Admin Users", description: "Undang dan kelola akses admin", href: "/admin/users", icon: Users },
   ]
 
   return (
