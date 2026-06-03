@@ -7,6 +7,12 @@ import { TestimonialsSection } from "@/components/sections/Testimonials"
 import { FAQSection } from "@/components/sections/FAQ"
 import { CTASection } from "@/components/sections/CTA"
 import { ClientsSection } from "@/components/sections/Clients"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Lembaga Pelatihan dan Konsultan ISO 9001 | comfindo Management",
+  description: "comfindo Management membantu perusahaan dan organisasi melalui pelatihan ISO 9001, konsultasi sistem manajemen mutu, sertifikasi kompetensi, dan pengembangan SDM.",
+}
 
 export const revalidate = 300
 
@@ -28,6 +34,23 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "comfindo Management",
+            "url": "https://comfindomanagement.com",
+            "description": "Lembaga pelatihan dan konsultan manajemen mutu ISO 9001.",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://comfindomanagement.com/training?search={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })
+        }}
+      />
       <Hero
         title={homepage?.hero_title}
         subtitle={homepage?.hero_subtitle}

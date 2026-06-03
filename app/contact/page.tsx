@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button"
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: "Hubungi Kami - comfindo Management",
-  description: "Hubungi comfindo Management untuk konsultasi, pelatihan, dan sertifikasi. Kami siap membantu Anda.",
+  title: "Konsultasi Pelatihan ISO 9001 | Hubungi comfindo",
+  description: "Dapatkan penawaran terbaik untuk In-House Training, pendampingan sertifikasi ISO 9001, dan sertifikasi kompetensi. Hubungi konsultan kami sekarang.",
 }
 
 export default async function ContactPage() {
@@ -31,6 +31,29 @@ export default async function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Beranda",
+                "item": "https://comfindomanagement.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Kontak",
+                "item": "https://comfindomanagement.com/contact"
+              }
+            ]
+          })
+        }}
+      />
       <PageHeader
         title="Hubungi Kami"
         description="Konsultasikan kebutuhan pelatihan dan sertifikasi Anda dengan tim comfindo Management."

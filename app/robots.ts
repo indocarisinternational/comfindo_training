@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
+      disallow: ['/private/', '/admin', '/admin/*', '/login'],
     },
     sitemap: 'https://comfindomanagement.com/sitemap.xml',
   }

@@ -38,8 +38,32 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
     ? new Date(post.published_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })
     : ""
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "image": post.cover_image_url ? [post.cover_image_url] : [],
+    "datePublished": post.published_at || new Date().toISOString(),
+    "dateModified": post.updated_at || post.published_at || new Date().toISOString(),
+    "author": [{
+      "@type": "Person",
+      "name": post.author_name || "Admin comfindo",
+      "url": "https://comfindomanagement.com/about"
+    }],
+    "publisher": {
+      "@type": "Organization",
+      "name": "comfindo Management",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://comfindomanagement.com/logo.png"
+      }
+    },
+    "description": post.seo_description || post.excerpt
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       {/* Hero with cover image */}
       {post.cover_image_url ? (
         <div className="relative h-[400px] md:h-[500px] overflow-hidden">

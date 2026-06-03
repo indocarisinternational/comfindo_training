@@ -8,8 +8,8 @@ import type { Metadata } from "next"
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: "Blog - comfindo Management",
-  description: "Artikel, tips, dan insight seputar pelatihan, sertifikasi, dan pengembangan kompetensi dari comfindo Management.",
+  title: "Blog ISO 9001, Pelatihan, dan Manajemen Mutu | comfindo",
+  description: "Baca artikel seputar ISO 9001, pelatihan sistem manajemen mutu, sertifikasi kompetensi, audit internal, dan pengembangan SDM.",
 }
 
 export default async function BlogPage() {
@@ -26,6 +26,29 @@ export default async function BlogPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Beranda",
+                "item": "https://comfindomanagement.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://comfindomanagement.com/blog"
+              }
+            ]
+          })
+        }}
+      />
       <PageHeader
         title="Blog"
         description="Artikel, tips, dan insight seputar pelatihan dan pengembangan kompetensi."

@@ -16,11 +16,11 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
   if (!training) return { title: "Program Tidak Ditemukan - comfindo Management" }
   return { 
-    title: training.seo_title || training.title, 
-    description: training.seo_description,
+    title: training.seo_title || `${training.title} | comfindo Management`, 
+    description: training.seo_description || `Detail program pelatihan ${training.title}. Pendaftaran, jadwal, investasi, dan materi pelatihan.`,
     openGraph: {
-        title: training.seo_title || training.title,
-        description: training.seo_description,
+        title: training.seo_title || `${training.title} | comfindo Management`,
+        description: training.seo_description || `Detail program pelatihan ${training.title}. Pendaftaran, jadwal, investasi, dan materi pelatihan.`,
         images: training.image_url ? [{ url: training.image_url }] : [],
     }
   }
@@ -39,15 +39,25 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
   const objectives = Array.isArray(training.objectives) ? training.objectives : []
   const output = Array.isArray(training.output) ? training.output : []
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://comfindomanagement.com" },
+      { "@type": "ListItem", "position": 2, "name": "Pelatihan", "item": "https://comfindomanagement.com/training" },
+      { "@type": "ListItem", "position": 3, "name": training.title, "item": `https://comfindomanagement.com/training/${training.slug}` }
+    ]
+  };
+
   const courseSchema = {
     "@context": "https://schema.org",
     "@type": "Course",
     "name": training.title,
-    "description": training.seo_description || training.short_description || training.description,
+    "description": training.seo_description || training.short_description || training.description || training.title,
     "provider": {
       "@type": "Organization",
-      "name": "comfindo",
-      "sameAs": "https://www.comfindo.co.id"
+      "name": "comfindo Management",
+      "sameAs": "https://comfindomanagement.com"
     },
     ...(training.image_url && { "image": training.image_url }),
     "coursePrerequisites": "None",
@@ -64,10 +74,8 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
 
   return (
     <div className="flex flex-col min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <PageHeader
         title={training.title}
         breadcrumbs={[
@@ -99,7 +107,10 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
             {(training.description || training.short_description) && (
               <div>
                 <h2 className="text-xl font-bold mb-4 text-gray-900">Deskripsi Program</h2>
-                <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">{training.description || training.short_description}</p>
+                <div 
+                  className="prose prose-sm sm:prose-base prose-green max-w-none text-gray-600 leading-relaxed" 
+                  dangerouslySetInnerHTML={{ __html: training.description || training.short_description }} 
+                />
               </div>
             )}
 
