@@ -89,7 +89,7 @@ export function SeoDraftActions({ draftId, status, publishedBlogPostId }: SeoDra
       <div className="space-y-2">
         {publishedBlogPostId && (
           <Button className="w-full" asChild>
-            <Link href={`/admin/cms/blog/edit/${publishedBlogPostId}`} target="_blank">
+            <Link href={`/admin/cms/blog/${publishedBlogPostId}/edit`} target="_blank">
               <ExternalLink className="mr-2 h-4 w-4" /> Open Blog Post
             </Link>
           </Button>
