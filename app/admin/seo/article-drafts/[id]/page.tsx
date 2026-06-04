@@ -7,7 +7,8 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { SeoDraftActions } from "@/components/admin/SeoDraftActions"
 
-export default async function SeoArticleDraftDetailPage({ params }: { params: { id: string } }) {
+export default async function SeoArticleDraftDetailPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const supabase = await createClient()
   
   const { data: draft, error } = await supabase

@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowLeft, FileEdit, ShieldAlert, CheckSquare } from "lucide-react"
 
-export default async function SeoReportDetailPage({ params }: { params: { id: string } }) {
+export default async function SeoReportDetailPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const supabase = await createClient()
   
   const { data: report, error } = await supabase
