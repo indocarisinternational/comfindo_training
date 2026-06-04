@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import { SeoDraftActions } from "@/components/admin/SeoDraftActions"
 
 export default async function SeoArticleDraftDetailPage({ params }: { params: { id: string } }) {
   const supabase = await createClient()
@@ -41,10 +42,10 @@ export default async function SeoArticleDraftDetailPage({ params }: { params: { 
             </CardHeader>
             <CardContent>
               <div className="prose dark:prose-invert max-w-none">
-                {draft.content_preview ? (
-                  <div dangerouslySetInnerHTML={{ __html: draft.content_preview }} />
+                {draft.content ? (
+                  <div dangerouslySetInnerHTML={{ __html: draft.content }} />
                 ) : (
-                  <p className="text-muted-foreground italic">No content preview available.</p>
+                  <p className="text-muted-foreground italic">No content available.</p>
                 )}
               </div>
             </CardContent>
@@ -88,8 +89,18 @@ export default async function SeoArticleDraftDetailPage({ params }: { params: { 
             <CardContent className="space-y-4">
               <div>
                 <div className="text-sm font-medium text-muted-foreground mb-1">Status</div>
-                <Badge variant={draft.status === 'draft' ? 'secondary' : 'default'}>{draft.status}</Badge>
+                <Badge variant={
+                  draft.status === 'draft' ? 'secondary' : 
+                  draft.status === 'approved' ? 'default' : 
+                  draft.status === 'rejected' ? 'destructive' : 'default'
+                }>{draft.status}</Badge>
               </div>
+              {draft.status === 'rejected' && draft.rejection_reason && (
+                <div>
+                  <div className="text-sm font-medium text-destructive mb-1">Rejection Reason</div>
+                  <div className="text-sm text-destructive">{draft.rejection_reason}</div>
+                </div>
+              )}
               <div>
                 <div className="text-sm font-medium text-muted-foreground mb-1">Quality Score</div>
                 <div className="font-medium">{draft.quality_score || '-'}</div>
@@ -121,11 +132,12 @@ export default async function SeoArticleDraftDetailPage({ params }: { params: { 
             <CardHeader>
               <CardTitle>Actions</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <Button className="w-full" disabled>Publish to Blog — pending CMS mapping</Button>
-              <p className="text-xs text-muted-foreground mt-2">
-                Penerbitan otomatis dinonaktifkan hingga pemetaan tabel CMS blog selesai.
-              </p>
+            <CardContent>
+              <SeoDraftActions 
+                draftId={draft.id} 
+                status={draft.status} 
+                publishedBlogPostId={draft.published_blog_post_id} 
+              />
             </CardContent>
           </Card>
         </div>

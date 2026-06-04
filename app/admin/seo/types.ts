@@ -14,17 +14,20 @@ export type SeoArticleDraft = {
   title: string
   slug: string
   excerpt: string | null
+  content: string | null
   focus_keyword: string
   seo_title: string | null
   seo_description: string | null
   target_url: string
-  content_preview: string | null
   faq_json: any | null
   internal_links_json: any | null
   quality_score: number | null
   rejection_reason: string | null
   status: 'draft' | 'approved' | 'rejected' | 'published'
+  approved_at: string | null
+  published_blog_post_id: string | null
   created_at: string
+  updated_at: string | null
 }
 
 export type SeoTask = {
