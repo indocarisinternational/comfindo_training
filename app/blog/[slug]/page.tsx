@@ -48,14 +48,14 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
     "author": [{
       "@type": "Person",
       "name": post.author_name || "Admin comfindo",
-      "url": "https://comfindomanagement.com/about"
+      "url": "https://www.comfindo.co.id/about"
     }],
     "publisher": {
       "@type": "Organization",
       "name": "comfindo Management",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://comfindomanagement.com/logo.png"
+        "url": "https://www.comfindo.co.id/logo.png"
       }
     },
     "description": post.seo_description || post.excerpt

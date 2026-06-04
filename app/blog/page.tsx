@@ -37,13 +37,13 @@ export default async function BlogPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Beranda",
-                "item": "https://comfindomanagement.com"
+                "item": "https://www.comfindo.co.id"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Blog",
-                "item": "https://comfindomanagement.com/blog"
+                "item": "https://www.comfindo.co.id/blog"
               }
             ]
           })

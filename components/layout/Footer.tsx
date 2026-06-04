@@ -134,7 +134,7 @@ export async function Footer() {
       <div className="bg-[hsl(210,50%,8%)]">
         <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-400">
-            Copyright © {new Date().getFullYear()} | comfindomanagement.com . All right reserved.
+            Copyright © {new Date().getFullYear()} | www.comfindo.co.id . All right reserved.
           </p>
           <div className="flex items-center gap-4">
             {["Home", "Pelatihan", "Sertifikat", "Akun"].map((item) => (

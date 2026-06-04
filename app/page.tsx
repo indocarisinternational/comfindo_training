@@ -41,11 +41,11 @@ export default async function Home() {
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "comfindo Management",
-            "url": "https://comfindomanagement.com",
+            "url": "https://www.comfindo.co.id",
             "description": "Lembaga pelatihan dan konsultan manajemen mutu ISO 9001.",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://comfindomanagement.com/training?search={search_term_string}",
+              "target": "https://www.comfindo.co.id/training?search={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           })

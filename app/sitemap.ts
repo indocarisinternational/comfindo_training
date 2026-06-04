@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { services } from '@/lib/data/services'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://comfindomanagement.com'
+  const baseUrl = 'https://www.comfindo.co.id'
   const supabase = await createClient()
 
   const staticRoutes = [

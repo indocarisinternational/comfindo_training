@@ -3,8 +3,8 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     "name": "comfindo Management",
-    "url": "https://comfindomanagement.com",
-    "logo": "https://comfindomanagement.com/logo.png",
+    "url": "https://www.comfindo.co.id",
+    "logo": "https://www.comfindo.co.id/logo.png",
     "description": "Lembaga Pelatihan dan Konsultan Manajemen. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
     "address": {
       "@type": "PostalAddress",

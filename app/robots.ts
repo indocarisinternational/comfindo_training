@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/', '/admin', '/admin/*', '/login'],
     },
-    sitemap: 'https://comfindomanagement.com/sitemap.xml',
+    sitemap: 'https://www.comfindo.co.id/sitemap.xml',
   }
 }

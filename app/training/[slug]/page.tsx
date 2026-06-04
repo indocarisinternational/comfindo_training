@@ -43,9 +43,9 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://comfindomanagement.com" },
-      { "@type": "ListItem", "position": 2, "name": "Pelatihan", "item": "https://comfindomanagement.com/training" },
-      { "@type": "ListItem", "position": 3, "name": training.title, "item": `https://comfindomanagement.com/training/${training.slug}` }
+      { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://www.comfindo.co.id" },
+      { "@type": "ListItem", "position": 2, "name": "Pelatihan", "item": "https://www.comfindo.co.id/training" },
+      { "@type": "ListItem", "position": 3, "name": training.title, "item": `https://www.comfindo.co.id/training/${training.slug}` }
     ]
   };
 
@@ -57,7 +57,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
     "provider": {
       "@type": "Organization",
       "name": "comfindo Management",
-      "sameAs": "https://comfindomanagement.com"
+      "sameAs": "https://www.comfindo.co.id"
     },
     ...(training.image_url && { "image": training.image_url }),
     "coursePrerequisites": "None",

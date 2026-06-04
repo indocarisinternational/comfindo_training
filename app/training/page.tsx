@@ -33,13 +33,13 @@ export default async function TrainingPage() {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Beranda",
-                "item": "https://comfindomanagement.com"
+                "item": "https://www.comfindo.co.id"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Pelatihan",
-                "item": "https://comfindomanagement.com/training"
+                "item": "https://www.comfindo.co.id/training"
               }
             ]
           })

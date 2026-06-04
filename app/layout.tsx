@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://comfindomanagement.com",
+    url: "https://www.comfindo.co.id",
     siteName: "comfindo Management",
     title: "comfindo Management | Lembaga Pelatihan dan Konsultan Manajemen",
     description: "Lembaga pelatihan dan konsultan manajemen. Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Kompetensi Bersertifikat BNSP dan Non BNSP.",
