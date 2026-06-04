@@ -17,6 +17,13 @@ import {
   PenTool,
   ChevronDown,
   UserCog,
+  Activity,
+  FileText,
+  FileEdit,
+  CheckSquare,
+  Link2,
+  ShieldAlert,
+  PieChart
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
@@ -29,6 +36,7 @@ export function AdminSidebar() {
   const router = useRouter()
   const supabase = createClient()
   const [cmsOpen, setCmsOpen] = useState(true)
+  const [seoOpen, setSeoOpen] = useState(true)
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -103,8 +111,53 @@ export function AdminSidebar() {
     },
   ]
 
+  const seoRoutes = [
+    {
+      label: "Dashboard",
+      icon: Activity,
+      href: "/admin/seo",
+      active: pathname === "/admin/seo",
+    },
+    {
+      label: "Topics",
+      icon: FileText,
+      href: "/admin/seo/topics",
+      active: pathname.startsWith("/admin/seo/topics"),
+    },
+    {
+      label: "Article Drafts",
+      icon: FileEdit,
+      href: "/admin/seo/article-drafts",
+      active: pathname.startsWith("/admin/seo/article-drafts"),
+    },
+    {
+      label: "SEO Tasks",
+      icon: CheckSquare,
+      href: "/admin/seo/tasks",
+      active: pathname.startsWith("/admin/seo/tasks"),
+    },
+    {
+      label: "Internal Links",
+      icon: Link2,
+      href: "/admin/seo/internal-links",
+      active: pathname.startsWith("/admin/seo/internal-links"),
+    },
+    {
+      label: "Audits",
+      icon: ShieldAlert,
+      href: "/admin/seo/audits",
+      active: pathname.startsWith("/admin/seo/audits"),
+    },
+    {
+      label: "Reports",
+      icon: PieChart,
+      href: "/admin/seo/reports",
+      active: pathname.startsWith("/admin/seo/reports"),
+    },
+  ]
+
   return (
-    <div className="pb-12 min-h-screen border-r border-[var(--border)] bg-[var(--background)] flex flex-col transition-colors duration-300">
+    <div className="pb-12 min-h-screen border-r border-[var(--border)] bg-[var(--background)] flex flex-col transition-colors duration-300 overflow-y-auto">
       <div className="space-y-4 py-4 flex-1">
         <div className="px-3 py-2">
           <Link href="/admin" className="flex items-center gap-2 px-4 mb-6">
@@ -136,6 +189,39 @@ export function AdminSidebar() {
                 </Link>
               </Button>
             ))}
+          </div>
+
+          {/* SEO Engine Section */}
+          <div className="mt-6">
+            <button
+              onClick={() => setSeoOpen(!seoOpen)}
+              className="flex items-center justify-between w-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.05em] text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+            >
+              <span>SEO Engine</span>
+              <ChevronDown className={cn("h-3 w-3 transition-transform", seoOpen && "rotate-180")} />
+            </button>
+            {seoOpen && (
+              <div className="space-y-1 mt-1">
+                {seoRoutes.map((route) => (
+                  <Button
+                    key={route.href}
+                    variant="ghost"
+                    className={cn(
+                      "w-full justify-start text-sm h-9 px-3 transition-colors",
+                      route.active 
+                        ? "bg-[var(--secondary)] text-[var(--foreground)] font-medium" 
+                        : "text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
+                    )}
+                    asChild
+                  >
+                    <Link href={route.href}>
+                      <route.icon className="mr-2 h-4 w-4" />
+                      {route.label}
+                    </Link>
+                  </Button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* CMS Section */}

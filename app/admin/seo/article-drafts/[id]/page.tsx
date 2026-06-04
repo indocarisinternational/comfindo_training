@@ -1,0 +1,135 @@
+import { createClient } from "@/lib/supabase/server"
+import { notFound } from "next/navigation"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
+
+export default async function SeoArticleDraftDetailPage({ params }: { params: { id: string } }) {
+  const supabase = await createClient()
+  
+  const { data: draft, error } = await supabase
+    .from("seo_article_drafts")
+    .select("*")
+    .eq("id", params.id)
+    .single()
+
+  if (error || !draft) {
+    notFound()
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-4">
+        <Button variant="outline" size="icon" asChild>
+          <Link href="/admin/seo/article-drafts">
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+        </Button>
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Review Article Draft</h1>
+          <p className="text-[var(--muted-foreground)]">ID: {draft.id}</p>
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-3">
+        <div className="md:col-span-2 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Content Preview</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="prose dark:prose-invert max-w-none">
+                {draft.content_preview ? (
+                  <div dangerouslySetInnerHTML={{ __html: draft.content_preview }} />
+                ) : (
+                  <p className="text-muted-foreground italic">No content preview available.</p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {(draft.faq_json || draft.internal_links_json) && (
+             <div className="grid gap-6 md:grid-cols-2">
+               {draft.faq_json && (
+                 <Card>
+                   <CardHeader>
+                     <CardTitle className="text-lg">FAQ JSON</CardTitle>
+                   </CardHeader>
+                   <CardContent>
+                     <pre className="bg-muted p-4 rounded-md overflow-x-auto text-xs">
+                       {JSON.stringify(draft.faq_json, null, 2)}
+                     </pre>
+                   </CardContent>
+                 </Card>
+               )}
+               {draft.internal_links_json && (
+                 <Card>
+                   <CardHeader>
+                     <CardTitle className="text-lg">Internal Links JSON</CardTitle>
+                   </CardHeader>
+                   <CardContent>
+                     <pre className="bg-muted p-4 rounded-md overflow-x-auto text-xs">
+                       {JSON.stringify(draft.internal_links_json, null, 2)}
+                     </pre>
+                   </CardContent>
+                 </Card>
+               )}
+             </div>
+          )}
+        </div>
+
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Metadata</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Status</div>
+                <Badge variant={draft.status === 'draft' ? 'secondary' : 'default'}>{draft.status}</Badge>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Quality Score</div>
+                <div className="font-medium">{draft.quality_score || '-'}</div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Title</div>
+                <div className="font-medium">{draft.title}</div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Focus Keyword</div>
+                <div>{draft.focus_keyword}</div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">Target URL</div>
+                <div className="break-all text-sm">{draft.target_url}</div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">SEO Title</div>
+                <div className="text-sm">{draft.seo_title || '-'}</div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-muted-foreground mb-1">SEO Description</div>
+                <div className="text-sm">{draft.seo_description || '-'}</div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Button className="w-full" disabled>Publish to Blog — pending CMS mapping</Button>
+              <p className="text-xs text-muted-foreground mt-2">
+                Penerbitan otomatis dinonaktifkan hingga pemetaan tabel CMS blog selesai.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
