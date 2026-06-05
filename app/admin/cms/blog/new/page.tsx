@@ -81,8 +81,8 @@ export default function NewBlogPost() {
             <Link href="/admin/cms/blog"><ArrowLeft className="h-4 w-4" /></Link>
           </Button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">New Blog Post</h1>
-            <p className="text-sm text-gray-500">Tulis artikel baru untuk blog</p>
+            <h1 className="text-2xl font-bold text-[var(--foreground)]">New Blog Post</h1>
+            <p className="text-sm text-[var(--muted-foreground)]">Tulis artikel baru untuk blog</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -90,7 +90,7 @@ export default function NewBlogPost() {
             {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
             Save Draft
           </Button>
-          <Button onClick={() => handleSave(true)} disabled={saving} className="bg-comfindo-green hover:bg-comfindo-green-dark">
+          <Button onClick={() => handleSave(true)} disabled={saving} className="">
             <Eye className="mr-2 h-4 w-4" /> Publish
           </Button>
         </div>

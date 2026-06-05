@@ -1,34 +1,31 @@
 import { createClient } from "@/lib/supabase/server"
 import { DataTable } from "@/dashboard/components/DataTable"
 import { columns } from "./columns"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
+import { AdminErrorState } from "@/components/admin/ui/AdminErrorState"
 
-export default async function SeoArticleDraftsPage() {
+export default async function Page() {
   const supabase = await createClient()
-  
-  const { data: drafts, error } = await supabase
+
+  const { data, error } = await supabase
     .from("seo_article_drafts")
     .select("*")
     .order("created_at", { ascending: false })
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold tracking-tight">Article Drafts</h1>
-        <p className="text-[var(--muted-foreground)]">Review AI-generated SEO article drafts.</p>
-      </div>
+      <AdminPageHeader
+        title="Article Drafts"
+        description="Review generated article drafts and publishing status."
+      />
 
       {error ? (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            Gagal mengambil data Article Drafts. Pastikan tabel <code>seo_article_drafts</code> sudah ada.
-          </AlertDescription>
-        </Alert>
+        <AdminErrorState
+          title="Unable to load data"
+          description="Gagal mengambil data article drafts. Pastikan tabel seo_article_drafts sudah ada."
+        />
       ) : (
-        <DataTable columns={columns} data={drafts || []} searchKey="title" />
+        <DataTable columns={columns} data={data || []} searchKey="title" />
       )}
     </div>
   )

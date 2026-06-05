@@ -2,8 +2,9 @@ import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import { AdminCard as Card, AdminCardContent as CardContent, AdminCardHeader as CardHeader, AdminCardTitle as CardTitle } from "@/components/admin/ui/AdminCard"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { AdminButton } from "@/components/admin/AdminButton"
 import Link from "next/link"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
 import { ArrowLeft } from "lucide-react"
 import { SeoDraftActions } from "@/components/admin/SeoDraftActions"
 
@@ -23,17 +24,15 @@ export default async function SeoArticleDraftDetailPage(props: { params: Promise
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="icon" asChild>
-          <Link href="/admin/seo/article-drafts">
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Review Article Draft</h1>
-          <p className="text-[var(--muted-foreground)]">ID: {draft.id}</p>
-        </div>
-      </div>
+      <AdminPageHeader
+        title="Review Article Draft"
+        description={`ID: ${draft.id}`}
+        action={
+          <AdminButton variant="outline" size="icon" asChild>
+            <Link href="/admin/seo/article-drafts"><ArrowLeft className="h-4 w-4" /></Link>
+          </AdminButton>
+        }
+      />
 
       <div className="grid gap-6 md:grid-cols-3">
         <div className="md:col-span-2 space-y-6">

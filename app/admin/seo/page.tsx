@@ -1,21 +1,23 @@
 import { createClient } from "@/lib/supabase/server"
-import { AdminCard as Card, AdminCardContent as CardContent, AdminCardHeader as CardHeader, AdminCardTitle as CardTitle } from "@/components/admin/ui/AdminCard"
-import { AlertCircle, FileText, FileEdit, CheckSquare, Link2, ShieldAlert, PieChart } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
+import { AdminStatCard } from "@/components/admin/ui/AdminStatCard"
+import { AdminErrorState } from "@/components/admin/ui/AdminErrorState"
+import { AdminCard, AdminCardContent } from "@/components/admin/ui/AdminCard"
+import { AlertCircle, CheckSquare, FileEdit, FileText, Link2, PieChart, ShieldAlert } from "lucide-react"
 
-async function getCount(supabase: any, table: string, filter?: { col: string, val: string }): Promise<number> {
+async function getCount(supabase: Awaited<ReturnType<typeof createClient>>, table: string, filter?: { col: string, val: string }): Promise<number> {
   try {
-    let query = supabase.from(table).select('*', { count: 'exact', head: true })
+    let query = supabase.from(table).select("*", { count: "exact", head: true })
     if (filter) {
       query = query.eq(filter.col, filter.val)
     }
     const { count, error } = await query
     if (error) {
       console.error(`Error fetching count for ${table}:`, error)
-      return -1 // indicate error
+      return -1
     }
     return count || 0
-  } catch (err) {
+  } catch {
     return -1
   }
 }
@@ -29,93 +31,57 @@ export default async function SeoEngineDashboardPage() {
     openTasksCount,
     pendingLinksCount,
     auditsCount,
-    reportsCount
+    reportsCount,
   ] = await Promise.all([
-    getCount(supabase, 'seo_topics', { col: 'status', val: 'pending' }),
-    getCount(supabase, 'seo_article_drafts', { col: 'status', val: 'draft' }),
-    getCount(supabase, 'seo_tasks', { col: 'status', val: 'open' }),
-    getCount(supabase, 'seo_internal_link_suggestions', { col: 'status', val: 'pending' }),
-    getCount(supabase, 'seo_audits'),
-    getCount(supabase, 'seo_daily_reports')
+    getCount(supabase, "seo_topics", { col: "status", val: "pending" }),
+    getCount(supabase, "seo_article_drafts", { col: "status", val: "draft" }),
+    getCount(supabase, "seo_tasks", { col: "status", val: "open" }),
+    getCount(supabase, "seo_internal_link_suggestions", { col: "status", val: "pending" }),
+    getCount(supabase, "seo_audits"),
+    getCount(supabase, "seo_daily_reports"),
   ])
 
-  // If any query returns -1, it means the tables might not exist yet.
-  const tablesMissing = [pendingTopicsCount, draftArticlesCount, openTasksCount, pendingLinksCount, auditsCount, reportsCount].some(c => c === -1)
+  const tablesMissing = [pendingTopicsCount, draftArticlesCount, openTasksCount, pendingLinksCount, auditsCount, reportsCount].some((count) => count === -1)
+  const statItems = [
+    { title: "Pending Topics", value: pendingTopicsCount === -1 ? 0 : pendingTopicsCount, icon: FileText, description: "awaiting production" },
+    { title: "Draft Articles", value: draftArticlesCount === -1 ? 0 : draftArticlesCount, icon: FileEdit, description: "ready for review" },
+    { title: "Open SEO Tasks", value: openTasksCount === -1 ? 0 : openTasksCount, icon: CheckSquare, description: "active workload" },
+    { title: "Pending Links", value: pendingLinksCount === -1 ? 0 : pendingLinksCount, icon: Link2, description: "suggestions queued" },
+    { title: "Latest Audits", value: auditsCount === -1 ? 0 : auditsCount, icon: ShieldAlert, description: "audit records" },
+    { title: "Daily Reports", value: reportsCount === -1 ? 0 : reportsCount, icon: PieChart, description: "report snapshots" },
+  ]
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">SEO Engine</h1>
-        <p className="text-[var(--muted-foreground)]">
-          Kelola hasil kerja Comfindo SEO Growth Engine: topik, draft artikel AI, audit SEO, task teknis, internal link, dan laporan harian.
-        </p>
-      </div>
+    <div className="space-y-8">
+      <AdminPageHeader
+        title="SEO Engine"
+        description="Kelola topik, draft artikel, audit SEO, task teknis, internal link, dan laporan harian."
+      />
 
-      {tablesMissing && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Peringatan Database</AlertTitle>
-          <AlertDescription>
-            SEO Engine database tables belum tersedia atau terjadi error. Jalankan supabase-seo-growth-engine.sql terlebih dahulu.
-          </AlertDescription>
-        </Alert>
-      )}
+      {tablesMissing ? (
+        <AdminErrorState
+          title="SEO database tables unavailable"
+          description="Jalankan supabase-seo-growth-engine.sql terlebih dahulu, lalu refresh halaman ini."
+        />
+      ) : null}
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pending Topics</CardTitle>
-            <FileText className="h-4 w-4 text-[var(--muted-foreground)]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{pendingTopicsCount === -1 ? 0 : pendingTopicsCount}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Draft Articles</CardTitle>
-            <FileEdit className="h-4 w-4 text-[var(--muted-foreground)]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{draftArticlesCount === -1 ? 0 : draftArticlesCount}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Open SEO Tasks</CardTitle>
-            <CheckSquare className="h-4 w-4 text-[var(--muted-foreground)]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{openTasksCount === -1 ? 0 : openTasksCount}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pending Internal Links</CardTitle>
-            <Link2 className="h-4 w-4 text-[var(--muted-foreground)]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{pendingLinksCount === -1 ? 0 : pendingLinksCount}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Latest Audits</CardTitle>
-            <ShieldAlert className="h-4 w-4 text-[var(--muted-foreground)]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{auditsCount === -1 ? 0 : auditsCount}</div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Latest Reports</CardTitle>
-            <PieChart className="h-4 w-4 text-[var(--muted-foreground)]" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{reportsCount === -1 ? 0 : reportsCount}</div>
-          </CardContent>
-        </Card>
+      <AdminCard className="bg-tint-lavender border-none shadow-none">
+        <AdminCardContent className="grid gap-4 p-6 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[1px] text-[#391c57]">Growth engine</p>
+            <h2 className="mt-2 text-[28px] font-semibold leading-[1.2] text-[#37352f]">Content operations in one workspace</h2>
+            <p className="mt-2 text-[15px] leading-[1.55] text-[#5d5b54]">Review generated assets, prioritize technical tasks, and keep internal recommendations moving.</p>
+          </div>
+          <div className="hidden h-20 w-20 place-items-center rounded-[12px] bg-white/60 text-[#391c57] md:grid">
+            <AlertCircle className="h-8 w-8" />
+          </div>
+        </AdminCardContent>
+      </AdminCard>
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {statItems.map((item) => (
+          <AdminStatCard key={item.title} {...item} />
+        ))}
       </div>
     </div>
   )

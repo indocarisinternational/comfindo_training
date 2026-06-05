@@ -14,22 +14,16 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { ArrowLeft, Plus, Trash2 } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
 
 const formSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters."),
@@ -58,8 +52,11 @@ const formSchema = z.object({
   canonical_url: z.string().optional(),
 })
 
+type TrainingFormValues = z.infer<typeof formSchema>
+type TrainingRecord = Partial<TrainingFormValues> & { id?: string; [key: string]: unknown }
+
 interface TrainingFormProps {
-    initialData?: any
+    initialData?: TrainingRecord
 }
 
 export function TrainingForm({ initialData }: TrainingFormProps) {
@@ -67,10 +64,10 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
   const supabase = createClient()
   const [loading, setLoading] = useState(false)
 
-  const parseJsonArray = (val: any, defaultVal: string[]) => {
+  const parseJsonArray = (val: unknown, defaultVal: string[]) => {
     if (Array.isArray(val)) return val;
     if (typeof val === 'string') {
-        try { const parsed = JSON.parse(val); if (Array.isArray(parsed)) return parsed; } catch (e) {}
+        try { const parsed = JSON.parse(val); if (Array.isArray(parsed)) return parsed; } catch {}
     }
     return defaultVal;
   }
@@ -135,8 +132,8 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
         }
         router.refresh()
         router.push("/admin/trainings")
-    } catch (error: any) {
-        toast.error("Something went wrong.", { description: error.message })
+    } catch (error: unknown) {
+        toast.error("Something went wrong.", { description: error instanceof Error ? error.message : "Unknown error" })
     } finally {
         setLoading(false)
     }
@@ -154,7 +151,7 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle className="text-lg">{label}</CardTitle>
-              <Button type="button" size="sm" variant="outline" onClick={() => form.setValue(fieldName, [...values, ""] as any)}>
+              <Button type="button" size="sm" variant="outline" onClick={() => form.setValue(fieldName, [...values, ""] as never)}>
                 <Plus className="h-3 w-3 mr-1" /> Add
               </Button>
             </div>
@@ -163,10 +160,10 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
             {values.map((val: string, i: number) => (
               <div key={i} className="flex gap-2">
                 <Input value={val} onChange={(e) => {
-                  const arr = [...values]; arr[i] = e.target.value; form.setValue(fieldName, arr as any);
+                  const arr = [...values]; arr[i] = e.target.value; form.setValue(fieldName, arr as never);
                 }} />
                 <Button type="button" size="icon" variant="ghost" className="text-red-500 shrink-0" onClick={() => {
-                  form.setValue(fieldName, values.filter((_, j) => j !== i) as any);
+                  form.setValue(fieldName, values.filter((_, j) => j !== i) as never);
                 }}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -179,17 +176,18 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
 
   return (
     <div className="space-y-6">
-        <div className="flex items-center gap-4">
-             <Button variant="outline" size="icon" asChild>
-                <Link href="/admin/trainings">
-                    <ArrowLeft className="h-4 w-4" />
-                </Link>
-             </Button>
-             <h1 className="text-xl font-bold">{initialData ? "Edit Training Program" : "Create Training Program"}</h1>
-        </div>
+        <AdminPageHeader
+          title={initialData ? "Edit Training Program" : "Create Training Program"}
+          description="Update training content, schedule, publishing status, and SEO metadata."
+          action={
+            <Button variant="outline" size="icon" asChild>
+              <Link href="/admin/trainings"><ArrowLeft className="h-4 w-4" /></Link>
+            </Button>
+          }
+        />
         
         <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-4xl">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             
             <Card>
                 <CardHeader><CardTitle className="text-lg">Basic Information</CardTitle></CardHeader>
@@ -232,7 +230,7 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
 
             <Card>
                 <CardHeader><CardTitle className="text-lg">Details & Scheduling</CardTitle></CardHeader>
-                <CardContent className="grid grid-cols-2 gap-4">
+                <CardContent className="grid gap-4 md:grid-cols-2">
                     <FormField control={form.control} name="category" render={({ field }) => (
                         <FormItem><FormLabel>Category</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
@@ -281,7 +279,7 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                         <FormItem><FormLabel>SEO Description</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
                     
-                    <div className="flex gap-6 mt-4">
+                    <div className="grid gap-4 md:grid-cols-2 mt-4">
                         <FormField control={form.control} name="is_published" render={({ field }) => (
                             <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow-sm w-full">
                                 <FormControl>
@@ -308,7 +306,7 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                 </CardContent>
             </Card>
 
-            <Button type="submit" size="lg" disabled={loading} className="w-full bg-comfindo-green hover:bg-comfindo-green-dark text-white">
+            <Button type="submit" size="lg" disabled={loading} className="w-full  text-white">
                 {loading ? "Saving..." : initialData ? "Update Training Program" : "Create Training Program"}
             </Button>
         </form>

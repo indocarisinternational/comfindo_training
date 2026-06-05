@@ -48,33 +48,33 @@ export default function BlogManager() {
     else { toast.success("Post deleted!"); loadPosts() }
   }
 
-  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-comfindo-green" /></div>
+  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Blog Manager</h1>
-          <p className="text-sm text-gray-500 mt-1">{posts.length} total posts</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Blog Manager</h1>
+          <p className="text-sm text-[var(--muted-foreground)] mt-1">{posts.length} total posts</p>
         </div>
-        <Button asChild className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button asChild className="">
           <Link href="/admin/cms/blog/new"><Plus className="mr-2 h-4 w-4" /> New Post</Link>
         </Button>
       </div>
 
       <div className="space-y-3">
         {posts.map((post) => (
-          <Card key={post.id} className="border-0 shadow-sm hover:shadow-md transition-shadow">
+          <Card key={post.id} className="border border-[var(--border)] shadow-sm transition-shadow hover:shadow-md">
             <CardContent className="p-4 flex items-center justify-between">
               <div className="flex-1 min-w-0 mr-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-semibold text-gray-900 truncate">{post.title}</h3>
-                  <Badge variant={post.is_published ? "default" : "secondary"} className={post.is_published ? "bg-green-100 text-green-700 shrink-0" : "shrink-0"}>
+                  <h3 className="font-semibold text-[var(--foreground)] truncate">{post.title}</h3>
+                  <Badge variant={post.is_published ? "default" : "secondary"} className={post.is_published ? "bg-tint-mint text-[var(--primary)] shrink-0" : "shrink-0"}>
                     {post.is_published ? "Published" : "Draft"}
                   </Badge>
                 </div>
-                <p className="text-sm text-gray-500 truncate">{post.excerpt || "No excerpt"}</p>
-                <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
+                <p className="text-sm text-[var(--muted-foreground)] truncate">{post.excerpt || "No excerpt"}</p>
+                <div className="flex items-center gap-3 mt-2 text-xs text-[var(--muted-foreground)]">
                   {post.category && <Badge variant="outline" className="text-xs">{post.category}</Badge>}
                   <span className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
@@ -85,7 +85,7 @@ export default function BlogManager() {
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <Button size="icon" variant="ghost" onClick={() => togglePublish(post.id, post.is_published)} title={post.is_published ? "Unpublish" : "Publish"}>
-                  {post.is_published ? <Eye className="h-4 w-4 text-green-600" /> : <EyeOff className="h-4 w-4" />}
+                  {post.is_published ? <Eye className="h-4 w-4 text-[var(--primary)]" /> : <EyeOff className="h-4 w-4" />}
                 </Button>
                 <Button size="icon" variant="ghost" asChild>
                   <Link href={`/admin/cms/blog/${post.id}/edit`}><Pencil className="h-4 w-4" /></Link>
@@ -98,7 +98,7 @@ export default function BlogManager() {
           </Card>
         ))}
         {posts.length === 0 && (
-          <div className="text-center py-16 text-gray-400">
+          <div className="text-center py-16 text-[var(--muted-foreground)]">
             <PenIcon className="h-12 w-12 mx-auto mb-3 opacity-30" />
             <p className="text-lg font-medium">Belum ada blog post</p>
             <p className="text-sm mt-1">Klik &quot;New Post&quot; untuk mulai menulis.</p>

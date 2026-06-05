@@ -1,34 +1,38 @@
 "use client"
 
-import * as React from "react"
 import { Line, LineChart, Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import { AdminCard } from "./AdminCard"
 
 interface ChartProps {
-  data: any[]
+  data: Array<Record<string, string | number>>
   type?: "line" | "bar"
   dataKey: string
   xAxisKey: string
   height?: number
 }
 
-export function AdminChart({ data, type = "line", dataKey, xAxisKey, height = 300 }: ChartProps) {
-  // Custom tooltip to match dark theme
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <AdminCard className="p-3 border-none !bg-[var(--popover)] !rounded-[8px] shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
-          <p className="text-[12px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider mb-1">{label}</p>
-          <p className="text-[16px] font-bold text-[var(--foreground)] tracking-tight">
-            <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mr-2" />
-            {payload[0].value}
-          </p>
-        </AdminCard>
-      )
-    }
-    return null
-  }
+type AdminTooltipProps = {
+  active?: boolean
+  payload?: Array<{ value?: string | number }>
+  label?: string | number
+}
 
+function AdminChartTooltip({ active, payload, label }: AdminTooltipProps) {
+  if (active && payload?.length) {
+    return (
+      <AdminCard className="p-3 border-none !bg-[var(--popover)] !rounded-[8px] shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
+        <p className="text-[12px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider mb-1">{label}</p>
+        <p className="text-[16px] font-bold text-[var(--foreground)] tracking-tight">
+          <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mr-2" />
+          {payload[0].value}
+        </p>
+      </AdminCard>
+    )
+  }
+  return null
+}
+
+export function AdminChart({ data, type = "line", dataKey, xAxisKey, height = 300 }: ChartProps) {
   return (
     <div style={{ width: '100%', height: height }}>
       <ResponsiveContainer>
@@ -49,7 +53,7 @@ export function AdminChart({ data, type = "line", dataKey, xAxisKey, height = 30
               axisLine={false} 
               tickFormatter={(value) => `${value}`}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'var(--border)', strokeWidth: 1, strokeDasharray: '4 4' }} />
+            <Tooltip content={<AdminChartTooltip />} cursor={{ stroke: 'var(--border)', strokeWidth: 1, strokeDasharray: '4 4' }} />
             <Line 
               type="monotone" 
               dataKey={dataKey} 
@@ -75,7 +79,7 @@ export function AdminChart({ data, type = "line", dataKey, xAxisKey, height = 30
               tickLine={false} 
               axisLine={false} 
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'var(--secondary)' }} />
+            <Tooltip content={<AdminChartTooltip />} cursor={{ fill: 'var(--secondary)' }} />
             <Bar 
               dataKey={dataKey} 
               fill="var(--primary)" 

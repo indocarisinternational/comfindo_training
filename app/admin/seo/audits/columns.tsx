@@ -22,7 +22,7 @@ export const columns: ColumnDef<SeoAudit>[] = [
     header: "Score",
     cell: ({ row }) => {
       const score = row.getValue("score") as number
-      let colorClass = "text-green-600"
+      let colorClass = "text-[var(--primary)]"
       if (score < 50) colorClass = "text-red-600"
       else if (score < 80) colorClass = "text-yellow-600"
       return <span className={`font-semibold ${colorClass}`}>{score || '-'}</span>

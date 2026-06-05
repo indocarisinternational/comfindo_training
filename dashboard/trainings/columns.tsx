@@ -11,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { badgeVariants } from "@/components/ui/badge"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { createClient } from "@/lib/supabase/client"
@@ -61,7 +60,7 @@ export const columns: ColumnDef<Training>[] = [
     cell: ({ row }) => {
         const isPublished = row.getValue("is_published") as boolean
         return (
-            <Badge variant={isPublished ? 'default' : 'secondary'} className={isPublished ? "bg-green-100 text-green-700 hover:bg-green-100" : ""}>
+            <Badge variant={isPublished ? 'default' : 'secondary'} className={isPublished ? "admin-badge admin-badge-green" : "admin-badge admin-badge-muted"}>
                 {isPublished ? "Published" : "Draft"}
             </Badge>
         )

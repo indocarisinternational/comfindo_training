@@ -1,10 +1,10 @@
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Plus } from "lucide-react"
 import { DataTable } from "@/dashboard/components/DataTable"
 import { columns } from "@/dashboard/trainings/columns"
+import { AdminButton } from "@/components/admin/AdminButton"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
 
 export default async function AdminTrainingsPage() {
   const supabase = await createClient()
@@ -12,12 +12,15 @@ export default async function AdminTrainingsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">Trainings</h1>
-        <Button asChild className="bg-comfindo-green hover:bg-comfindo-green-dark">
-          <Link href="/admin/trainings/create"><Plus className="mr-2 h-4 w-4" /> Create Training</Link>
-        </Button>
-      </div>
+      <AdminPageHeader
+        title="Trainings"
+        description="Manage published and draft training programs."
+        action={
+          <AdminButton asChild>
+            <Link href="/admin/trainings/create"><Plus className="h-4 w-4" /> Create Training</Link>
+          </AdminButton>
+        }
+      />
       <DataTable columns={columns} data={trainings || []} searchKey="title" />
     </div>
   )

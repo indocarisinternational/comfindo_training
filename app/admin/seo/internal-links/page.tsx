@@ -1,34 +1,31 @@
 import { createClient } from "@/lib/supabase/server"
 import { DataTable } from "@/dashboard/components/DataTable"
 import { columns } from "./columns"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
+import { AdminErrorState } from "@/components/admin/ui/AdminErrorState"
 
-export default async function SeoInternalLinksPage() {
+export default async function Page() {
   const supabase = await createClient()
-  
-  const { data: links, error } = await supabase
+
+  const { data, error } = await supabase
     .from("seo_internal_link_suggestions")
     .select("*")
     .order("created_at", { ascending: false })
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold tracking-tight">Internal Links</h1>
-        <p className="text-[var(--muted-foreground)]">Review internal link recommendations.</p>
-      </div>
+      <AdminPageHeader
+        title="Internal Links"
+        description="Review internal link suggestions and target pages."
+      />
 
       {error ? (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            Gagal mengambil data Internal Links. Pastikan tabel <code>seo_internal_link_suggestions</code> sudah ada.
-          </AlertDescription>
-        </Alert>
+        <AdminErrorState
+          title="Unable to load data"
+          description="Gagal mengambil data internal links. Pastikan tabel seo_internal_link_suggestions sudah ada."
+        />
       ) : (
-        <DataTable columns={columns} data={links || []} searchKey="source_url" />
+        <DataTable columns={columns} data={data || []} searchKey="source_url" />
       )}
     </div>
   )

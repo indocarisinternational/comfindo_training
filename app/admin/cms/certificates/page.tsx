@@ -110,18 +110,18 @@ export default function CertificatesManager() {
     })
   }
 
-  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-comfindo-green" /></div>
+  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
 
   if (editing) {
     return (
       <div className="space-y-6 max-w-4xl">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{editing.id ? "Edit" : "New"} Certificate</h1>
+            <h1 className="text-2xl font-bold text-[var(--foreground)]">{editing.id ? "Edit" : "New"} Certificate</h1>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => setEditing(null)}>Cancel</Button>
-            <Button onClick={handleSave} disabled={saving} className="bg-comfindo-green hover:bg-comfindo-green-dark">
+            <Button onClick={handleSave} disabled={saving} className="">
               {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
               Save
             </Button>
@@ -194,28 +194,28 @@ export default function CertificatesManager() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Certificates Manager</h1>
-          <p className="text-sm text-gray-500 mt-1">Kelola sertifikat dan akreditasi lembaga</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Certificates Manager</h1>
+          <p className="text-sm text-[var(--muted-foreground)] mt-1">Kelola sertifikat dan akreditasi lembaga</p>
         </div>
-        <Button onClick={startNew} className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button onClick={startNew} className="">
           <Plus className="mr-2 h-4 w-4" /> New Certificate
         </Button>
       </div>
 
       <div className="space-y-3">
         {certificates.map((cert) => (
-          <Card key={cert.id} className="border-0 shadow-sm">
+          <Card key={cert.id} className="border border-[var(--border)] shadow-sm">
             <CardContent className="p-4 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <GripVertical className="h-4 w-4 text-gray-300" />
+                <GripVertical className="h-4 w-4 text-[var(--muted-foreground)]" />
                 {cert.image_url && <img src={cert.image_url} alt={cert.title} className="w-12 h-12 object-cover rounded" />}
                 <div>
-                  <h3 className="font-semibold text-gray-900">{cert.title}</h3>
-                  <p className="text-sm text-gray-500 line-clamp-1">{cert.issuer} - {cert.certificate_type}</p>
+                  <h3 className="font-semibold text-[var(--foreground)]">{cert.title}</h3>
+                  <p className="text-sm text-[var(--muted-foreground)] line-clamp-1">{cert.issuer} - {cert.certificate_type}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Badge variant={cert.is_published ? "default" : "secondary"} className={cert.is_published ? "bg-green-100 text-green-700" : ""}>
+                <Badge variant={cert.is_published ? "default" : "secondary"} className={cert.is_published ? "bg-tint-mint text-[var(--primary)]" : ""}>
                   {cert.is_published ? "Published" : "Draft"}
                 </Badge>
                 <Button size="icon" variant="ghost" onClick={() => togglePublish(cert.id, cert.is_published)}>
@@ -232,7 +232,7 @@ export default function CertificatesManager() {
           </Card>
         ))}
         {certificates.length === 0 && (
-          <div className="text-center py-12 text-gray-400">
+          <div className="text-center py-12 text-[var(--muted-foreground)]">
             <p>Belum ada sertifikat. Klik &quot;New Certificate&quot; untuk menambah.</p>
           </div>
         )}

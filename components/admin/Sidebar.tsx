@@ -1,37 +1,107 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import {
-  LayoutDashboard,
-  GraduationCap,
-  Users,
-  MessageSquare,
-  LogOut,
-  Home,
-  Briefcase,
-  Building2,
-  Phone,
-  PenTool,
-  ChevronDown,
-  UserCog,
-  Activity,
-  FileText,
-  FileEdit,
-  CheckSquare,
-  Link2,
-  ShieldAlert,
-  PieChart
-} from "lucide-react"
-import { createClient } from "@/lib/supabase/client"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
+import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
+import type { ComponentType } from "react"
+import {
+  Activity,
+  Building2,
+  Briefcase,
+  CheckSquare,
+  ChevronDown,
+  FileEdit,
+  FileText,
+  GraduationCap,
+  Home,
+  LayoutDashboard,
+  Link2,
+  LogOut,
+  MessageSquare,
+  PenTool,
+  Phone,
+  PieChart,
+  ShieldAlert,
+  UserCog,
+  Users,
+} from "lucide-react"
+import { toast } from "sonner"
+import { createClient } from "@/lib/supabase/client"
+import { cn } from "@/lib/utils"
+import { AdminButton } from "./AdminButton"
+
+const mainRoutes = [
+  { label: "Overview", icon: LayoutDashboard, href: "/admin" },
+  { label: "Trainings", icon: GraduationCap, href: "/admin/trainings" },
+  { label: "Registrations", icon: Users, href: "/admin/registrations" },
+  { label: "Consultations", icon: MessageSquare, href: "/admin/consultations" },
+  { label: "Admins", icon: UserCog, href: "/admin/users" },
+]
+
+const cmsRoutes = [
+  { label: "Homepage", icon: Home, href: "/admin/cms/homepage" },
+  { label: "Services", icon: Briefcase, href: "/admin/cms/services" },
+  { label: "About", icon: Building2, href: "/admin/cms/about" },
+  { label: "Contact", icon: Phone, href: "/admin/cms/contact" },
+  { label: "Blog", icon: PenTool, href: "/admin/cms/blog" },
+]
+
+const seoRoutes = [
+  { label: "Dashboard", icon: Activity, href: "/admin/seo" },
+  { label: "Topics", icon: FileText, href: "/admin/seo/topics" },
+  { label: "Article Drafts", icon: FileEdit, href: "/admin/seo/article-drafts" },
+  { label: "SEO Tasks", icon: CheckSquare, href: "/admin/seo/tasks" },
+  { label: "Internal Links", icon: Link2, href: "/admin/seo/internal-links" },
+  { label: "Audits", icon: ShieldAlert, href: "/admin/seo/audits" },
+  { label: "Reports", icon: PieChart, href: "/admin/seo/reports" },
+]
+
+function isActive(pathname: string, href: string) {
+  if (href === "/admin") return pathname === href
+  if (href === "/admin/seo") return pathname === href
+  return pathname.startsWith(href)
+}
+
+function NavLink({ route }: { route: { label: string; href: string; icon: ComponentType<{ className?: string }> } }) {
+  const pathname = usePathname()
+  const active = isActive(pathname, route.href)
+
+  return (
+    <AdminButton
+      variant="ghost"
+      className={cn("admin-nav-item", active && "admin-nav-item-active")}
+      asChild
+    >
+      <Link href={route.href}>
+        <route.icon className="h-4 w-4" />
+        <span>{route.label}</span>
+      </Link>
+    </AdminButton>
+  )
+}
+
+function NavSection({ title, routes, open, onToggle }: {
+  title: string
+  routes: typeof mainRoutes
+  open: boolean
+  onToggle: () => void
+}) {
+  return (
+    <section className="admin-nav-section">
+      <button type="button" className="admin-nav-section-trigger" onClick={onToggle}>
+        <span>{title}</span>
+        <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")} />
+      </button>
+      {open ? (
+        <div className="admin-sidebar-nav mt-1 space-y-1">
+          {routes.map((route) => <NavLink key={route.href} route={route} />)}
+        </div>
+      ) : null}
+    </section>
+  )
+}
 
 export function AdminSidebar() {
-  const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
   const [cmsOpen, setCmsOpen] = useState(true)
@@ -39,234 +109,41 @@ export function AdminSidebar() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
-    toast.success("Logout Berhasil")
+    toast.success("Logged out")
     router.push("/login")
     router.refresh()
   }
 
-  const mainRoutes = [
-    {
-      label: "Overview",
-      icon: LayoutDashboard,
-      href: "/admin",
-      active: pathname === "/admin",
-    },
-    {
-      label: "Trainings",
-      icon: GraduationCap,
-      href: "/admin/trainings",
-      active: pathname.startsWith("/admin/trainings"),
-    },
-    {
-      label: "Registrations",
-      icon: Users,
-      href: "/admin/registrations",
-      active: pathname.startsWith("/admin/registrations"),
-    },
-    {
-      label: "Consultations",
-      icon: MessageSquare,
-      href: "/admin/consultations",
-      active: pathname.startsWith("/admin/consultations"),
-    },
-    {
-      label: "Admins",
-      icon: UserCog,
-      href: "/admin/users",
-      active: pathname.startsWith("/admin/users"),
-    },
-  ]
-
-  const cmsRoutes = [
-    {
-      label: "Homepage",
-      icon: Home,
-      href: "/admin/cms/homepage",
-      active: pathname.startsWith("/admin/cms/homepage"),
-    },
-    {
-      label: "Services",
-      icon: Briefcase,
-      href: "/admin/cms/services",
-      active: pathname.startsWith("/admin/cms/services"),
-    },
-    {
-      label: "About",
-      icon: Building2,
-      href: "/admin/cms/about",
-      active: pathname.startsWith("/admin/cms/about"),
-    },
-    {
-      label: "Contact",
-      icon: Phone,
-      href: "/admin/cms/contact",
-      active: pathname.startsWith("/admin/cms/contact"),
-    },
-    {
-      label: "Blog",
-      icon: PenTool,
-      href: "/admin/cms/blog",
-      active: pathname.startsWith("/admin/cms/blog"),
-    },
-  ]
-
-  const seoRoutes = [
-    {
-      label: "Dashboard",
-      icon: Activity,
-      href: "/admin/seo",
-      active: pathname === "/admin/seo",
-    },
-    {
-      label: "Topics",
-      icon: FileText,
-      href: "/admin/seo/topics",
-      active: pathname.startsWith("/admin/seo/topics"),
-    },
-    {
-      label: "Article Drafts",
-      icon: FileEdit,
-      href: "/admin/seo/article-drafts",
-      active: pathname.startsWith("/admin/seo/article-drafts"),
-    },
-    {
-      label: "SEO Tasks",
-      icon: CheckSquare,
-      href: "/admin/seo/tasks",
-      active: pathname.startsWith("/admin/seo/tasks"),
-    },
-    {
-      label: "Internal Links",
-      icon: Link2,
-      href: "/admin/seo/internal-links",
-      active: pathname.startsWith("/admin/seo/internal-links"),
-    },
-    {
-      label: "Audits",
-      icon: ShieldAlert,
-      href: "/admin/seo/audits",
-      active: pathname.startsWith("/admin/seo/audits"),
-    },
-    {
-      label: "Reports",
-      icon: PieChart,
-      href: "/admin/seo/reports",
-      active: pathname.startsWith("/admin/seo/reports"),
-    },
-  ]
-
   return (
-    <div className="pb-12 min-h-screen bg-[var(--secondary)] flex flex-col transition-colors duration-300 overflow-y-auto">
-      <div className="space-y-4 py-4 flex-1">
-        <div className="px-3 py-2">
-          <Link href="/admin" className="flex items-center gap-3 px-3 mb-6">
-            <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm">
-              <GraduationCap className="h-4 w-4" />
-            </div>
-            <span className="text-[14px] font-semibold tracking-tight text-[var(--foreground)]">
-              Comfindo Admin
-            </span>
-          </Link>
-
-          {/* Main Routes */}
-          <div className="space-y-[2px]">
-            {mainRoutes.map((route) => (
-              <Button
-                key={route.href}
-                variant="ghost"
-                className={cn(
-                  "w-full justify-start text-[14px] font-medium h-9 px-3 transition-colors rounded-md capitalize tracking-normal border-none",
-                  route.active 
-                    ? "bg-[rgba(15,15,15,0.05)] text-[var(--foreground)] font-semibold" 
-                    : "text-[#787671] hover:text-[var(--foreground)] hover:bg-[rgba(15,15,15,0.03)]"
-                )}
-                asChild
-              >
-                <Link href={route.href}>
-                  <route.icon className="mr-2 h-4 w-4" />
-                  {route.label}
-                </Link>
-              </Button>
-            ))}
-          </div>
-
-          {/* SEO Engine Section */}
-          <div className="mt-6">
-            <button
-              onClick={() => setSeoOpen(!seoOpen)}
-              className="flex items-center justify-between w-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[1px] text-[#a4a097] hover:text-[#787671] transition-colors"
-            >
-              <span>SEO Engine</span>
-              <ChevronDown className={cn("h-3 w-3 transition-transform", seoOpen && "rotate-180")} />
-            </button>
-            {seoOpen && (
-              <div className="space-y-[2px] mt-1">
-                {seoRoutes.map((route) => (
-                  <Button
-                    key={route.href}
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start text-[14px] font-medium h-9 px-3 transition-colors rounded-md capitalize tracking-normal border-none",
-                      route.active 
-                        ? "bg-[rgba(15,15,15,0.05)] text-[var(--foreground)] font-semibold" 
-                        : "text-[#787671] hover:bg-[rgba(15,15,15,0.03)] hover:text-[var(--foreground)]"
-                    )}
-                    asChild
-                  >
-                    <Link href={route.href}>
-                      <route.icon className="mr-2 h-4 w-4" />
-                      {route.label}
-                    </Link>
-                  </Button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* CMS Section */}
-          <div className="mt-6">
-            <button
-              onClick={() => setCmsOpen(!cmsOpen)}
-              className="flex items-center justify-between w-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[1px] text-[#a4a097] hover:text-[#787671] transition-colors"
-            >
-              <span>Content Manager</span>
-              <ChevronDown className={cn("h-3 w-3 transition-transform", cmsOpen && "rotate-180")} />
-            </button>
-            {cmsOpen && (
-              <div className="space-y-[2px] mt-1">
-                {cmsRoutes.map((route) => (
-                  <Button
-                    key={route.href}
-                    variant="ghost"
-                    className={cn(
-                      "w-full justify-start text-[14px] font-medium h-9 px-3 transition-colors rounded-md capitalize tracking-normal border-none",
-                      route.active 
-                        ? "bg-[rgba(15,15,15,0.05)] text-[var(--foreground)] font-semibold" 
-                        : "text-[#787671] hover:bg-[rgba(15,15,15,0.03)] hover:text-[var(--foreground)]"
-                    )}
-                    asChild
-                  >
-                    <Link href={route.href}>
-                      <route.icon className="mr-2 h-4 w-4" />
-                      {route.label}
-                    </Link>
-                  </Button>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+    <div className="admin-sidebar">
+      <div className="admin-sidebar-brand">
+        <Link href="/admin" className="admin-brand-link">
+          <span className="admin-brand-mark"><GraduationCap className="h-4 w-4" /></span>
+          <span className="min-w-0">
+            <span className="admin-brand-title">Comfindo</span>
+            <span className="admin-brand-subtitle">Admin panel</span>
+          </span>
+        </Link>
       </div>
 
-      <div className="px-3 py-4 flex flex-col gap-4">
-        <Button
+      <nav className="admin-sidebar-scroll" aria-label="Admin navigation">
+        <div className="admin-sidebar-nav space-y-1">
+          {mainRoutes.map((route) => <NavLink key={route.href} route={route} />)}
+        </div>
+
+        <NavSection title="SEO Engine" routes={seoRoutes} open={seoOpen} onToggle={() => setSeoOpen((value) => !value)} />
+        <NavSection title="Content Manager" routes={cmsRoutes} open={cmsOpen} onToggle={() => setCmsOpen((value) => !value)} />
+      </nav>
+
+      <div className="admin-sidebar-footer">
+        <AdminButton
           variant="ghost"
-          className="w-full justify-start text-[var(--destructive)] hover:text-[var(--destructive)] hover:bg-[rgba(224,49,49,0.05)] h-9 transition-colors rounded-md capitalize tracking-normal text-[14px] font-medium border-none"
+          className="admin-logout-button"
           onClick={handleLogout}
         >
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="h-4 w-4" />
           Logout
-        </Button>
+        </AdminButton>
       </div>
     </div>
   )

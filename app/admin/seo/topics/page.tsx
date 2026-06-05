@@ -1,34 +1,31 @@
 import { createClient } from "@/lib/supabase/server"
 import { DataTable } from "@/dashboard/components/DataTable"
 import { columns } from "./columns"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
+import { AdminErrorState } from "@/components/admin/ui/AdminErrorState"
 
-export default async function SeoTopicsPage() {
+export default async function Page() {
   const supabase = await createClient()
-  
-  const { data: topics, error } = await supabase
+
+  const { data, error } = await supabase
     .from("seo_topics")
     .select("*")
     .order("created_at", { ascending: false })
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold tracking-tight">SEO Topics</h1>
-        <p className="text-[var(--muted-foreground)]">Manage article/topic queue for SEO engine.</p>
-      </div>
+      <AdminPageHeader
+        title="SEO Topics"
+        description="Manage article and topic queue for the SEO engine."
+      />
 
       {error ? (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            Gagal mengambil data SEO Topics. Pastikan tabel <code>seo_topics</code> sudah ada.
-          </AlertDescription>
-        </Alert>
+        <AdminErrorState
+          title="Unable to load data"
+          description="Gagal mengambil data SEO Topics. Pastikan tabel seo_topics sudah ada."
+        />
       ) : (
-        <DataTable columns={columns} data={topics || []} searchKey="title" />
+        <DataTable columns={columns} data={data || []} searchKey="title" />
       )}
     </div>
   )

@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { createNewAdmin } from "./actions"
-import { AdminPageHeader } from "@/components/admin/AdminPageHeader"
-import { Button } from "@/components/ui/button"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
+import { AdminButton } from "@/components/admin/AdminButton"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
 import { toast } from "sonner"
 import { Mail, Lock, Eye, EyeOff, UserPlus } from "lucide-react"
@@ -24,7 +24,7 @@ export default function UsersAdminPage() {
     if (error) {
       toast.error("Gagal menambahkan admin", { description: error })
     } else {
-      toast.success("Admin berhasil didaftarkan!", { 
+      toast.success("Admin berhasil didaftarkan", { 
         description: `Silakan minta admin baru untuk memverifikasi email ${email}` 
       })
       setEmail("")
@@ -97,13 +97,13 @@ export default function UsersAdminPage() {
               </p>
             </div>
 
-            <Button 
+            <AdminButton 
               type="submit" 
               disabled={loading}
-              className="w-full h-10 bg-[var(--foreground)] hover:opacity-90 text-[var(--background)] rounded-md mt-4 transition-colors"
+              className="mt-4 h-10 w-full"
             >
               {loading ? "Mendaftarkan..." : "Daftarkan Admin"}
-            </Button>
+            </AdminButton>
           </form>
         </div>
       </div>

@@ -74,7 +74,7 @@ export function SeoDraftActions({ draftId, status, publishedBlogPostId }: SeoDra
 
   const handlePublish = async () => {
     setLoading(true)
-    const { error, blogPostId } = await publishDraft(draftId, blogStatus)
+    const { error } = await publishDraft(draftId, blogStatus)
     setLoading(false)
     if (error) {
       toast.error("Failed to publish", { description: error })
@@ -106,7 +106,7 @@ export function SeoDraftActions({ draftId, status, publishedBlogPostId }: SeoDra
       <div className="space-y-2">
         {status === 'draft' && (
           <>
-            <Button className="w-full bg-green-600 hover:bg-green-700" onClick={handleApprove} disabled={loading}>
+            <Button className="w-full " onClick={handleApprove} disabled={loading}>
               {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Check className="mr-2 h-4 w-4" />}
               Approve
             </Button>
@@ -125,7 +125,7 @@ export function SeoDraftActions({ draftId, status, publishedBlogPostId }: SeoDra
 
         {status === 'approved' && (
           <>
-            <Button className="w-full bg-comfindo-green hover:bg-comfindo-green-dark" onClick={() => setPublishOpen(true)} disabled={loading}>
+            <Button className="w-full " onClick={() => setPublishOpen(true)} disabled={loading}>
               <Send className="mr-2 h-4 w-4" /> Publish to Blog
             </Button>
             <Button variant="destructive" className="w-full" onClick={() => setRejectOpen(true)} disabled={loading}>
@@ -190,13 +190,13 @@ export function SeoDraftActions({ draftId, status, publishedBlogPostId }: SeoDra
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground mt-2">
-                Selecting "Draft" is recommended if you still want to review the article inside the Blog CMS before making it public.
+                Selecting &quot;Draft&quot; is recommended if you still want to review the article inside the Blog CMS before making it public.
               </p>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setPublishOpen(false)} disabled={loading}>Cancel</Button>
-            <Button className="bg-comfindo-green hover:bg-comfindo-green-dark" onClick={handlePublish} disabled={loading}>
+            <Button className="" onClick={handlePublish} disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Publish
             </Button>

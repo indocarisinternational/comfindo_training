@@ -95,16 +95,16 @@ export default function AboutEditor() {
     } finally { setSaving(false) }
   }
 
-  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-comfindo-green" /></div>
+  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
 
   return (
     <div className="space-y-6 max-w-4xl">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">About Page Editor</h1>
-          <p className="text-sm text-gray-500 mt-1">Edit halaman profil perusahaan</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">About Page Editor</h1>
+          <p className="text-sm text-[var(--muted-foreground)] mt-1">Edit halaman profil perusahaan</p>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button onClick={handleSave} disabled={saving} className="">
           {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan
         </Button>
@@ -142,7 +142,7 @@ export default function AboutEditor() {
         </CardHeader>
         <CardContent className="space-y-3">
           {(data.mission || []).map((m, i) => (
-            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-gray-50 border">
+            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-[var(--secondary)] border">
               <div className="flex-1 space-y-2">
                 <Input placeholder="Title" value={m.title} onChange={(e) => { const arr = [...(data.mission || [])]; arr[i] = { ...arr[i], title: e.target.value }; setData({ ...data, mission: arr }) }} />
                 <Textarea placeholder="Description" value={m.description} onChange={(e) => { const arr = [...(data.mission || [])]; arr[i] = { ...arr[i], description: e.target.value }; setData({ ...data, mission: arr }) }} rows={2} />
@@ -200,7 +200,7 @@ export default function AboutEditor() {
       </Card>
 
       <div className="flex justify-end pb-8">
-        <Button onClick={handleSave} disabled={saving} size="lg" className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="">
           {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan Perubahan
         </Button>

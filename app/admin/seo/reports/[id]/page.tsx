@@ -1,8 +1,9 @@
 import { createClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 import { AdminCard as Card, AdminCardContent as CardContent, AdminCardHeader as CardHeader, AdminCardTitle as CardTitle } from "@/components/admin/ui/AdminCard"
-import { Button } from "@/components/ui/button"
+import { AdminButton } from "@/components/admin/AdminButton"
 import Link from "next/link"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
 import { ArrowLeft, FileEdit, ShieldAlert, CheckSquare } from "lucide-react"
 
 export default async function SeoReportDetailPage(props: { params: Promise<{ id: string }> }) {
@@ -21,17 +22,15 @@ export default async function SeoReportDetailPage(props: { params: Promise<{ id:
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="icon" asChild>
-          <Link href="/admin/seo/reports">
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-        </Button>
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Daily Report Details</h1>
-          <p className="text-[var(--muted-foreground)]">Date: {new Date(report.report_date).toLocaleDateString("id-ID")}</p>
-        </div>
-      </div>
+      <AdminPageHeader
+        title="Daily Report Details"
+        description={`Date: ${new Date(report.report_date).toLocaleDateString("id-ID")}`}
+        action={
+          <AdminButton variant="outline" size="icon" asChild>
+            <Link href="/admin/seo/reports"><ArrowLeft className="h-4 w-4" /></Link>
+          </AdminButton>
+        }
+      />
 
       <div className="grid gap-4 md:grid-cols-3">
         <Card>

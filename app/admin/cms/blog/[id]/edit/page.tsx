@@ -94,7 +94,7 @@ export default function EditBlogPost() {
     } finally { setSaving(false) }
   }
 
-  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-comfindo-green" /></div>
+  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
 
   return (
     <div className="space-y-6 max-w-5xl">
@@ -104,8 +104,8 @@ export default function EditBlogPost() {
             <Link href="/admin/cms/blog"><ArrowLeft className="h-4 w-4" /></Link>
           </Button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Edit Post</h1>
-            <p className="text-sm text-gray-500">{post.slug}</p>
+            <h1 className="text-2xl font-bold text-[var(--foreground)]">Edit Post</h1>
+            <p className="text-sm text-[var(--muted-foreground)]">{post.slug}</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -114,11 +114,11 @@ export default function EditBlogPost() {
             Save
           </Button>
           {post.is_published ? (
-            <Button variant="outline" onClick={() => handleSave(false)} disabled={saving} className="text-orange-600 border-orange-300 hover:bg-orange-50">
+            <Button variant="outline" onClick={() => handleSave(false)} disabled={saving} className="text-[#793400] border-[var(--border)] hover:bg-tint-peach">
               <EyeOff className="mr-2 h-4 w-4" /> Unpublish
             </Button>
           ) : (
-            <Button onClick={() => handleSave(true)} disabled={saving} className="bg-comfindo-green hover:bg-comfindo-green-dark">
+            <Button onClick={() => handleSave(true)} disabled={saving} className="">
               <Eye className="mr-2 h-4 w-4" /> Publish
             </Button>
           )}

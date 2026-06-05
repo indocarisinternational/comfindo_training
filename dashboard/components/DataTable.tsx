@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Search } from "lucide-react"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,16 +14,18 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
+import { AdminButton } from "@/components/admin/AdminButton"
+import { AdminEmptyState } from "@/components/admin/ui/AdminEmptyState"
+import { AdminInput } from "@/components/admin/ui/AdminInput"
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+  AdminTable,
+  AdminTableBody,
+  AdminTableCell,
+  AdminTableHead,
+  AdminTableHeader,
+  AdminTableRow,
+  AdminTableWrapper,
+} from "@/components/admin/ui/AdminTable"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -54,78 +57,92 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Search..."
-          value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn(searchKey)?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+    <div className="admin-data-table space-y-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <label className="relative block w-full sm:max-w-sm">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted-foreground)]" />
+          <AdminInput
+            placeholder="Search records"
+            value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn(searchKey)?.setFilterValue(event.target.value)
+            }
+            className="pl-10"
+          />
+        </label>
+        <p className="text-[13px] text-[var(--muted-foreground)]">
+          {table.getFilteredRowModel().rows.length} records
+        </p>
       </div>
-      <div className="rounded-md border bg-white">
-        <Table>
-          <TableHeader>
+
+      <AdminTableWrapper>
+        <AdminTable>
+          <AdminTableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
+              <AdminTableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <AdminTableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </AdminTableHead>
+                ))}
+              </AdminTableRow>
             ))}
-          </TableHeader>
-          <TableBody>
+          </AdminTableHeader>
+          <AdminTableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
+                <AdminTableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <AdminTableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+                    </AdminTableCell>
                   ))}
-                </TableRow>
+                </AdminTableRow>
               ))
             ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
+              <AdminTableRow>
+                <AdminTableCell colSpan={columns.length} className="p-0">
+                  <AdminEmptyState
+                    title="No records found"
+                    description="Try changing the search query or clearing active filters."
+                  />
+                </AdminTableCell>
+              </AdminTableRow>
             )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+          </AdminTableBody>
+        </AdminTable>
+      </AdminTableWrapper>
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[13px] text-[var(--muted-foreground)]">
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount() || 1}
+        </p>
+        <div className="flex items-center gap-2">
+          <AdminButton
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </AdminButton>
+          <AdminButton
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </AdminButton>
+        </div>
       </div>
     </div>
   )

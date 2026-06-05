@@ -83,16 +83,16 @@ export default function ContactEditor() {
     } finally { setSaving(false) }
   }
 
-  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-comfindo-green" /></div>
+  if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
 
   return (
     <div className="space-y-6 max-w-4xl">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Contact Editor</h1>
-          <p className="text-sm text-gray-500 mt-1">Edit informasi kontak perusahaan</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Contact Editor</h1>
+          <p className="text-sm text-[var(--muted-foreground)] mt-1">Edit informasi kontak perusahaan</p>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button onClick={handleSave} disabled={saving} className="">
           {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan
         </Button>
@@ -155,7 +155,7 @@ export default function ContactEditor() {
       </Card>
 
       <div className="flex justify-end pb-8">
-        <Button onClick={handleSave} disabled={saving} size="lg" className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="">
           {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan Perubahan
         </Button>

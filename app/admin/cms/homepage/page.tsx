@@ -132,7 +132,7 @@ export default function HomepageEditor() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin text-comfindo-green" />
+        <Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" />
       </div>
     )
   }
@@ -141,10 +141,10 @@ export default function HomepageEditor() {
     <div className="space-y-6 max-w-4xl">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Homepage Editor</h1>
-          <p className="text-sm text-gray-500 mt-1">Edit konten halaman utama website</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Homepage Editor</h1>
+          <p className="text-sm text-[var(--muted-foreground)] mt-1">Edit konten halaman utama website</p>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button onClick={handleSave} disabled={saving} className="">
           {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan
         </Button>
@@ -214,7 +214,7 @@ export default function HomepageEditor() {
         </CardHeader>
         <CardContent className="space-y-3">
           {data.features.why_us.map((item, i) => (
-            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-gray-50 border">
+            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-[var(--secondary)] border">
               <div className="flex-1 space-y-2">
                 <Input placeholder="Title" value={item.title} onChange={(e) => {
                   const arr = [...data.features.why_us]; arr[i] = { ...arr[i], title: e.target.value }; updateFeature("why_us", arr)
@@ -243,7 +243,7 @@ export default function HomepageEditor() {
         </CardHeader>
         <CardContent className="space-y-3">
           {data.features.faq.map((item, i) => (
-            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-gray-50 border">
+            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-[var(--secondary)] border">
               <div className="flex-1 space-y-2">
                 <Input placeholder="Question" value={item.question} onChange={(e) => {
                   const arr = [...data.features.faq]; arr[i] = { ...arr[i], question: e.target.value }; updateFeature("faq", arr)
@@ -272,7 +272,7 @@ export default function HomepageEditor() {
         </CardHeader>
         <CardContent className="space-y-3">
           {data.features.testimonials.map((item, i) => (
-            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-gray-50 border">
+            <div key={i} className="flex gap-3 items-start p-3 rounded-lg bg-[var(--secondary)] border">
               <div className="flex-1 space-y-2">
                 <div className="grid grid-cols-2 gap-2">
                   <Input placeholder="Name" value={item.name} onChange={(e) => {
@@ -307,7 +307,7 @@ export default function HomepageEditor() {
         <CardContent>
           <div className="flex flex-wrap gap-2">
             {data.features.partners.map((p, i) => (
-              <div key={i} className="flex items-center gap-1 bg-gray-50 border rounded-lg px-2 py-1">
+              <div key={i} className="flex items-center gap-1 bg-[var(--secondary)] border rounded-lg px-2 py-1">
                 <Input
                   value={p}
                   onChange={(e) => {
@@ -351,7 +351,7 @@ export default function HomepageEditor() {
 
       {/* Bottom Save */}
       <div className="flex justify-end pb-8">
-        <Button onClick={handleSave} disabled={saving} size="lg" className="bg-comfindo-green hover:bg-comfindo-green-dark">
+        <Button onClick={handleSave} disabled={saving} size="lg" className="">
           {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan Perubahan
         </Button>
