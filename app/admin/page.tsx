@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, FileText, GraduationCap, BarChart3, Home, Briefcase, PenTool, Building2, Shield } from "lucide-react"
+import { AdminCard, AdminCardContent } from "@/components/admin/ui/AdminCard"
+import { AdminStatCard } from "@/components/admin/ui/AdminStatCard"
+import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
+import { Users, FileText, GraduationCap, Home, Briefcase, PenTool, Building2, Shield } from "lucide-react"
 import Link from "next/link"
 
 export default async function AdminDashboard() {
@@ -33,45 +35,35 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-12">
-      <div>
-        <h1 className="text-[28px] font-semibold tracking-tight text-[var(--foreground)]">Dashboard Overview</h1>
-        <p className="text-[var(--muted-foreground)] mt-1 text-[15px]">Selamat datang di Comfindo Admin Panel</p>
-      </div>
+      <AdminPageHeader 
+        title="Dashboard Overview" 
+        description="Selamat datang di Comfindo Admin Panel" 
+      />
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <Card key={stat.title} className="border border-[var(--border)] shadow-none bg-[var(--card)] rounded-xl">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 pt-5 px-5">
-              <CardTitle className="text-[13px] font-medium text-[var(--muted-foreground)]">{stat.title}</CardTitle>
-              <div className="text-[var(--foreground)] opacity-50">
-                <stat.icon className="h-4 w-4" />
-              </div>
-            </CardHeader>
-            <CardContent className="px-5 pb-5">
-              <div className="text-3xl font-semibold text-[var(--foreground)] tracking-tight">{stat.value}</div>
-            </CardContent>
-          </Card>
+          <AdminStatCard key={stat.title} title={stat.title} value={stat.value} icon={stat.icon} />
         ))}
       </div>
 
       {/* CMS Quick Links */}
       <div>
-        <h2 className="text-[15px] font-semibold text-[var(--foreground)] mb-5 uppercase tracking-[0.05em]">Content Manager</h2>
+        <h2 className="text-[14px] font-bold text-[var(--foreground)] mb-5 uppercase tracking-wider">Content Manager</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {cmsPages.map((page) => (
             <Link key={page.href} href={page.href}>
-              <Card className="border border-[var(--border)] shadow-none bg-[var(--card)] hover:bg-[var(--secondary)] transition-colors duration-200 cursor-pointer rounded-xl">
-                <CardContent className="p-5 flex items-start gap-4">
-                  <div className="p-2 rounded-md bg-[var(--foreground)] text-[var(--background)]">
-                    <page.icon className="h-4 w-4" />
+              <AdminCard hoverEffect className="cursor-pointer">
+                <AdminCardContent className="p-6 flex items-start gap-4">
+                  <div className="p-3 rounded-full bg-[var(--secondary)] text-[var(--foreground)]">
+                    <page.icon className="h-5 w-5" />
                   </div>
                   <div className="pt-0.5">
-                    <h3 className="font-semibold text-[var(--foreground)] text-sm tracking-tight">{page.title}</h3>
-                    <p className="text-[13px] text-[var(--muted-foreground)] mt-1 leading-relaxed">{page.description}</p>
+                    <h3 className="font-bold text-[var(--foreground)] text-[16px] tracking-tight">{page.title}</h3>
+                    <p className="text-[14px] text-[var(--muted-foreground)] mt-1 leading-relaxed font-normal">{page.description}</p>
                   </div>
-                </CardContent>
-              </Card>
+                </AdminCardContent>
+              </AdminCard>
             </Link>
           ))}
         </div>

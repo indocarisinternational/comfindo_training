@@ -176,10 +176,10 @@ export function AdminSidebar() {
                 key={route.href}
                 variant="ghost"
                 className={cn(
-                  "w-full justify-start text-sm h-9 px-3 transition-colors",
+                  "w-full justify-start text-sm h-9 px-3 transition-colors rounded-full uppercase tracking-wider text-[12px]",
                   route.active 
-                    ? "bg-[var(--secondary)] text-[var(--foreground)] font-medium" 
-                    : "text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
+                    ? "bg-[var(--secondary)] text-[var(--primary)] font-bold" 
+                    : "text-[var(--muted-foreground)] font-normal hover:text-[var(--foreground)] hover:bg-[var(--secondary)]"
                 )}
                 asChild
               >
@@ -263,7 +263,7 @@ export function AdminSidebar() {
         <ThemeToggle />
         <Button
           variant="ghost"
-          className="w-full justify-start text-[var(--destructive)] hover:text-[var(--destructive)] hover:bg-red-100 text-sm h-9 transition-colors"
+          className="w-full justify-start text-[var(--destructive)] hover:text-[var(--destructive)] hover:bg-red-100 h-9 transition-colors rounded-full uppercase tracking-wider text-[12px] font-bold"
           onClick={handleLogout}
         >
           <LogOut className="mr-2 h-4 w-4" />

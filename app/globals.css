@@ -244,32 +244,32 @@ body {
   background: hsl(152, 75%, 22%);
 }
 
-/* --- Admin UI Override (Minimalist SaaS) --- */
+/* --- Admin UI Override (Spotify Inspired) --- */
 .admin-ui {
-  --background: 0 0% 98%; /* #FBFBFA off-white */
-  --foreground: 0 0% 7%; /* #111111 off-black */
+  --background: 0 0% 99%; /* #fdfdfd */
+  --foreground: 0 0% 7%; /* #121212 */
   
-  --card: 0 0% 100%;
+  --card: 0 0% 93%; /* #eeeeee */
   --card-foreground: 0 0% 7%;
   
-  --primary: 0 0% 7%; /* #111111 */
-  --primary-foreground: 0 0% 100%;
+  --primary: 141 73% 48%; /* #1ed760 */
+  --primary-foreground: 0 0% 0%;
   
-  --secondary: 0 0% 96%; /* #f5f5f5 */
-  --secondary-foreground: 0 0% 20%;
+  --secondary: 0 0% 90%;
+  --secondary-foreground: 0 0% 7%;
   
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 45%;
+  --muted: 0 0% 90%;
+  --muted-foreground: 0 0% 40%;
   
-  --accent: 0 0% 96%;
+  --accent: 0 0% 90%;
   --accent-foreground: 0 0% 7%;
   
-  --destructive: 0 72% 51%; /* Slightly muted red */
+  --destructive: 355 86% 70%; /* #f3727f */
   --destructive-foreground: 0 0% 100%;
   
-  --border: 0 0% 92%; /* #EAEAEA */
-  --input: 0 0% 92%;
-  --ring: 0 0% 7%;
+  --border: 0 0% 80%;
+  --input: 0 0% 80%;
+  --ring: 141 73% 48%;
   
   --radius: 0.5rem; /* 8px max radius */
   
@@ -281,12 +281,19 @@ body {
 .admin-ui .shadow-xl,
 .admin-ui .shadow-sm,
 .admin-ui .shadow {
-  box-shadow: none !important;
-  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 8px !important;
+  border: none !important;
 }
 
 .admin-ui button {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, box-shadow 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  border-radius: 500px !important;
+}
+
+.admin-ui input {
+  border-radius: 500px !important;
 }
 
 .admin-ui button:active {
@@ -294,41 +301,41 @@ body {
 }
 
 .admin-ui .rounded-full {
-  border-radius: var(--radius) !important;
+  border-radius: 9999px !important;
 }
 
 /* Pastels for badges */
-.admin-ui .bg-red-100 { background-color: #FDEBEC !important; color: #9F2F2D !important; }
-.admin-ui .bg-blue-100 { background-color: #E1F3FE !important; color: #1F6C9F !important; }
-.admin-ui .bg-green-100 { background-color: #EDF3EC !important; color: #346538 !important; }
-.admin-ui .bg-yellow-100 { background-color: #FBF3DB !important; color: #956400 !important; }
+.admin-ui .bg-red-100 { background-color: #FDEBEC !important; color: #f3727f !important; }
+.admin-ui .bg-blue-100 { background-color: #E1F3FE !important; color: #539df5 !important; }
+.admin-ui .bg-green-100 { background-color: #EDF3EC !important; color: #1ed760 !important; }
+.admin-ui .bg-yellow-100 { background-color: #FBF3DB !important; color: #ffa42b !important; }
 
-/* --- Admin UI Dark Mode (Premium Navy/Neutral) --- */
+/* --- Admin UI Dark Mode (Spotify Immerse) --- */
 .admin-ui.dark {
-  --background: 215 15% 10%; /* #16181C */
-  --foreground: 210 20% 95%; /* #F0F2F5 */
+  --background: 0 0% 7%; /* #121212 */
+  --foreground: 0 0% 100%; /* #ffffff */
   
-  --card: 215 15% 12%; /* #1A1D21 */
-  --card-foreground: 210 20% 95%;
+  --card: 0 0% 9.4%; /* #181818 */
+  --card-foreground: 0 0% 100%;
   
-  --primary: 0 0% 100%; /* White button in dark mode */
-  --primary-foreground: 215 15% 10%;
+  --primary: 141 73% 48%; /* #1ed760 */
+  --primary-foreground: 0 0% 0%;
   
-  --secondary: 215 15% 16%; /* #22252A */
-  --secondary-foreground: 210 20% 85%;
+  --secondary: 0 0% 12%; /* #1f1f1f */
+  --secondary-foreground: 0 0% 100%;
   
-  --muted: 215 15% 16%;
-  --muted-foreground: 210 15% 65%;
+  --muted: 0 0% 12%; /* #1f1f1f */
+  --muted-foreground: 0 0% 70%; /* #b3b3b3 */
   
-  --accent: 215 15% 16%;
-  --accent-foreground: 210 20% 95%;
+  --accent: 0 0% 12%;
+  --accent-foreground: 0 0% 100%;
   
-  --destructive: 0 62% 40%;
+  --destructive: 355 86% 70%; /* #f3727f */
   --destructive-foreground: 0 0% 100%;
   
-  --border: 215 15% 18%; /* #262A2F */
-  --input: 215 15% 18%;
-  --ring: 0 0% 100%;
+  --border: 0 0% 30%; /* #4d4d4d */
+  --input: 0 0% 12%; /* #1f1f1f */
+  --ring: 141 73% 48%;
 }
 
 .admin-ui.dark .shadow-md,
@@ -336,13 +343,14 @@ body {
 .admin-ui.dark .shadow-xl,
 .admin-ui.dark .shadow-sm,
 .admin-ui.dark .shadow {
-  box-shadow: none !important;
-  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 8px !important;
+  border: none !important;
 }
 
 /* Pastels for badges in dark mode (slightly darkened/translucent to fit) */
-.admin-ui.dark .bg-red-100 { background-color: rgba(253, 235, 236, 0.1) !important; color: #FCA5A5 !important; }
-.admin-ui.dark .bg-blue-100 { background-color: rgba(225, 243, 254, 0.1) !important; color: #93C5FD !important; }
-.admin-ui.dark .bg-green-100 { background-color: rgba(237, 243, 236, 0.1) !important; color: #86EFAC !important; }
-.admin-ui.dark .bg-yellow-100 { background-color: rgba(251, 243, 219, 0.1) !important; color: #FDE047 !important; }
+.admin-ui.dark .bg-red-100 { background-color: rgba(243, 114, 127, 0.1) !important; color: #f3727f !important; }
+.admin-ui.dark .bg-blue-100 { background-color: rgba(83, 157, 245, 0.1) !important; color: #539df5 !important; }
+.admin-ui.dark .bg-green-100 { background-color: rgba(30, 215, 96, 0.1) !important; color: #1ed760 !important; }
+.admin-ui.dark .bg-yellow-100 { background-color: rgba(255, 164, 43, 0.1) !important; color: #ffa42b !important; }
+
 
