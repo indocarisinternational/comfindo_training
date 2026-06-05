@@ -244,70 +244,73 @@ body {
   background: hsl(152, 75%, 22%);
 }
 
-/* --- Admin UI Override (Spotify Inspired - Forced Dark) --- */
+/* --- Admin UI Override (Notion Inspired - Clean Canvas) --- */
 .admin-ui {
-  --background: 0 0% 7%; /* #121212 */
-  --foreground: 0 0% 100%; /* #ffffff */
+  --background: 0 0% 100%; /* #ffffff */
+  --foreground: 0 0% 10%; /* #1a1a1a */
   
-  --card: 0 0% 9.4%; /* #181818 */
-  --card-foreground: 0 0% 100%;
+  --card: 0 0% 100%; /* #ffffff */
+  --card-foreground: 0 0% 10%; /* #1a1a1a */
   
-  --primary: 141 73% 48%; /* #1ed760 */
-  --primary-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 10%;
   
-  --secondary: 0 0% 12%; /* #1f1f1f */
-  --secondary-foreground: 0 0% 100%;
+  --primary: 247 62% 55%; /* #5645d4 Notion Purple */
+  --primary-foreground: 0 0% 100%; /* #ffffff */
   
-  --muted: 0 0% 12%; /* #1f1f1f */
-  --muted-foreground: 0 0% 70%; /* #b3b3b3 */
+  --secondary: 30 9% 96%; /* #f6f5f4 Surface */
+  --secondary-foreground: 0 0% 10%; /* #1a1a1a */
   
-  --accent: 0 0% 12%;
-  --accent-foreground: 0 0% 100%;
+  --muted: 30 9% 96%; /* #f6f5f4 */
+  --muted-foreground: 47 5% 35%; /* #5d5b54 Slate */
   
-  --destructive: 355 86% 70%; /* #f3727f */
+  --accent: 30 9% 96%;
+  --accent-foreground: 0 0% 10%;
+  
+  --destructive: 0 74% 54%; /* #e03131 */
   --destructive-foreground: 0 0% 100%;
   
-  --border: 0 0% 30%; /* #4d4d4d */
-  --input: 0 0% 12%; /* #1f1f1f */
-  --ring: 141 73% 48%;
+  --border: 36 12% 89%; /* #e5e3df Hairline */
+  --input: 36 10% 77%; /* #c8c4be Hairline Strong */
+  --ring: 247 62% 55%;
   
-  --radius: 0.5rem; /* 8px max radius */
+  --radius: 0.5rem; /* 8px default radius */
   
   font-family: var(--font-sans);
 }
 
-.admin-ui .shadow-md,
-.admin-ui .shadow-lg,
-.admin-ui .shadow-xl,
-.admin-ui .shadow-sm,
-.admin-ui .shadow {
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 8px !important;
-  border: none !important;
+.admin-ui.dark {
+  --background: 223 66% 11%; /* #0a1530 Brand Navy */
+  --foreground: 0 0% 100%;
+  --card: 223 66% 11%;
+  --card-foreground: 0 0% 100%;
+  --secondary: 223 52% 21%; /* #1a2a52 Brand Navy Mid */
+  --muted: 223 52% 21%;
+  --muted-foreground: 42 7% 62%; /* #a4a097 On Dark Muted */
+  --border: 223 52% 21%;
 }
 
 .admin-ui button {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, box-shadow 0.2s;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  border-radius: 500px !important;
-}
-
-.admin-ui input {
-  border-radius: 500px;
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s;
 }
 
 .admin-ui button:active {
   transform: scale(0.98);
 }
 
-.admin-ui .rounded-full {
-  border-radius: 9999px !important;
-}
+/* Base Shadow Resets for Editorial Look */
+.admin-ui .shadow-sm { box-shadow: rgba(15, 15, 15, 0.04) 0px 1px 2px 0px !important; }
+.admin-ui .shadow { box-shadow: rgba(15, 15, 15, 0.08) 0px 4px 12px 0px !important; }
+.admin-ui .shadow-md { box-shadow: rgba(15, 15, 15, 0.16) 0px 16px 48px -8px !important; }
+.admin-ui .shadow-lg { box-shadow: rgba(15, 15, 15, 0.20) 0px 24px 48px -8px !important; }
 
-/* Pastels for badges in dark mode (slightly darkened/translucent to fit) */
-.admin-ui .bg-red-100 { background-color: rgba(243, 114, 127, 0.1) !important; color: #f3727f !important; }
-.admin-ui .bg-blue-100 { background-color: rgba(83, 157, 245, 0.1) !important; color: #539df5 !important; }
-.admin-ui .bg-green-100 { background-color: rgba(30, 215, 96, 0.1) !important; color: #1ed760 !important; }
-.admin-ui .bg-yellow-100 { background-color: rgba(255, 164, 43, 0.1) !important; color: #ffa42b !important; }
+/* Notion Card Tints */
+.admin-ui .bg-tint-peach { background-color: #ffe8d4 !important; color: #37352f !important; }
+.admin-ui .bg-tint-rose { background-color: #fde0ec !important; color: #37352f !important; }
+.admin-ui .bg-tint-mint { background-color: #d9f3e1 !important; color: #37352f !important; }
+.admin-ui .bg-tint-lavender { background-color: #e6e0f5 !important; color: #37352f !important; }
+.admin-ui .bg-tint-sky { background-color: #dcecfa !important; color: #37352f !important; }
+.admin-ui .bg-tint-yellow { background-color: #fef7d6 !important; color: #37352f !important; }
+.admin-ui .bg-tint-yellow-bold { background-color: #f9e79f !important; color: #37352f !important; }
 
 

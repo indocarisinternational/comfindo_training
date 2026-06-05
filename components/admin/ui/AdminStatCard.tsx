@@ -15,15 +15,15 @@ interface AdminStatCardProps {
 
 export function AdminStatCard({ title, value, icon: Icon, description, trend }: AdminStatCardProps) {
   return (
-    <AdminCard hoverEffect className="shadow-none border-none">
+    <AdminCard hoverEffect>
       <AdminCardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 pt-6 px-6">
-        <AdminCardTitle className="text-[12px] font-bold text-[var(--muted-foreground)] uppercase tracking-wider">{title}</AdminCardTitle>
-        <div className="text-[var(--primary)] bg-[var(--primary)]/10 p-2 rounded-full">
+        <AdminCardTitle className="text-[14px] font-semibold text-[var(--muted-foreground)] tracking-tight">{title}</AdminCardTitle>
+        <div className="text-[var(--primary)] bg-[var(--primary)]/10 p-2 rounded-md">
           <Icon className="h-4 w-4" />
         </div>
       </AdminCardHeader>
       <AdminCardContent className="px-6 pb-6 pt-2">
-        <div className="text-[32px] font-bold text-[var(--foreground)] tracking-tighter">{value}</div>
+        <div className="text-[36px] font-semibold text-[var(--foreground)] tracking-tight leading-[1.2]">{value}</div>
         {(description || trend) && (
           <div className="flex items-center mt-2 text-[12px]">
             {trend && (

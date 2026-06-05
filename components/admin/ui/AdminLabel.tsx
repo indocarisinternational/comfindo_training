@@ -6,7 +6,7 @@ export const AdminLabel = React.forwardRef<React.ElementRef<typeof Label>, React
   ({ className, ...props }, ref) => (
     <Label
       ref={ref}
-      className={cn("text-[12px] font-bold text-[var(--muted-foreground)] tracking-wider uppercase mb-2 block", className)}
+      className={cn("text-[14px] font-medium text-[var(--foreground)] tracking-normal mb-2 block", className)}
       {...props}
     />
   )

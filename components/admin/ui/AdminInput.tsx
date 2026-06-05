@@ -8,10 +8,8 @@ export const AdminInput = React.forwardRef<HTMLInputElement, React.ComponentProp
       <Input
         ref={ref}
         className={cn(
-          "h-12 px-5 bg-[var(--input)] text-[var(--foreground)] border-0 placeholder:text-[var(--muted-foreground)] focus-visible:ring-1 focus-visible:ring-[var(--foreground)] transition-shadow shadow-none",
-          "dark:shadow-[0_1px_0_rgb(18,18,18),_inset_0_0_0_1px_rgb(124,124,124)]", 
-          "shadow-[0_1px_0_rgb(240,240,240),_inset_0_0_0_1px_rgb(200,200,200)]",
-          "rounded-[500px]",
+          "h-11 px-4 bg-[var(--background)] text-[var(--foreground)] border border-[var(--input)] placeholder:text-[var(--muted-foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:border-transparent transition-all shadow-sm",
+          "rounded-[8px]",
           className
         )}
         {...props}

@@ -45,7 +45,7 @@ export default function UsersAdminPage() {
       />
 
       <div className="max-w-xl">
-        <div className="bg-[var(--card)] p-6 rounded-xl border border-[var(--border)] shadow-none">
+        <div className="bg-[var(--card)] p-6 rounded-[12px] border border-[var(--border)] shadow-sm">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[var(--border)]">
             <div className="p-2.5 rounded-md bg-[var(--foreground)] text-[var(--background)]">
               <UserPlus className="h-5 w-5" />

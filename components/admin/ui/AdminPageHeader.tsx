@@ -11,9 +11,9 @@ export function AdminPageHeader({ title, description, action, className, ...prop
   return (
     <div className={cn("flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8", className)} {...props}>
       <div>
-        <h1 className="text-[24px] font-bold tracking-tight text-[var(--foreground)]">{title}</h1>
+        <h1 className="text-[36px] font-semibold tracking-tight text-[var(--foreground)] leading-[1.2]">{title}</h1>
         {description && (
-          <p className="text-[14px] text-[var(--muted-foreground)] mt-1 font-normal">{description}</p>
+          <p className="text-[16px] text-[var(--muted-foreground)] mt-2 font-normal leading-[1.55]">{description}</p>
         )}
       </div>
       {action && (

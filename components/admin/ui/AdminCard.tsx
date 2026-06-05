@@ -8,8 +8,8 @@ const AdminCard = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-[8px] bg-[var(--card)] text-[var(--card-foreground)] shadow-none transition-all duration-200 border-none",
-      hoverEffect && "hover:shadow-[0_8px_8px_rgba(0,0,0,0.3)] hover:-translate-y-1",
+      "rounded-[12px] bg-[var(--card)] text-[var(--card-foreground)] shadow-sm transition-all duration-200 border border-[var(--border)]",
+      hoverEffect && "hover:shadow-md hover:-translate-y-1",
       className
     )}
     {...props}

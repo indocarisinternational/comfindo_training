@@ -8,7 +8,7 @@ interface AdminTableProps {
 
 export function AdminTableWrapper({ children }: AdminTableProps) {
   return (
-    <AdminCard className="border-none shadow-none overflow-hidden">
+    <AdminCard className="overflow-hidden p-0">
       <div className="overflow-x-auto">
         {children}
       </div>

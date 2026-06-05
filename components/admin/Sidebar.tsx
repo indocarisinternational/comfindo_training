@@ -156,29 +156,29 @@ export function AdminSidebar() {
   ]
 
   return (
-    <div className="pb-12 min-h-screen border-r border-[var(--border)] bg-[var(--background)] flex flex-col transition-colors duration-300 overflow-y-auto">
+    <div className="pb-12 min-h-screen bg-[var(--secondary)] flex flex-col transition-colors duration-300 overflow-y-auto">
       <div className="space-y-4 py-4 flex-1">
         <div className="px-3 py-2">
-          <Link href="/admin" className="flex items-center gap-2 px-4 mb-6">
-            <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--foreground)] text-[var(--background)]">
+          <Link href="/admin" className="flex items-center gap-3 px-3 mb-6">
+            <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm">
               <GraduationCap className="h-4 w-4" />
             </div>
-            <span className="text-sm font-semibold tracking-tight text-[var(--foreground)]">
+            <span className="text-[14px] font-semibold tracking-tight text-[var(--foreground)]">
               Comfindo Admin
             </span>
           </Link>
 
           {/* Main Routes */}
-          <div className="space-y-1">
+          <div className="space-y-[2px]">
             {mainRoutes.map((route) => (
               <Button
                 key={route.href}
                 variant="ghost"
                 className={cn(
-                  "w-full justify-start text-sm h-9 px-3 transition-colors rounded-full uppercase tracking-wider text-[12px]",
+                  "w-full justify-start text-[14px] font-medium h-9 px-3 transition-colors rounded-md capitalize tracking-normal border-none",
                   route.active 
-                    ? "bg-[var(--secondary)] text-[var(--primary)] font-bold" 
-                    : "text-[var(--muted-foreground)] font-normal hover:text-[var(--foreground)] hover:bg-[var(--secondary)]"
+                    ? "bg-[rgba(15,15,15,0.05)] text-[var(--foreground)] font-semibold" 
+                    : "text-[#787671] hover:text-[var(--foreground)] hover:bg-[rgba(15,15,15,0.03)]"
                 )}
                 asChild
               >
@@ -194,22 +194,22 @@ export function AdminSidebar() {
           <div className="mt-6">
             <button
               onClick={() => setSeoOpen(!seoOpen)}
-              className="flex items-center justify-between w-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.05em] text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+              className="flex items-center justify-between w-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[1px] text-[#a4a097] hover:text-[#787671] transition-colors"
             >
               <span>SEO Engine</span>
               <ChevronDown className={cn("h-3 w-3 transition-transform", seoOpen && "rotate-180")} />
             </button>
             {seoOpen && (
-              <div className="space-y-1 mt-1">
+              <div className="space-y-[2px] mt-1">
                 {seoRoutes.map((route) => (
                   <Button
                     key={route.href}
                     variant="ghost"
                     className={cn(
-                      "w-full justify-start text-sm h-9 px-3 transition-colors rounded-full uppercase tracking-wider text-[12px]",
+                      "w-full justify-start text-[14px] font-medium h-9 px-3 transition-colors rounded-md capitalize tracking-normal border-none",
                       route.active 
-                        ? "bg-[var(--secondary)] text-[var(--primary)] font-bold" 
-                        : "text-[var(--muted-foreground)] font-normal hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
+                        ? "bg-[rgba(15,15,15,0.05)] text-[var(--foreground)] font-semibold" 
+                        : "text-[#787671] hover:bg-[rgba(15,15,15,0.03)] hover:text-[var(--foreground)]"
                     )}
                     asChild
                   >
@@ -227,22 +227,22 @@ export function AdminSidebar() {
           <div className="mt-6">
             <button
               onClick={() => setCmsOpen(!cmsOpen)}
-              className="flex items-center justify-between w-full px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.05em] text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+              className="flex items-center justify-between w-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[1px] text-[#a4a097] hover:text-[#787671] transition-colors"
             >
               <span>Content Manager</span>
               <ChevronDown className={cn("h-3 w-3 transition-transform", cmsOpen && "rotate-180")} />
             </button>
             {cmsOpen && (
-              <div className="space-y-1 mt-1">
+              <div className="space-y-[2px] mt-1">
                 {cmsRoutes.map((route) => (
                   <Button
                     key={route.href}
                     variant="ghost"
                     className={cn(
-                      "w-full justify-start text-sm h-9 px-3 transition-colors rounded-full uppercase tracking-wider text-[12px]",
+                      "w-full justify-start text-[14px] font-medium h-9 px-3 transition-colors rounded-md capitalize tracking-normal border-none",
                       route.active 
-                        ? "bg-[var(--secondary)] text-[var(--primary)] font-bold" 
-                        : "text-[var(--muted-foreground)] font-normal hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
+                        ? "bg-[rgba(15,15,15,0.05)] text-[var(--foreground)] font-semibold" 
+                        : "text-[#787671] hover:bg-[rgba(15,15,15,0.03)] hover:text-[var(--foreground)]"
                     )}
                     asChild
                   >
@@ -258,10 +258,10 @@ export function AdminSidebar() {
         </div>
       </div>
 
-      <div className="px-3 py-4 border-t border-[var(--border)] flex flex-col gap-4">
+      <div className="px-3 py-4 flex flex-col gap-4">
         <Button
           variant="ghost"
-          className="w-full justify-start text-[var(--destructive)] hover:text-[var(--destructive)] hover:bg-red-100 h-9 transition-colors rounded-full uppercase tracking-wider text-[12px] font-bold"
+          className="w-full justify-start text-[var(--destructive)] hover:text-[var(--destructive)] hover:bg-[rgba(224,49,49,0.05)] h-9 transition-colors rounded-md capitalize tracking-normal text-[14px] font-medium border-none"
           onClick={handleLogout}
         >
           <LogOut className="mr-2 h-4 w-4" />

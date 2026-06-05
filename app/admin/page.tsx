@@ -67,21 +67,34 @@ export default async function AdminDashboard() {
   ]
 
   const cmsPages = [
-    { title: "Homepage", description: "Edit hero, features, FAQ", href: "/admin/cms/homepage", icon: Home },
-    { title: "Services", description: "Manage service listings", href: "/admin/cms/services", icon: Briefcase },
-    { title: "About", description: "Company profile & vision", href: "/admin/cms/about", icon: Building2 },
-    { title: "Blog", description: "Create & manage blog posts", href: "/admin/cms/blog", icon: PenTool },
+    { title: "Homepage", description: "Edit hero, features, FAQ", href: "/admin/cms/homepage", icon: Home, bg: "bg-tint-peach" },
+    { title: "Services", description: "Manage service listings", href: "/admin/cms/services", icon: Briefcase, bg: "bg-tint-rose" },
+    { title: "About", description: "Company profile & vision", href: "/admin/cms/about", icon: Building2, bg: "bg-tint-mint" },
+    { title: "Blog", description: "Create & manage blog posts", href: "/admin/cms/blog", icon: PenTool, bg: "bg-tint-sky" },
   ]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <AdminPageHeader 
         title="Command Center" 
         description="Real-time overview of Comfindo's performance and analytics." 
       />
 
+      {/* Primary Emphasis Section */}
+      <AdminCard className="bg-tint-yellow-bold border-none shadow-none">
+        <AdminCardContent className="p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <h2 className="text-[28px] font-semibold text-[#37352f] tracking-tight leading-[1.2]">Keep work moving 24/7</h2>
+            <p className="text-[16px] text-[#5d5b54] mt-2">Your ecosystem is healthy. 142 new interactions this week.</p>
+          </div>
+          <Link href="/admin/registrations" className="bg-[var(--primary)] text-white px-6 py-3 rounded-md font-medium text-[14px] hover:bg-opacity-90 transition-colors shrink-0">
+            View New Registrations
+          </Link>
+        </AdminCardContent>
+      </AdminCard>
+
       {/* KPI Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <AdminStatCard 
             key={stat.title} 
@@ -95,11 +108,11 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Analytics Charts Grid */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-3">
         {/* Main Traffic Chart */}
-        <AdminCard className="md:col-span-2 border-none shadow-none">
+        <AdminCard className="md:col-span-2">
           <AdminCardHeader>
-            <AdminCardTitle className="text-[14px] uppercase tracking-wider text-[var(--muted-foreground)]">Traffic Overview</AdminCardTitle>
+            <AdminCardTitle className="text-[14px] font-semibold tracking-tight text-[var(--foreground)]">Traffic Overview</AdminCardTitle>
           </AdminCardHeader>
           <AdminCardContent>
             <AdminChart data={trafficData} type="line" dataKey="visitors" xAxisKey="day" height={320} />
@@ -107,9 +120,9 @@ export default async function AdminDashboard() {
         </AdminCard>
 
         {/* Secondary Category Chart */}
-        <AdminCard className="border-none shadow-none">
+        <AdminCard>
           <AdminCardHeader>
-            <AdminCardTitle className="text-[14px] uppercase tracking-wider text-[var(--muted-foreground)]">Enrollment by Category</AdminCardTitle>
+            <AdminCardTitle className="text-[14px] font-semibold tracking-tight text-[var(--foreground)]">Enrollment by Category</AdminCardTitle>
           </AdminCardHeader>
           <AdminCardContent>
             <AdminChart data={trainingData} type="bar" dataKey="enrollments" xAxisKey="category" height={320} />
@@ -118,19 +131,20 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Quick Access & Recent Activity Split */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         <div>
-          <h2 className="text-[12px] font-bold text-[var(--muted-foreground)] mb-4 uppercase tracking-wider">Quick Modules</h2>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <h2 className="text-[18px] font-semibold text-[var(--foreground)] mb-4 tracking-tight">Content Manager</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
             {cmsPages.map((page) => (
               <Link key={page.href} href={page.href}>
-                <AdminCard hoverEffect className="cursor-pointer border-none shadow-none bg-[var(--card)] hover:bg-[var(--secondary)] transition-colors">
-                  <AdminCardContent className="p-5 flex items-center gap-4">
-                    <div className="p-2.5 rounded-full bg-[var(--background)] text-[var(--foreground)]">
-                      <page.icon className="h-4 w-4" />
+                <AdminCard hoverEffect className={`cursor-pointer ${page.bg} border-none`}>
+                  <AdminCardContent className="p-6 flex flex-col gap-3">
+                    <div className="p-2 w-fit rounded-md bg-white/50 text-[#37352f]">
+                      <page.icon className="h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-[var(--foreground)] text-[14px] tracking-tight">{page.title}</h3>
+                      <h3 className="font-semibold text-[#37352f] text-[16px] tracking-tight">{page.title}</h3>
+                      <p className="text-[13px] text-[#5d5b54] mt-1">{page.description}</p>
                     </div>
                   </AdminCardContent>
                 </AdminCard>
@@ -140,22 +154,22 @@ export default async function AdminDashboard() {
         </div>
 
         <div>
-          <h2 className="text-[12px] font-bold text-[var(--muted-foreground)] mb-4 uppercase tracking-wider">Recent Registrations</h2>
-          <AdminCard className="border-none shadow-none">
+          <h2 className="text-[18px] font-semibold text-[var(--foreground)] mb-4 tracking-tight">Recent Registrations</h2>
+          <AdminCard>
             <AdminCardContent className="p-0">
               <div className="flex flex-col divide-y divide-[var(--border)]">
                 {[1, 2, 3].map((_, i) => (
                   <div key={i} className="flex items-center justify-between p-4 hover:bg-[var(--secondary)] transition-colors">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-[500px] bg-[var(--secondary)] flex items-center justify-center">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-full bg-[var(--secondary)] flex items-center justify-center">
                         <Users className="h-4 w-4 text-[var(--muted-foreground)]" />
                       </div>
                       <div>
-                        <p className="text-[14px] font-bold text-[var(--foreground)]">New Registration</p>
-                        <p className="text-[12px] text-[var(--muted-foreground)]">2 hours ago</p>
+                        <p className="text-[14px] font-medium text-[var(--foreground)]">New Registration</p>
+                        <p className="text-[13px] text-[var(--muted-foreground)]">2 hours ago</p>
                       </div>
                     </div>
-                    <Link href="/admin/registrations" className="text-[12px] font-bold text-[var(--primary)] uppercase tracking-widest hover:underline flex items-center">
+                    <Link href="/admin/registrations" className="text-[13px] font-medium text-[var(--primary)] hover:underline flex items-center">
                       View <ArrowUpRight className="h-3 w-3 ml-1" />
                     </Link>
                   </div>
