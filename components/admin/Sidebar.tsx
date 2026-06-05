@@ -29,7 +29,6 @@ import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useState } from "react"
-import { ThemeToggle } from "./ThemeToggle"
 
 export function AdminSidebar() {
   const pathname = usePathname()
@@ -207,10 +206,10 @@ export function AdminSidebar() {
                     key={route.href}
                     variant="ghost"
                     className={cn(
-                      "w-full justify-start text-sm h-9 px-3 transition-colors",
+                      "w-full justify-start text-sm h-9 px-3 transition-colors rounded-full uppercase tracking-wider text-[12px]",
                       route.active 
-                        ? "bg-[var(--secondary)] text-[var(--foreground)] font-medium" 
-                        : "text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
+                        ? "bg-[var(--secondary)] text-[var(--primary)] font-bold" 
+                        : "text-[var(--muted-foreground)] font-normal hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
                     )}
                     asChild
                   >
@@ -240,10 +239,10 @@ export function AdminSidebar() {
                     key={route.href}
                     variant="ghost"
                     className={cn(
-                      "w-full justify-start text-sm h-9 px-3 transition-colors",
+                      "w-full justify-start text-sm h-9 px-3 transition-colors rounded-full uppercase tracking-wider text-[12px]",
                       route.active 
-                        ? "bg-[var(--secondary)] text-[var(--foreground)] font-medium" 
-                        : "text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
+                        ? "bg-[var(--secondary)] text-[var(--primary)] font-bold" 
+                        : "text-[var(--muted-foreground)] font-normal hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
                     )}
                     asChild
                   >
@@ -260,7 +259,6 @@ export function AdminSidebar() {
       </div>
 
       <div className="px-3 py-4 border-t border-[var(--border)] flex flex-col gap-4">
-        <ThemeToggle />
         <Button
           variant="ghost"
           className="w-full justify-start text-[var(--destructive)] hover:text-[var(--destructive)] hover:bg-red-100 h-9 transition-colors rounded-full uppercase tracking-wider text-[12px] font-bold"
