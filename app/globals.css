@@ -293,7 +293,7 @@ body {
 }
 
 .admin-ui input {
-  border-radius: 500px !important;
+  border-radius: 500px;
 }
 
 .admin-ui button:active {

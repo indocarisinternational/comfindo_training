@@ -4,7 +4,7 @@ import { useState } from "react"
 import { createNewAdmin } from "./actions"
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
 import { toast } from "sonner"
 import { Mail, Lock, Eye, EyeOff, UserPlus } from "lucide-react"
 
