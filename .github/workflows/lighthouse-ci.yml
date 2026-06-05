@@ -1,0 +1,54 @@
+name: Lighthouse CI Performance Guardrail
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 2 * * *' # Daily at 02:30 UTC (09:30 WIB)
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+      - 'components/**'
+
+jobs:
+  lighthouse:
+    name: Run Lighthouse CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      - name: Prepare Dynamic Target URLs (Health Check)
+        run: npx tsx scripts/seo/check-urls.ts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Run Lighthouse CI
+        run: npx lhci autorun --config=./lighthouserc-dynamic.json
+        # We don't fail the build aggressively, so we continue on error or use warn thresholds
+
+      - name: Parse Results & Create SEO Tasks
+        run: npx tsx scripts/seo/parse-lighthouse-results.ts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Upload Lighthouse CI Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 14

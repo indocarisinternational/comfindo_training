@@ -1,0 +1,52 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "https://www.comfindo.co.id/",
+        "https://www.comfindo.co.id/training",
+        "https://www.comfindo.co.id/blog",
+        "https://www.comfindo.co.id/contact",
+        "https://www.comfindo.co.id/services",
+        "https://www.comfindo.co.id/training/iso-9001",
+        "https://www.comfindo.co.id/training/sertifikasi-iso-9001"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": [
+          "warn",
+          {
+            "minScore": 0.7
+          }
+        ],
+        "categories:accessibility": [
+          "warn",
+          {
+            "minScore": 0.85
+          }
+        ],
+        "categories:best-practices": [
+          "warn",
+          {
+            "minScore": 0.85
+          }
+        ],
+        "categories:seo": [
+          "warn",
+          {
+            "minScore": 0.9
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "./.lighthouseci",
+      "reportFilenamePattern": "%%PATHNAME%%-%%DATETIME%%-report.%%EXTENSION%%"
+    }
+  }
+}
