@@ -15,13 +15,13 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const { data: training } = await supabase.from("training_programs").select("seo_title, seo_description, title, image_url").eq("slug", params.slug).single()
 
   if (!training) return { title: "Program Tidak Ditemukan - comfindo Management" }
-  return { 
-    title: training.seo_title || `${training.title} | comfindo Management`, 
+  return {
+    title: training.seo_title || `${training.title} | comfindo Management`,
     description: training.seo_description || `Detail program pelatihan ${training.title}. Pendaftaran, jadwal, investasi, dan materi pelatihan.`,
     openGraph: {
-        title: training.seo_title || `${training.title} | comfindo Management`,
-        description: training.seo_description || `Detail program pelatihan ${training.title}. Pendaftaran, jadwal, investasi, dan materi pelatihan.`,
-        images: training.image_url ? [{ url: training.image_url }] : [],
+      title: training.seo_title || `${training.title} | comfindo Management`,
+      description: training.seo_description || `Detail program pelatihan ${training.title}. Pendaftaran, jadwal, investasi, dan materi pelatihan.`,
+      images: training.image_url ? [{ url: training.image_url }] : [],
     }
   }
 }
@@ -63,12 +63,12 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
     "coursePrerequisites": "None",
     "educationalCredentialAwarded": "Certificate",
     "hasCourseInstance": {
-        "@type": "CourseInstance",
-        "courseMode": training.method?.toLowerCase().includes("online") ? "Online" : "Onsite",
-        "instructor": {
-            "@type": "Person",
-            "name": "Instruktur Profesional comfindo"
-        }
+      "@type": "CourseInstance",
+      "courseMode": training.method?.toLowerCase().includes("online") ? "Online" : "Onsite",
+      "instructor": {
+        "@type": "Person",
+        "name": "Instruktur Profesional comfindo"
+      }
     }
   };
 
@@ -107,9 +107,9 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
             {(training.description || training.short_description) && (
               <div>
                 <h2 className="text-xl font-bold mb-4 text-gray-900">Deskripsi Program</h2>
-                <div 
-                  className="prose prose-sm sm:prose-base prose-green max-w-none text-gray-600 leading-relaxed" 
-                  dangerouslySetInnerHTML={{ __html: training.description || training.short_description }} 
+                <div
+                  className="prose prose-sm sm:prose-base prose-green max-w-none text-gray-600 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: training.description || training.short_description }}
                 />
               </div>
             )}
@@ -160,7 +160,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
                 </div>
               </div>
             )}
-            
+
             {output.length > 0 && (
               <div>
                 <h2 className="text-xl font-bold mb-5 text-gray-900 flex items-center gap-2">
@@ -208,12 +208,12 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
                   <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-2 text-gray-400">atau</span></div>
                 </div>
                 <Button variant="outline" className="w-full border-green-500 text-green-600 hover:bg-green-50 rounded-xl" asChild>
-                  <a href={`https://wa.me/62817210875?text=Halo%20comfindo%20Management%2C%20saya%20ingin%20daftar%20${encodeURIComponent(training.title)}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://wa.me/6287741929105?text=Halo%20comfindo%20Management%2C%20saya%20ingin%20daftar%20${encodeURIComponent(training.title)}`} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp Admin
                   </a>
                 </Button>
               </div>
-              
+
               <div className="mt-5 pt-5 border-t border-gray-100 space-y-2 text-xs text-gray-400">
                 <p>✅ Metode pelatihan interaktif</p>
                 <p>✅ Sertifikat kelulusan</p>

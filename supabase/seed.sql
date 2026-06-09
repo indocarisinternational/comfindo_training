@@ -47,7 +47,7 @@ INSERT INTO homepage_content (hero_title, hero_subtitle, hero_cta_text, hero_cta
       "title": "Siap Meningkatkan Kompetensi Anda?",
       "subtitle": "Bergabunglah dengan ratusan alumni comfindo Management yang telah meningkatkan kompetensi dan karier mereka.",
       "phone": "0858-7066-3856",
-      "whatsapp_url": "https://wa.me/62817210875"
+      "whatsapp_url": "https://wa.me/6287741929105"
     }
   }'::jsonb
 ) ON CONFLICT DO NOTHING;

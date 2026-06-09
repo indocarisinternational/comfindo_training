@@ -419,5 +419,5 @@ INSERT INTO landing_sections (section_key, title, subtitle, cta_label, cta_url, 
 
 -- Seed Site Settings
 INSERT INTO site_settings (site_name, whatsapp_number, email, phone, address) VALUES
-('comfindo', '62817210875', 'comfindo.management@gmail.com', '0858-7066-3856', 'Perkantoran Tanjung Mas Raya Blok B1 No.44 Tanjung Barat Jakarta Selatan');
+('comfindo', '6287741929105', 'comfindo.management@gmail.com', '0858-7066-3856', 'Perkantoran Tanjung Mas Raya Blok B1 No.44 Tanjung Barat Jakarta Selatan');
 
