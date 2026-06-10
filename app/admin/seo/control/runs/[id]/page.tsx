@@ -1,10 +1,15 @@
 import { createClient } from "@/lib/supabase/server"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+import { syncSafeCheckParentRun } from "@/lib/admin/seo-safe-check-runs"
 import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
 import { AdminCard, AdminCardContent, AdminCardHeader, AdminCardTitle } from "@/components/admin/ui/AdminCard"
 import { AdminButton } from "@/components/admin/AdminButton"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Clock, Activity, AlertCircle, FileJson } from "lucide-react"
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 function formatDateTime(dateString: string) {
   return new Intl.DateTimeFormat('en-GB', { 
@@ -26,12 +31,17 @@ export default async function WorkflowRunDetailsPage(props: { params: Promise<{ 
     return notFound()
   }
 
+  const displayRun = SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY
+    ? await syncSafeCheckParentRun(createSupabaseClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY), run)
+    : run
+
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "success": return "text-green-500 bg-green-500/10"
-      case "failed": return "text-red-500 bg-red-500/10"
-      case "running": return "text-blue-500 bg-blue-500/10"
-      default: return "text-gray-500 bg-gray-500/10"
+      case "success": return "text-green-700 bg-green-500/15 dark:text-green-200"
+      case "failed": return "text-red-700 bg-red-500/15 dark:text-red-200"
+      case "running": return "text-blue-700 bg-blue-500/15 dark:text-blue-200"
+      case "cancelled": return "text-yellow-800 bg-yellow-500/20 dark:text-yellow-200"
+      default: return "text-slate-700 bg-slate-500/15 dark:text-slate-200"
     }
   }
 
@@ -44,8 +54,8 @@ export default async function WorkflowRunDetailsPage(props: { params: Promise<{ 
           </Link>
         </AdminButton>
         <AdminPageHeader
-          title={`Run Details: ${run.workflow_name || run.workflow_key}`}
-          description={`ID: ${run.id}`}
+          title={`Run Details: ${displayRun.workflow_name || displayRun.workflow_key}`}
+          description={`ID: ${displayRun.id}`}
         />
       </div>
 
@@ -60,22 +70,22 @@ export default async function WorkflowRunDetailsPage(props: { params: Promise<{ 
           <AdminCardContent className="space-y-4">
             <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
               <span className="text-xs text-[var(--muted-foreground)]">Status</span>
-              <span className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${getStatusColor(run.status)}`}>
-                {run.status}
+              <span className={`text-xs px-2 py-1 rounded-full font-medium capitalize ${getStatusColor(displayRun.status)}`}>
+                {displayRun.status}
               </span>
             </div>
             <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
               <span className="text-xs text-[var(--muted-foreground)]">Trigger Source</span>
-              <span className="text-xs">{run.trigger_source}</span>
+              <span className="text-xs">{displayRun.trigger_source}</span>
             </div>
             <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
               <span className="text-xs text-[var(--muted-foreground)]">Triggered By</span>
-              <span className="text-xs">{run.triggered_by || "-"}</span>
+              <span className="text-xs">{displayRun.triggered_by || "-"}</span>
             </div>
-            {run.summary && (
+            {displayRun.summary && (
               <div className="pt-2">
                 <span className="text-xs text-[var(--muted-foreground)] block mb-1">Summary</span>
-                <p className="text-sm bg-[var(--secondary)] p-3 rounded-md">{run.summary}</p>
+                <p className="text-sm bg-[var(--secondary)] p-3 rounded-md">{displayRun.summary}</p>
               </div>
             )}
           </AdminCardContent>
@@ -92,26 +102,26 @@ export default async function WorkflowRunDetailsPage(props: { params: Promise<{ 
             <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
               <span className="text-xs text-[var(--muted-foreground)]">Started At</span>
               <span className="text-xs">
-                {run.started_at ? formatDateTime(run.started_at) : "Waiting..."}
+                {displayRun.started_at ? formatDateTime(displayRun.started_at) : "Waiting..."}
               </span>
             </div>
             <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
               <span className="text-xs text-[var(--muted-foreground)]">Finished At</span>
               <span className="text-xs">
-                {run.finished_at ? formatDateTime(run.finished_at) : "-"}
+                {displayRun.finished_at ? formatDateTime(displayRun.finished_at) : "-"}
               </span>
             </div>
             <div className="flex justify-between items-center py-2 border-b border-[var(--border)]">
               <span className="text-xs text-[var(--muted-foreground)]">Duration</span>
               <span className="text-xs">
-                {run.duration_ms ? `${(run.duration_ms / 1000).toFixed(2)} seconds` : "-"}
+                {displayRun.duration_ms ? `${(displayRun.duration_ms / 1000).toFixed(2)} seconds` : "-"}
               </span>
             </div>
           </AdminCardContent>
         </AdminCard>
       </div>
 
-      {run.error_message && (
+      {displayRun.error_message && (
         <AdminCard className="border-red-500/20 bg-red-500/5">
           <AdminCardHeader>
             <AdminCardTitle className="text-sm text-red-500 flex items-center gap-2">
@@ -120,14 +130,14 @@ export default async function WorkflowRunDetailsPage(props: { params: Promise<{ 
             </AdminCardTitle>
           </AdminCardHeader>
           <AdminCardContent>
-            <pre className="text-xs bg-red-500/10 text-red-600 p-4 rounded-md overflow-x-auto whitespace-pre-wrap">
-              {run.error_message}
+            <pre className="text-xs bg-red-500/10 text-red-700 p-4 rounded-md overflow-x-auto whitespace-pre-wrap dark:text-red-200">
+              {displayRun.error_message}
             </pre>
           </AdminCardContent>
         </AdminCard>
       )}
 
-      {run.result && (
+      {displayRun.result && (
         <AdminCard>
           <AdminCardHeader>
             <AdminCardTitle className="text-sm flex items-center gap-2">
@@ -137,7 +147,7 @@ export default async function WorkflowRunDetailsPage(props: { params: Promise<{ 
           </AdminCardHeader>
           <AdminCardContent>
             <pre className="text-xs bg-[var(--secondary)] p-4 rounded-md overflow-x-auto text-[var(--foreground)]">
-              {JSON.stringify(run.result, null, 2)}
+              {JSON.stringify(displayRun.result, null, 2)}
             </pre>
           </AdminCardContent>
         </AdminCard>

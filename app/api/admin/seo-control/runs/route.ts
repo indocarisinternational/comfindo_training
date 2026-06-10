@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+import { syncSafeCheckParentRuns } from "@/lib/admin/seo-safe-check-runs"
 import { isAllowedWorkflowKey } from "@/lib/admin/seo-workflows"
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 export async function GET(req: Request) {
   try {
@@ -42,7 +47,14 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Failed to fetch runs" }, { status: 500 })
     }
 
-    return NextResponse.json({ data: runs })
+    if (!runs || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+      return NextResponse.json({ data: runs || [] })
+    }
+
+    const supabaseAdmin = createSupabaseClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+    const syncedRuns = await syncSafeCheckParentRuns(supabaseAdmin, runs)
+
+    return NextResponse.json({ data: syncedRuns })
   } catch (error) {
     console.error("API Error:", error)
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })

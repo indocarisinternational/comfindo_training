@@ -194,11 +194,11 @@ export function ControlCenterClient() {
   ]
 
   const getStatusClass = (status: string) => {
-    if (status === "running") return "bg-blue-500/10 text-blue-600"
-    if (status === "success") return "bg-green-500/10 text-green-600"
-    if (status === "failed") return "bg-red-500/10 text-red-600"
-    if (status === "cancelled") return "bg-yellow-500/10 text-yellow-700"
-    return "bg-gray-500/10 text-gray-600"
+    if (status === "running") return "bg-blue-500/15 text-blue-700 dark:text-blue-200"
+    if (status === "success") return "bg-green-500/15 text-green-700 dark:text-green-200"
+    if (status === "failed") return "bg-red-500/15 text-red-700 dark:text-red-200"
+    if (status === "cancelled") return "bg-yellow-500/20 text-yellow-800 dark:text-yellow-200"
+    return "bg-slate-500/15 text-slate-700 dark:text-slate-200"
   }
 
   const getRelatedLinks = (workflowKey: string) => {
@@ -208,7 +208,7 @@ export function ControlCenterClient() {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-xl font-semibold mb-4 text-[var(--foreground)]">Workflow Controls</h2>
+        <h2 className="text-xl font-semibold mb-4 text-foreground">Workflow Controls</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {workflows.map((wf) => (
             <AdminCard key={wf.key} className="flex flex-col">
@@ -216,10 +216,10 @@ export function ControlCenterClient() {
                 <AdminCardTitle className="text-sm">{wf.name}</AdminCardTitle>
               </AdminCardHeader>
               <AdminCardContent className="flex flex-col flex-grow gap-4">
-                <p className="text-xs text-[var(--muted-foreground)] flex-grow">{wf.description}</p>
+                <p className="text-xs text-muted-foreground flex-grow">{wf.description}</p>
                 <div className="flex flex-wrap gap-2 mb-2">
                   {wf.relatedLinks.map(link => (
-                    <Link key={link.href} href={link.href} className="text-[10px] text-blue-500 hover:underline bg-blue-500/10 px-2 py-1 rounded">
+                    <Link key={link.href} href={link.href} className="rounded bg-blue-500/10 px-2 py-1 text-[10px] font-medium text-blue-700 hover:underline dark:text-blue-200">
                       {link.label}
                     </Link>
                   ))}
@@ -244,7 +244,7 @@ export function ControlCenterClient() {
 
       <div>
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="text-xl font-semibold text-[var(--foreground)]">Latest Workflow Runs</h2>
+          <h2 className="text-xl font-semibold text-foreground">Latest Workflow Runs</h2>
           <AdminButton variant="outline" size="sm" onClick={fetchRuns} className="h-8 text-xs">
             <RefreshCw className="mr-2 h-3 w-3" />
             Refresh
@@ -269,13 +269,13 @@ export function ControlCenterClient() {
             <AdminTableBody>
               {loading ? (
                 <AdminTableRow>
-                  <AdminTableCell colSpan={10} className="text-center py-8 text-sm text-[var(--muted-foreground)]">
+                  <AdminTableCell colSpan={10} className="text-center py-8 text-sm text-muted-foreground">
                     Loading runs...
                   </AdminTableCell>
                 </AdminTableRow>
               ) : runs.length === 0 ? (
                 <AdminTableRow>
-                  <AdminTableCell colSpan={10} className="text-center py-8 text-sm text-[var(--muted-foreground)]">
+                  <AdminTableCell colSpan={10} className="text-center py-8 text-sm text-muted-foreground">
                     No workflow runs found.
                   </AdminTableCell>
                 </AdminTableRow>
@@ -299,25 +299,25 @@ export function ControlCenterClient() {
                         <span className="text-xs capitalize">{run.status}</span>
                       </div>
                     </AdminTableCell>
-                    <AdminTableCell className="text-xs text-[var(--muted-foreground)] whitespace-nowrap">
+                    <AdminTableCell className="text-xs text-muted-foreground whitespace-nowrap">
                       {run.trigger_source || "-"}
                     </AdminTableCell>
-                    <AdminTableCell className="text-xs text-[var(--muted-foreground)] whitespace-nowrap">
+                    <AdminTableCell className="text-xs text-muted-foreground whitespace-nowrap">
                       {formatDateTime(run.started_at)}
                     </AdminTableCell>
-                    <AdminTableCell className="text-xs text-[var(--muted-foreground)] whitespace-nowrap">
+                    <AdminTableCell className="text-xs text-muted-foreground whitespace-nowrap">
                       {formatDateTime(run.finished_at)}
                     </AdminTableCell>
-                    <AdminTableCell className="text-xs text-[var(--muted-foreground)] whitespace-nowrap">
+                    <AdminTableCell className="text-xs text-muted-foreground whitespace-nowrap">
                       {formatDuration(run.duration_ms)}
                     </AdminTableCell>
                     <AdminTableCell className="text-xs max-w-[180px] truncate" title={run.summary || ""}>
                       {run.summary || "-"}
                     </AdminTableCell>
-                    <AdminTableCell className="text-xs max-w-[180px] truncate text-red-600" title={run.error_message || ""}>
+                    <AdminTableCell className="text-xs max-w-[180px] truncate text-red-700 dark:text-red-200" title={run.error_message || ""}>
                       {run.error_message || "-"}
                     </AdminTableCell>
-                    <AdminTableCell className="text-xs text-[var(--muted-foreground)] whitespace-nowrap">
+                    <AdminTableCell className="text-xs text-muted-foreground whitespace-nowrap">
                       {formatDateTime(run.created_at)}
                     </AdminTableCell>
                     <AdminTableCell className="text-right">
@@ -344,10 +344,10 @@ export function ControlCenterClient() {
       </div>
 
       <Dialog open={Boolean(pendingWorkflowKey)} onOpenChange={(open) => !open && setPendingWorkflowKey(null)}>
-        <DialogContent>
+        <DialogContent className="bg-popover text-popover-foreground">
           <DialogHeader>
-            <DialogTitle>Run workflow?</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-popover-foreground">Run workflow?</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
               Workflow akan dikirim ke n8n production dan dicatat sebagai run baru di SEO Control Center.
             </DialogDescription>
           </DialogHeader>

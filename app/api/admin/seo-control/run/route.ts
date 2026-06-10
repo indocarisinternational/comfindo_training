@@ -150,8 +150,10 @@ async function runSafeCheck(supabaseAdmin: SupabaseAdminClient, triggeredBy: str
   await supabaseAdmin
     .from("seo_workflow_runs")
     .update({
+      status: "running",
+      started_at: new Date().toISOString(),
       result: { childRunIds },
-      summary: "Safe check triggered Step 6, Step 5, and Step 7.",
+      summary: "Safe check triggered Step 6, Step 5, and Step 7. Waiting for child workflows to finish.",
       updated_at: new Date().toISOString(),
     })
     .eq("id", parentRun.id)
@@ -160,7 +162,7 @@ async function runSafeCheck(supabaseAdmin: SupabaseAdminClient, triggeredBy: str
     ok: true,
     runId: parentRun.id,
     workflowKey: RUN_SAFE_CHECK_KEY,
-    status: "queued",
+    status: "running",
     message: "Workflow sent to n8n.",
     childRunIds,
   })
