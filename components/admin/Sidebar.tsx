@@ -47,6 +47,7 @@ const cmsRoutes = [
 ]
 
 const seoRoutes = [
+  { label: "Control Center", icon: Activity, href: "/admin/seo/control" },
   { label: "Dashboard", icon: Activity, href: "/admin/seo" },
   { label: "Topics", icon: FileText, href: "/admin/seo/topics" },
   { label: "Article Drafts", icon: FileEdit, href: "/admin/seo/article-drafts" },
