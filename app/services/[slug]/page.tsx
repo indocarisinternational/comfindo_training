@@ -98,7 +98,7 @@ export default async function ServiceDetailPage(props: { params: Promise<{ slug:
               <p className="text-gray-500 text-sm mb-5">Diskusikan kebutuhan pelatihan dan Konsultan Manajemen Anda dengan tim comfindo.</p>
               <div className="space-y-3">
                 <Button asChild className="w-full bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl">
-                  <a href="https://wa.me/62817210875?text=Halo%20comfindo%20Management" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/6287741929105?text=Halo%20comfindo%20Management" target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-4 w-4" /> Chat WhatsApp
                   </a>
                 </Button>
