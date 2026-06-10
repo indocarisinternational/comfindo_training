@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { isAllowedWorkflowKey } from "@/lib/admin/seo-workflows"
 
 export async function GET(req: Request) {
   try {
@@ -16,6 +17,10 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get("limit") || "20", 10)
     const workflowKey = searchParams.get("workflowKey")
     const status = searchParams.get("status")
+
+    if (workflowKey && !isAllowedWorkflowKey(workflowKey)) {
+      return NextResponse.json({ error: "Invalid workflowKey" }, { status: 400 })
+    }
 
     let query = supabase
       .from("seo_workflow_runs")
@@ -38,7 +43,7 @@ export async function GET(req: Request) {
     }
 
     return NextResponse.json({ data: runs })
-  } catch (error: any) {
+  } catch (error) {
     console.error("API Error:", error)
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
   }
