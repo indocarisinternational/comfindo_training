@@ -9,16 +9,26 @@ interface InteractivePricingProps {
 }
 
 export function InteractivePricing({ priceDefault, priceOnline, priceOffline }: InteractivePricingProps) {
+  const formatPrice = (p: string | null | undefined) => {
+    if (!p) return null;
+    const num = parseInt(p.replace(/\D/g, ''));
+    if (isNaN(num)) return p;
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(num);
+  }
+
+  const formattedOnline = formatPrice(priceOnline);
+  const formattedOffline = formatPrice(priceOffline);
+
   // Build all tabs (always both, even if one is missing)
-  const hasBoth = !!(priceOnline && priceOffline)
-  const hasOnlyOne = !hasBoth && (priceOnline || priceOffline)
+  const hasBoth = !!(formattedOnline && formattedOffline)
+  const hasOnlyOne = !hasBoth && (formattedOnline || formattedOffline)
 
   const [selected, setSelected] = useState<"Offline" | "Online">(
     priceOffline ? "Offline" : "Online"
   )
 
   // Case: no price at all — fallback
-  if (!priceOnline && !priceOffline) {
+  if (!formattedOnline && !formattedOffline) {
     return (
       <div>
         <p className="text-3xl font-extrabold text-comfindo-green">{priceDefault || "Hubungi Kami"}</p>
@@ -29,8 +39,8 @@ export function InteractivePricing({ priceDefault, priceOnline, priceOffline }: 
 
   // Case: only one price available — no toggle, just show it
   if (hasOnlyOne) {
-    const modeLabel = priceOffline ? "Offline" : "Online"
-    const price = priceOffline || priceOnline
+    const modeLabel = formattedOffline ? "Offline" : "Online"
+    const price = formattedOffline || formattedOnline
     return (
       <div className="space-y-2">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-comfindo-green/10 rounded-full">
@@ -45,8 +55,8 @@ export function InteractivePricing({ priceDefault, priceOnline, priceOffline }: 
   // Case: both prices available — show toggle
   const tabs: Array<"Offline" | "Online"> = ["Offline", "Online"]
   const priceMap: Record<"Offline" | "Online", string | null | undefined> = {
-    Offline: priceOffline,
-    Online: priceOnline,
+    Offline: formattedOffline,
+    Online: formattedOnline,
   }
   const selectedPrice = priceMap[selected]
 

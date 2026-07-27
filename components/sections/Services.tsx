@@ -11,6 +11,25 @@ interface ServicesSectionProps {
 export function ServicesSection({ trainings = [] }: ServicesSectionProps) {
   const featured = trainings.slice(0, 4)
 
+  const getLowestPrice = (item: any) => {
+    const parsePrice = (p: string) => {
+      if (!p) return Infinity
+      const num = parseInt(p.replace(/\D/g, ''))
+      return isNaN(num) ? Infinity : num
+    }
+    const online = parsePrice(item.price_online)
+    const offline = parsePrice(item.price_offline)
+    const lowest = Math.min(online, offline)
+
+    if (lowest === Infinity) {
+      if (!item.price) return "Hubungi Kami"
+      const oldPrice = parsePrice(item.price)
+      if (oldPrice === Infinity) return item.price
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(oldPrice)
+    }
+    return `Mulai ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(lowest)}`
+  }
+
   return (
     <section className="py-20 md:py-28 bg-white">
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
@@ -44,7 +63,7 @@ export function ServicesSection({ trainings = [] }: ServicesSectionProps) {
                 </h3>
                 <div className="flex items-center gap-1.5 mt-3 text-comfindo-green">
                   <Tag className="h-3.5 w-3.5" />
-                  <span className="font-bold text-sm">{item.price}</span>
+                  <span className="font-bold text-sm">{getLowestPrice(item)}</span>
                 </div>
               </CardContent>
               <CardFooter className="p-5 pt-0">

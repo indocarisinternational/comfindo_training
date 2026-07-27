@@ -185,6 +185,17 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
     form.setValue("slug", slug)
   }
 
+  const formatRupiah = (value: string) => {
+    const number = value.replace(/\D/g, "");
+    if (!number) return "";
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(parseInt(number));
+  };
+
   const renderArrayInput = (fieldName: keyof z.infer<typeof formSchema>, label: string) => {
     const values = form.watch(fieldName) as string[];
     return (
@@ -294,14 +305,28 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                       <FormField control={form.control} name="price_offline" render={({ field }) => (
                           <FormItem>
                             <FormLabel>Biaya Offline <span className="text-[var(--muted-foreground)] font-normal text-xs">(opsional jika ada Online)</span></FormLabel>
-                            <FormControl><Input placeholder="Rp 1.500.000" {...field} /></FormControl>
+                            <FormControl>
+                                <Input 
+                                    placeholder="Rp 1.500.000" 
+                                    {...field} 
+                                    value={field.value || ""}
+                                    onChange={(e) => field.onChange(formatRupiah(e.target.value))}
+                                />
+                            </FormControl>
                             <FormMessage />
                           </FormItem>
                       )} />
                       <FormField control={form.control} name="price_online" render={({ field }) => (
                           <FormItem>
                             <FormLabel>Biaya Online <span className="text-[var(--muted-foreground)] font-normal text-xs">(opsional jika ada Offline)</span></FormLabel>
-                            <FormControl><Input placeholder="Rp 1.000.000" {...field} /></FormControl>
+                            <FormControl>
+                                <Input 
+                                    placeholder="Rp 1.000.000" 
+                                    {...field} 
+                                    value={field.value || ""}
+                                    onChange={(e) => field.onChange(formatRupiah(e.target.value))}
+                                />
+                            </FormControl>
                             <FormMessage />
                           </FormItem>
                       )} />
