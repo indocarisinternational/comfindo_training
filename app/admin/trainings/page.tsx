@@ -6,6 +6,8 @@ import { columns } from "@/dashboard/trainings/columns"
 import { AdminButton } from "@/components/admin/AdminButton"
 import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
 
+export const dynamic = "force-dynamic"
+
 export default async function AdminTrainingsPage() {
   const supabase = await createClient()
   const { data: trainings } = await supabase.from("training_programs").select("*").order("created_at", { ascending: false })

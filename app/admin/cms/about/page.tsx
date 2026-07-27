@@ -21,6 +21,15 @@ interface AboutData {
   team_members: { name: string; role: string; image_url: string }[]
 }
 
+interface ContactInfo {
+  id?: string
+  address: string
+  phone: string
+  phone2: string
+  email: string
+  office_hours: string
+}
+
 const defaultData: AboutData = {
   company_name: "comfindo Management",
   vision: "Menjadi lembaga pelatihan dan konsultan manajemen terpercaya yang mendukung pengembangan kompetensi sumber daya manusia serta pertumbuhan bisnis berkelanjutan bagi perusahaan di Indonesia.",
@@ -36,27 +45,29 @@ const defaultData: AboutData = {
     { value: "10+", label: "Trainer Ahli" },
     { value: "4.9★", label: "Rating Kepuasan" },
   ],
-  legalitas: [
-    { label: "Nama Lembaga", value: "comfindo Management" },
-    { label: "Alamat", value: "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
-    { label: "Kontak", value: "0858-7066-3856 / 0821-1199-5378" },
-    { label: "Email", value: "comfindo.management@gmail.com" },
-  ],
+  legalitas: [],
   team_members: [],
 }
 
 export default function AboutEditor() {
   const supabase = createClient()
   const [data, setData] = useState<AboutData>(defaultData)
+  const [contactData, setContactData] = useState<ContactInfo>({
+    address: "", phone: "", phone2: "", email: "", office_hours: ""
+  })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
   useEffect(() => { loadData() }, [])
 
   async function loadData() {
-    const { data: rows } = await supabase.from("about_content").select("*").limit(1)
-    if (rows && rows.length > 0) {
-      const row = rows[0]
+    const [aboutRes, contactRes] = await Promise.all([
+      supabase.from("about_content").select("*").limit(1),
+      supabase.from("contact_info").select("*").limit(1)
+    ])
+    
+    if (aboutRes.data && aboutRes.data.length > 0) {
+      const row = aboutRes.data[0]
       const parseJsonArray = (val: any, defaultVal: any[]) => {
         if (Array.isArray(val)) return val;
         if (typeof val === 'string') {
@@ -70,9 +81,12 @@ export default function AboutEditor() {
         ...row,
         mission: parseJsonArray(row.mission, defaultData.mission),
         stats: parseJsonArray(row.stats, defaultData.stats),
-        legalitas: parseJsonArray(row.legalitas, defaultData.legalitas),
+        legalitas: parseJsonArray(row.legalitas, defaultData.legalitas).filter((item: any) => !["Nama Lembaga", "Alamat", "Kontak", "Email", "Telepon"].includes(item.label)),
         team_members: parseJsonArray(row.team_members, defaultData.team_members),
       })
+    }
+    if (contactRes.data && contactRes.data.length > 0) {
+      setContactData(contactRes.data[0])
     }
     setLoading(false)
   }
@@ -88,7 +102,16 @@ export default function AboutEditor() {
         const { error } = await supabase.from("about_content").insert([payload])
         if (error) throw error
       }
-      toast.success("About page berhasil disimpan!")
+
+      if (contactData.id) {
+        const { error } = await supabase.from("contact_info").update(contactData).eq("id", contactData.id)
+        if (error) throw error
+      } else {
+        const { error } = await supabase.from("contact_info").insert([contactData])
+        if (error) throw error
+      }
+      
+      toast.success("About page & Contact berhasil disimpan!")
       loadData()
     } catch (error: any) {
       toast.error("Gagal menyimpan", { description: error.message })
@@ -120,6 +143,32 @@ export default function AboutEditor() {
           <div className="space-y-2">
             <Label>History / Description</Label>
             <Textarea value={data.history} onChange={(e) => setData({ ...data, history: e.target.value })} rows={4} />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle className="text-lg">Contact Information</CardTitle></CardHeader>
+        <CardContent className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-2 md:col-span-2">
+            <Label>Alamat Lengkap</Label>
+            <Input value={contactData.address} onChange={(e) => setContactData({ ...contactData, address: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <Label>Telepon 1 (WhatsApp)</Label>
+            <Input value={contactData.phone} onChange={(e) => setContactData({ ...contactData, phone: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <Label>Telepon 2 (Alternatif)</Label>
+            <Input value={contactData.phone2} onChange={(e) => setContactData({ ...contactData, phone2: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <Label>Email</Label>
+            <Input value={contactData.email} onChange={(e) => setContactData({ ...contactData, email: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <Label>Jam Operasional</Label>
+            <Input value={contactData.office_hours} onChange={(e) => setContactData({ ...contactData, office_hours: e.target.value })} />
           </div>
         </CardContent>
       </Card>

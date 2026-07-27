@@ -185,6 +185,8 @@ ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS duration TEXT;
 ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS method TEXT;
 ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS location TEXT;
 ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS price TEXT;
+ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS price_offline TEXT;
+ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS price_online TEXT;
 ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS image_url TEXT;
 ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS target_participants JSONB DEFAULT '[]';
 ALTER TABLE training_programs ADD COLUMN IF NOT EXISTS objectives JSONB DEFAULT '[]';

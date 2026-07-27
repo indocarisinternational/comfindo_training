@@ -13,12 +13,14 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const supabase = await createClient()
-  const [aboutRes, certsRes] = await Promise.all([
+  const [aboutRes, certsRes, contactRes] = await Promise.all([
     supabase.from("about_content").select("*").limit(1).single(),
     supabase.from("certificates").select("*").eq("is_published", true).order("sort_order"),
+    supabase.from("contact_info").select("*").limit(1).single(),
   ])
   const about = aboutRes.data
   const certificates = certsRes.data || []
+  const contact = contactRes.data
 
   const parseJsonArray = (val: any, defaultVal: any[]) => {
     if (Array.isArray(val)) return val;
@@ -44,12 +46,16 @@ export default async function AboutPage() {
     { value: "10+", label: "Trainer Ahli" },
     { value: "4.9★", label: "Rating Kepuasan" },
   ])
-  const legalitas = parseJsonArray(about?.legalitas, [
-    { label: "Nama Lembaga", value: "comfindo Management" },
-    { label: "Alamat", value: "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
-    { label: "Kontak", value: "0858-7066-3856 / 0821-1199-5378" },
-    { label: "Email", value: "comfindo.management@gmail.com" },
-  ])
+  let dbLegalitas = parseJsonArray(about?.legalitas, []);
+  dbLegalitas = dbLegalitas.filter((item: any) => !["Nama Lembaga", "Alamat", "Kontak", "Email", "Telepon"].includes(item.label));
+
+  const legalitas = [
+    { label: "Nama Lembaga", value: company_name },
+    { label: "Alamat", value: contact?.address || "Perkantoran Tanjung Mas Raya Blok B1 No.44, Tanjung Barat, Jakarta Selatan" },
+    { label: "Kontak", value: `${contact?.phone || "0858-7066-3856"}${contact?.phone2 ? ` / ${contact?.phone2}` : ""}` },
+    { label: "Email", value: contact?.email || "comfindo.management@gmail.com" },
+    ...dbLegalitas
+  ]
 
   const statIcons = [GraduationCap, Users, Star, Shield]
 

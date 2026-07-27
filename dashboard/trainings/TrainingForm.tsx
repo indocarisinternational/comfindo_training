@@ -36,7 +36,8 @@ const formSchema = z.object({
   duration: z.string().optional(),
   method: z.string().optional(),
   location: z.string().optional(),
-  price: z.string().optional(),
+  price_offline: z.string().optional(),
+  price_online: z.string().optional(),
   image_url: z.string().optional(),
   target_participants: z.array(z.string()),
   objectives: z.array(z.string()),
@@ -79,6 +80,9 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
       materials: parseJsonArray(initialData.materials, []),
       benefits: parseJsonArray(initialData.benefits, []),
       output: parseJsonArray(initialData.output, []),
+      is_featured: initialData.is_featured ?? false,
+      is_published: initialData.is_published ?? false,
+      sort_order: initialData.sort_order ?? 0,
   } : {
     title: "",
     slug: "",
@@ -90,7 +94,8 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
     duration: "2 Hari",
     method: "Online",
     location: "Zoom Meeting",
-    price: "Rp ",
+    price_offline: "Rp ",
+    price_online: "Rp ",
     image_url: "",
     target_participants: [],
     objectives: [],
@@ -249,8 +254,11 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                     <FormField control={form.control} name="location" render={({ field }) => (
                         <FormItem><FormLabel>Location</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
-                    <FormField control={form.control} name="price" render={({ field }) => (
-                        <FormItem><FormLabel>Price</FormLabel><FormControl><Input placeholder="Rp 1.500.000" {...field} /></FormControl><FormMessage /></FormItem>
+                    <FormField control={form.control} name="price_offline" render={({ field }) => (
+                        <FormItem><FormLabel>Biaya Offline</FormLabel><FormControl><Input placeholder="Rp 1.500.000" {...field} /></FormControl><FormMessage /></FormItem>
+                    )} />
+                    <FormField control={form.control} name="price_online" render={({ field }) => (
+                        <FormItem><FormLabel>Biaya Online</FormLabel><FormControl><Input placeholder="Rp 1.000.000" {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
                     <FormField control={form.control} name="sort_order" render={({ field }) => (
                         <FormItem><FormLabel>Sort Order</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))}/></FormControl><FormMessage /></FormItem>

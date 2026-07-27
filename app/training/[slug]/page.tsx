@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, MapPin, CheckCircle2, FileText, Tag, MessageCircle, ArrowRight, Target, Users, Award } from "lucide-react"
 import Link from "next/link"
+import { InteractivePricing } from "@/components/training/InteractivePricing"
 
 export const revalidate = 300
 
@@ -92,7 +93,7 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
                 { icon: Calendar, label: "Jadwal", value: training.date || "Setiap Bulan", color: "bg-blue-50 text-blue-600" },
                 { icon: Clock, label: "Durasi", value: training.duration || "2 Hari", color: "bg-purple-50 text-purple-600" },
                 { icon: MapPin, label: "Metode", value: training.method || "Online", color: "bg-orange-50 text-orange-600" },
-                { icon: Tag, label: "Investasi", value: training.price || "Hubungi Kami", color: "bg-green-50 text-comfindo-green" },
+                { icon: Tag, label: "Investasi", value: (training.price_offline || training.price_online) ? "Mulai " + (training.price_online || training.price_offline) : (training.price || "Hubungi Kami"), color: "bg-green-50 text-comfindo-green" },
               ].map((item) => (
                 <div key={item.label} className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${item.color} mb-3`}>
@@ -194,8 +195,12 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
           <div className="lg:col-span-1 space-y-6">
             <div className="rounded-2xl border border-gray-100 bg-white shadow-lg p-6 sticky top-24">
               <div className="text-center mb-5">
-                <p className="text-sm text-gray-400 mb-1">Investasi</p>
-                <p className="text-3xl font-extrabold text-comfindo-green">{training.price || "Hubungi Kami"}</p>
+                <p className="text-sm text-gray-400 mb-2">Pilihan Investasi</p>
+                <InteractivePricing 
+                  priceDefault={training.price} 
+                  priceOnline={training.price_online} 
+                  priceOffline={training.price_offline} 
+                />
               </div>
               <div className="space-y-3">
                 <Button className="w-full h-12 bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl shadow-md hover:shadow-lg text-sm font-semibold" size="lg" asChild>

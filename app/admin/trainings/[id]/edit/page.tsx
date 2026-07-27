@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server"
 import { TrainingForm } from "@/dashboard/trainings/TrainingForm"
 import { notFound } from "next/navigation"
 
+export const dynamic = "force-dynamic"
+
 export default async function EditTrainingPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
   const supabase = await createClient()
