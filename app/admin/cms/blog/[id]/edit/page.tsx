@@ -194,14 +194,6 @@ export default function EditBlogPost() {
             <CardHeader><CardTitle className="text-lg">SEO</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label>SEO Title</Label>
-                <Input value={post.seo_title} onChange={(e) => setPost({ ...post, seo_title: e.target.value })} />
-              </div>
-              <div className="space-y-2">
-                <Label>SEO Description</Label>
-                <Textarea value={post.seo_description} onChange={(e) => setPost({ ...post, seo_description: e.target.value })} rows={3} />
-              </div>
-              <div className="space-y-2">
                 <Label>Focus Keyword</Label>
                 <Input value={post.focus_keyword} onChange={(e) => setPost({ ...post, focus_keyword: e.target.value })} placeholder="Kata kunci utama..." />
               </div>
@@ -212,8 +204,8 @@ export default function EditBlogPost() {
             focusKeyword={post.focus_keyword}
             title={post.title}
             slug={post.slug}
-            seoTitle={post.seo_title}
-            seoDescription={post.seo_description}
+            seoTitle={post.title}
+            seoDescription={post.excerpt}
             content={post.content}
           />
         </div>
