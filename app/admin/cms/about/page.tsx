@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useTransition, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
@@ -50,6 +51,7 @@ const defaultData: AboutData = {
 }
 
 export default function AboutEditor() {
+  const router = useRouter()
   const supabase = createClient()
   const [data, setData] = useState<AboutData>(defaultData)
   const [contactData, setContactData] = useState<ContactInfo>({
@@ -57,6 +59,7 @@ export default function AboutEditor() {
   })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => { loadData() }, [])
 
@@ -112,10 +115,16 @@ export default function AboutEditor() {
       }
       
       toast.success("About page & Contact berhasil disimpan!")
-      loadData()
+      
+      startTransition(() => {
+        router.refresh()
+        loadData()
+        setSaving(false)
+      })
     } catch (error: any) {
       toast.error("Gagal menyimpan", { description: error.message })
-    } finally { setSaving(false) }
+      setSaving(false)
+    }
   }
 
   if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
@@ -127,9 +136,9 @@ export default function AboutEditor() {
           <h1 className="text-2xl font-bold text-[var(--foreground)]">About Page Editor</h1>
           <p className="text-sm text-[var(--muted-foreground)] mt-1">Edit halaman profil perusahaan</p>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="">
-          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-          Simpan
+        <Button onClick={handleSave} disabled={saving || isPending} className="">
+          {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          Save Changes
         </Button>
       </div>
 
@@ -248,10 +257,10 @@ export default function AboutEditor() {
         </CardContent>
       </Card>
 
-      <div className="flex justify-end pb-8">
-        <Button onClick={handleSave} disabled={saving} size="lg" className="">
-          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-          Simpan Perubahan
+      <div className="flex justify-end pt-4">
+        <Button onClick={handleSave} disabled={saving || isPending} size="lg" className="">
+          {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          Save Changes
         </Button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useTransition, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
@@ -71,10 +72,12 @@ const defaultData: HomepageData = {
 }
 
 export default function HomepageEditor() {
+  const router = useRouter()
   const supabase = createClient()
   const [data, setData] = useState<HomepageData>(defaultData)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
     loadData()
@@ -114,10 +117,14 @@ export default function HomepageEditor() {
       }
 
       toast.success("Homepage berhasil disimpan!")
-      loadData()
+      
+      startTransition(() => {
+        router.refresh()
+        loadData()
+        setSaving(false)
+      })
     } catch (error: any) {
       toast.error("Gagal menyimpan", { description: error.message })
-    } finally {
       setSaving(false)
     }
   }
@@ -144,8 +151,8 @@ export default function HomepageEditor() {
           <h1 className="text-2xl font-bold text-[var(--foreground)]">Homepage Editor</h1>
           <p className="text-sm text-[var(--muted-foreground)] mt-1">Edit konten halaman utama website</p>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="">
-          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+        <Button onClick={handleSave} disabled={saving || isPending} className="">
+          {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan
         </Button>
       </div>
@@ -351,8 +358,8 @@ export default function HomepageEditor() {
 
       {/* Bottom Save */}
       <div className="flex justify-end pb-8">
-        <Button onClick={handleSave} disabled={saving} size="lg" className="">
-          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+        <Button onClick={handleSave} disabled={saving || isPending} size="lg" className="">
+          {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan Perubahan
         </Button>
       </div>

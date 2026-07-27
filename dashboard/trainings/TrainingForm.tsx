@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
+import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { ArrowLeft, Plus, Trash2 } from "lucide-react"
@@ -64,6 +65,7 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
   const router = useRouter()
   const supabase = createClient()
   const [loading, setLoading] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   const parseJsonArray = (val: unknown, defaultVal: string[]) => {
     if (Array.isArray(val)) return val;
@@ -135,11 +137,17 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
             if (error) throw error
             toast.success("Training created successfully.")
         }
-        router.refresh()
-        router.push("/admin/trainings")
+        
+        startTransition(() => {
+            router.refresh()
+            router.push("/admin/trainings")
+        })
     } catch (error: unknown) {
-        toast.error("Something went wrong.", { description: error instanceof Error ? error.message : "Unknown error" })
-    } finally {
+        if (error instanceof Error) {
+            toast.error(error.message)
+        } else {
+            toast.error("An unknown error occurred")
+        }
         setLoading(false)
     }
   }
@@ -314,8 +322,9 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                 </CardContent>
             </Card>
 
-            <Button type="submit" size="lg" disabled={loading} className="w-full  text-white">
-                {loading ? "Saving..." : initialData ? "Update Training Program" : "Create Training Program"}
+            <Button type="submit" size="lg" disabled={loading || isPending} className="w-full text-white">
+                {(loading || isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {initialData ? "Update Training Program" : "Create Training Program"}
             </Button>
         </form>
         </Form>

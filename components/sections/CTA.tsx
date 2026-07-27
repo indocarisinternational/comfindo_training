@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, MessageCircle } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
 
 interface CTAProps {
   title?: string
@@ -8,13 +9,18 @@ interface CTAProps {
   phone?: string
   whatsappUrl?: string
 }
-
-export function CTASection({
+export async function CTASection({
   title = "Siap Meningkatkan Kompetensi Anda?",
   subtitle = "Bergabunglah dengan ratusan alumni comfindo Management yang telah meningkatkan kompetensi dan karier mereka. Hubungi kami sekarang!",
-  phone = "0858-7066-3856",
-  whatsappUrl = "https://wa.me/6287741929105",
+  phone: propPhone,
+  whatsappUrl: propWhatsapp,
 }: CTAProps) {
+  const supabase = await createClient()
+  const { data: contact } = await supabase.from("contact_info").select("*").limit(1).single()
+  
+  const phone = propPhone || contact?.phone || "0858-7066-3856"
+  const whatsappUrl = propWhatsapp || (contact?.phone ? `https://wa.me/62${contact.phone.replace(/[^0-9]/g, '').replace(/^0/, '')}` : "https://wa.me/6287741929105")
+
   return (
     <section className="relative py-24 md:py-32 overflow-hidden">
       {/* Background */}

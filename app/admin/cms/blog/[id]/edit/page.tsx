@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { useTransition } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
@@ -19,8 +20,9 @@ export default function EditBlogPost() {
   const router = useRouter()
   const params = useParams()
   const postId = params.id as string
-  const [saving, setSaving] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [isPending, startTransition] = useTransition()
   const [post, setPost] = useState({
     title: "",
     slug: "",
@@ -91,11 +93,15 @@ export default function EditBlogPost() {
 
       const { error } = await supabase.from("blog_posts").update(payload).eq("id", postId)
       if (error) throw error
-      toast.success("Post updated!")
-      setPost({ ...post, is_published: isPublished })
+      toast.success(publish === undefined ? "Perubahan disimpan!" : publish ? "Artikel berhasil dipublikasi!" : "Draft berhasil disimpan!")
+      startTransition(() => {
+        router.refresh()
+        router.push("/admin/cms/blog")
+      })
     } catch (error: any) {
-      toast.error("Error", { description: error.message })
-    } finally { setSaving(false) }
+      toast.error("Gagal menyimpan", { description: error.message })
+      setSaving(false)
+    }
   }
 
   if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
@@ -113,19 +119,18 @@ export default function EditBlogPost() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => handleSave()} disabled={saving}>
-            {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-            Save
+          <Button variant="outline" onClick={() => handleSave()} disabled={saving || isPending}>
+            {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+            Save Changes
           </Button>
-          {post.is_published ? (
-            <Button variant="outline" onClick={() => handleSave(false)} disabled={saving} className="text-[#793400] border-[var(--border)] hover:bg-tint-peach">
-              <EyeOff className="mr-2 h-4 w-4" /> Unpublish
-            </Button>
-          ) : (
-            <Button onClick={() => handleSave(true)} disabled={saving} className="">
-              <Eye className="mr-2 h-4 w-4" /> Publish
+          {!post.is_published && (
+            <Button variant="outline" onClick={() => handleSave(false)} disabled={saving || isPending} className="text-[#793400] border-[var(--border)] hover:bg-tint-peach">
+              Save Draft
             </Button>
           )}
+          <Button onClick={() => handleSave(true)} disabled={saving || isPending} className="">
+            {post.is_published ? "Update & Republish" : "Publish Now"}
+          </Button>
         </div>
       </div>
 

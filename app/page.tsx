@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   description: "comfindo Management membantu perusahaan dan organisasi melalui pelatihan ISO 9001, konsultasi sistem manajemen mutu, sertifikasi kompetensi, dan pengembangan SDM.",
 }
 
-export const revalidate = 300
+export const dynamic = "force-dynamic"
 
 export default async function Home() {
   const supabase = await createClient()
 
   const [homepageRes, trainingsRes, faqsRes, testimonialsRes] = await Promise.all([
     supabase.from("homepage_content").select("*").limit(1).single(),
-    supabase.from("training_programs").select("*").eq("is_published", true).eq("is_featured", true).order("created_at", { ascending: false }).limit(4),
+    supabase.from("training_programs").select("*").eq("is_published", true).order("created_at", { ascending: false }).limit(4),
     supabase.from("faqs").select("*").eq("is_published", true).order("sort_order"),
     supabase.from("testimonials").select("*").eq("is_published", true).order("sort_order"),
   ])

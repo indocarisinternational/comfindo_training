@@ -15,6 +15,8 @@ import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
+import { useTransition } from "react"
 
 export type Training = {
   id: string
@@ -70,11 +72,13 @@ export const columns: ColumnDef<Training>[] = [
     id: "actions",
     cell: ({ row }) => {
       const training = row.original
+      const router = useRouter()
+      const [isPending, startTransition] = useTransition()
  
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button variant="ghost" className="h-8 w-8 p-0" disabled={isPending}>
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
@@ -98,11 +102,13 @@ export const columns: ColumnDef<Training>[] = [
                         toast.error("Gagal menghapus", { description: error.message })
                     } else {
                         toast.success("Berhasil menghapus")
-                        window.location.reload()
+                        startTransition(() => {
+                            router.refresh()
+                        })
                     }
                 }
             }}>
-              Delete Training
+              {isPending ? "Menghapus..." : "Delete Training"}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

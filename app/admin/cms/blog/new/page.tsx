@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
@@ -18,6 +19,7 @@ export default function NewBlogPost() {
   const supabase = createClient()
   const router = useRouter()
   const [saving, setSaving] = useState(false)
+  const [isPending, startTransition] = useTransition()
   const [post, setPost] = useState({
     title: "",
     slug: "",
@@ -69,11 +71,15 @@ export default function NewBlogPost() {
 
       const { error } = await supabase.from("blog_posts").insert([payload])
       if (error) throw error
-      toast.success(publish ? "Post published!" : "Draft saved!")
-      router.push("/admin/cms/blog")
+      toast.success(publish ? "Artikel berhasil dipublikasi!" : "Draft berhasil disimpan!")
+      startTransition(() => {
+        router.refresh()
+        router.push("/admin/cms/blog")
+      })
     } catch (error: any) {
-      toast.error("Error", { description: error.message })
-    } finally { setSaving(false) }
+      toast.error("Gagal menyimpan", { description: error.message })
+      setSaving(false)
+    }
   }
 
   return (
@@ -89,12 +95,12 @@ export default function NewBlogPost() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => handleSave(false)} disabled={saving}>
-            {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          <Button variant="outline" onClick={() => handleSave(false)} disabled={saving || isPending}>
+            {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
             Save Draft
           </Button>
-          <Button onClick={() => handleSave(true)} disabled={saving} className="">
-            <Eye className="mr-2 h-4 w-4" /> Publish
+          <Button onClick={() => handleSave(true)} disabled={saving || isPending}>
+            <Eye className="mr-2 h-4 w-4" /> Publish Article
           </Button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useTransition, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
@@ -37,10 +38,12 @@ const defaultData: ContactData = {
 }
 
 export default function ContactEditor() {
+  const router = useRouter()
   const supabase = createClient()
   const [data, setData] = useState<ContactData>(defaultData)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => { loadData() }, [])
 
@@ -76,11 +79,17 @@ export default function ContactEditor() {
         const { error } = await supabase.from("contact_info").insert([payload])
         if (error) throw error
       }
-      toast.success("Contact info berhasil disimpan!")
-      loadData()
+      toast.success("Contact page berhasil disimpan!")
+      
+      startTransition(() => {
+        router.refresh()
+        loadData()
+        setSaving(false)
+      })
     } catch (error: any) {
       toast.error("Gagal menyimpan", { description: error.message })
-    } finally { setSaving(false) }
+      setSaving(false)
+    }
   }
 
   if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>
@@ -92,8 +101,8 @@ export default function ContactEditor() {
           <h1 className="text-2xl font-bold text-[var(--foreground)]">Contact Editor</h1>
           <p className="text-sm text-[var(--muted-foreground)] mt-1">Edit informasi kontak perusahaan</p>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="">
-          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+        <Button onClick={handleSave} disabled={saving || isPending} className="">
+          {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan
         </Button>
       </div>
@@ -155,8 +164,8 @@ export default function ContactEditor() {
       </Card>
 
       <div className="flex justify-end pb-8">
-        <Button onClick={handleSave} disabled={saving} size="lg" className="">
-          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+        <Button onClick={handleSave} disabled={saving || isPending} size="lg" className="">
+          {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Simpan Perubahan
         </Button>
       </div>

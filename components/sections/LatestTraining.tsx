@@ -64,7 +64,11 @@ export function LatestTrainingSection({ trainings = [] }: LatestTrainingProps) {
                 </div>
                 <div className="flex items-center gap-1.5 pt-1 text-comfindo-green">
                   <Tag className="h-3.5 w-3.5" />
-                  <span className="font-bold text-sm">{training.price}</span>
+                  <span className="font-bold text-sm">
+                    {(training.price_offline || training.price_online) 
+                        ? `Mulai ${(training.price_online || training.price_offline)}` 
+                        : (training.price || "Hubungi Kami")}
+                  </span>
                 </div>
               </CardContent>
 

@@ -37,15 +37,36 @@ export default function BlogManager() {
   async function togglePublish(id: string, current: boolean) {
     const update: any = { is_published: !current }
     if (!current) update.published_at = new Date().toISOString()
-    const { error } = await supabase.from("blog_posts").update(update).eq("id", id)
-    if (!error) { toast.success(current ? "Post unpublished" : "Post published!"); loadPosts() }
+    
+    toast.promise(
+      (async () => {
+        const { error } = await supabase.from("blog_posts").update(update).eq("id", id)
+        if (error) throw error
+        loadPosts()
+      })(),
+      {
+        loading: current ? 'Menyembunyikan...' : 'Mempublikasi...',
+        success: current ? "Post unpublished" : "Post published!",
+        error: 'Gagal memproses'
+      }
+    )
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Hapus blog post ini?")) return
-    const { error } = await supabase.from("blog_posts").delete().eq("id", id)
-    if (error) toast.error("Error", { description: error.message })
-    else { toast.success("Post deleted!"); loadPosts() }
+    
+    toast.promise(
+      (async () => {
+        const { error } = await supabase.from("blog_posts").delete().eq("id", id)
+        if (error) throw error
+        loadPosts()
+      })(),
+      {
+        loading: 'Menghapus...',
+        success: 'Post deleted!',
+        error: 'Gagal menghapus'
+      }
+    )
   }
 
   if (loading) return <div className="flex items-center justify-center h-64"><Loader2 className="h-8 w-8 animate-spin text-[var(--primary)]" /></div>

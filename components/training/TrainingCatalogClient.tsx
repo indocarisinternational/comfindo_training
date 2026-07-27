@@ -121,7 +121,11 @@ export function TrainingCatalogClient({ initialTrainings }: { initialTrainings: 
                 </div>
                 <div className="flex items-center gap-1.5 pt-1">
                   <Tag className="h-3.5 w-3.5 text-comfindo-green" />
-                  <span className="font-bold text-sm text-comfindo-green">{training.price}</span>
+                  <span className="font-bold text-sm text-comfindo-green">
+                    {(training.price_offline || training.price_online) 
+                        ? `Mulai ${(training.price_online || training.price_offline)}` 
+                        : (training.price || "Hubungi Kami")}
+                  </span>
                 </div>
               </CardContent>
               <CardFooter className="p-5 pt-0">

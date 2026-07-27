@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import { Metadata } from "next"
 import { TrainingCatalogClient } from "@/components/training/TrainingCatalogClient"
 
-export const revalidate = 300
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "Katalog Pelatihan ISO 9001 dan Sertifikasi | comfindo Management",

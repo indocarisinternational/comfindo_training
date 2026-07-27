@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
@@ -27,11 +28,13 @@ interface Certificate {
 }
 
 export default function CertificatesManager() {
+  const router = useRouter()
   const supabase = createClient()
   const [certificates, setCertificates] = useState<Certificate[]>([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState<Certificate | null>(null)
   const [saving, setSaving] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => { loadCertificates() }, [])
 
@@ -75,22 +78,38 @@ export default function CertificatesManager() {
         toast.success("Certificate created!")
       }
       setEditing(null)
-      loadCertificates()
+      startTransition(() => {
+        router.refresh()
+        loadCertificates()
+        setSaving(false)
+      })
     } catch (error: any) {
       toast.error("Error", { description: error.message })
-    } finally { setSaving(false) }
+      setSaving(false)
+    }
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Hapus sertifikat ini?")) return
     const { error } = await supabase.from("certificates").delete().eq("id", id)
     if (error) toast.error("Error", { description: error.message })
-    else { toast.success("Certificate deleted!"); loadCertificates() }
+    else { 
+      toast.success("Certificate deleted!")
+      startTransition(() => {
+        router.refresh()
+        loadCertificates()
+      })
+    }
   }
 
   async function togglePublish(id: string, current: boolean) {
     const { error } = await supabase.from("certificates").update({ is_published: !current }).eq("id", id)
-    if (!error) loadCertificates()
+    if (!error) {
+      startTransition(() => {
+        router.refresh()
+        loadCertificates()
+      })
+    }
   }
 
   function startNew() {
@@ -121,8 +140,8 @@ export default function CertificatesManager() {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => setEditing(null)}>Cancel</Button>
-            <Button onClick={handleSave} disabled={saving} className="">
-              {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+            <Button onClick={handleSave} disabled={saving || isPending} className="">
+              {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
               Save
             </Button>
           </div>

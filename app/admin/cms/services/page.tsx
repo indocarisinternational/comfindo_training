@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { AdminInput as Input } from "@/components/admin/ui/AdminInput"
@@ -27,11 +28,13 @@ interface Service {
 }
 
 export default function ServicesManager() {
+  const router = useRouter()
   const supabase = createClient()
   const [services, setServices] = useState<Service[]>([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState<Service | null>(null)
   const [saving, setSaving] = useState(false)
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => { loadServices() }, [])
 
@@ -89,22 +92,38 @@ export default function ServicesManager() {
         toast.success("Service created!")
       }
       setEditing(null)
-      loadServices()
+      startTransition(() => {
+        router.refresh()
+        loadServices()
+        setSaving(false)
+      })
     } catch (error: any) {
       toast.error("Error", { description: error.message })
-    } finally { setSaving(false) }
+      setSaving(false)
+    }
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Hapus service ini?")) return
     const { error } = await supabase.from("services").delete().eq("id", id)
     if (error) toast.error("Error", { description: error.message })
-    else { toast.success("Service deleted!"); loadServices() }
+    else { 
+      toast.success("Service deleted!")
+      startTransition(() => {
+        router.refresh()
+        loadServices()
+      })
+    }
   }
 
   async function togglePublish(id: string, current: boolean) {
     const { error } = await supabase.from("services").update({ is_published: !current }).eq("id", id)
-    if (!error) loadServices()
+    if (!error) {
+      startTransition(() => {
+        router.refresh()
+        loadServices()
+      })
+    }
   }
 
   function startNew() {
@@ -135,8 +154,8 @@ export default function ServicesManager() {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => setEditing(null)}>Cancel</Button>
-            <Button onClick={handleSave} disabled={saving} className="">
-              {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+            <Button onClick={handleSave} disabled={saving || isPending} className="">
+              {(saving || isPending) ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
               Save
             </Button>
           </div>
