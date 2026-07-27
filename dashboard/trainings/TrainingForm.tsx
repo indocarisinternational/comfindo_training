@@ -52,7 +52,13 @@ const formSchema = z.object({
   seo_title: z.string().optional(),
   seo_description: z.string().optional(),
   canonical_url: z.string().optional(),
-})
+}).refine(
+  (data) => !!(data.price_offline?.trim() || data.price_online?.trim()),
+  {
+    message: "Minimal satu harga harus diisi (Online atau Offline).",
+    path: ["price_offline"],
+  }
+)
 
 type TrainingFormValues = z.infer<typeof formSchema>
 type TrainingRecord = Partial<TrainingFormValues> & { id?: string; [key: string]: unknown }
@@ -76,7 +82,19 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
   }
 
   const defaultValues = initialData ? {
-      ...initialData,
+      title: String(initialData.title ?? ''),
+      slug: String(initialData.slug ?? ''),
+      short_description: String(initialData.short_description ?? ''),
+      description: String(initialData.description ?? ''),
+      category: String(initialData.category ?? ''),
+      level: String(initialData.level ?? ''),
+      date: String(initialData.date ?? ''),
+      duration: String(initialData.duration ?? ''),
+      method: String(initialData.method ?? ''),
+      location: String(initialData.location ?? ''),
+      price_offline: String(initialData.price_offline ?? ''),
+      price_online: String(initialData.price_online ?? ''),
+      image_url: String(initialData.image_url ?? ''),
       target_participants: parseJsonArray(initialData.target_participants, []),
       objectives: parseJsonArray(initialData.objectives, []),
       materials: parseJsonArray(initialData.materials, []),
@@ -84,7 +102,11 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
       output: parseJsonArray(initialData.output, []),
       is_featured: initialData.is_featured ?? false,
       is_published: initialData.is_published ?? false,
-      sort_order: initialData.sort_order ?? 0,
+      sort_order: Number(initialData.sort_order ?? 0),
+      focus_keyword: String(initialData.focus_keyword ?? ''),
+      seo_title: String(initialData.seo_title ?? ''),
+      seo_description: String(initialData.seo_description ?? ''),
+      canonical_url: String(initialData.canonical_url ?? ''),
   } : {
     title: "",
     slug: "",
@@ -121,21 +143,27 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true)
     try {
-        if (initialData) {
+        const payload = {
+            ...values,
+            // Ensure empty string stays empty string (not null)
+            price_offline: values.price_offline || null,
+            price_online: values.price_online || null,
+        }
+        if (initialData?.id) {
             const { error } = await supabase
                 .from('training_programs')
-                .update(values)
+                .update(payload)
                 .eq('id', initialData.id)
             
             if (error) throw error
-            toast.success("Training updated successfully.")
+            toast.success("Training berhasil diperbarui!")
         } else {
             const { error } = await supabase
                 .from('training_programs')
-                .insert([values])
+                .insert([payload])
             
             if (error) throw error
-            toast.success("Training created successfully.")
+            toast.success("Training berhasil dibuat!")
         }
         
         startTransition(() => {
@@ -144,9 +172,9 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
         })
     } catch (error: unknown) {
         if (error instanceof Error) {
-            toast.error(error.message)
+            toast.error("Gagal menyimpan", { description: error.message })
         } else {
-            toast.error("An unknown error occurred")
+            toast.error("Terjadi kesalahan")
         }
         setLoading(false)
     }
@@ -262,12 +290,22 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                     <FormField control={form.control} name="location" render={({ field }) => (
                         <FormItem><FormLabel>Location</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
-                    <FormField control={form.control} name="price_offline" render={({ field }) => (
-                        <FormItem><FormLabel>Biaya Offline</FormLabel><FormControl><Input placeholder="Rp 1.500.000" {...field} /></FormControl><FormMessage /></FormItem>
-                    )} />
-                    <FormField control={form.control} name="price_online" render={({ field }) => (
-                        <FormItem><FormLabel>Biaya Online</FormLabel><FormControl><Input placeholder="Rp 1.000.000" {...field} /></FormControl><FormMessage /></FormItem>
-                    )} />
+                    <div className="col-span-2 grid grid-cols-2 gap-4">
+                      <FormField control={form.control} name="price_offline" render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Biaya Offline <span className="text-[var(--muted-foreground)] font-normal text-xs">(opsional jika ada Online)</span></FormLabel>
+                            <FormControl><Input placeholder="Rp 1.500.000" {...field} /></FormControl>
+                            <FormMessage />
+                          </FormItem>
+                      )} />
+                      <FormField control={form.control} name="price_online" render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Biaya Online <span className="text-[var(--muted-foreground)] font-normal text-xs">(opsional jika ada Offline)</span></FormLabel>
+                            <FormControl><Input placeholder="Rp 1.000.000" {...field} /></FormControl>
+                            <FormMessage />
+                          </FormItem>
+                      )} />
+                    </div>
                     <FormField control={form.control} name="sort_order" render={({ field }) => (
                         <FormItem><FormLabel>Sort Order</FormLabel><FormControl><Input type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value))}/></FormControl><FormMessage /></FormItem>
                     )} />

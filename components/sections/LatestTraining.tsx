@@ -11,6 +11,28 @@ interface LatestTrainingProps {
 export function LatestTrainingSection({ trainings = [] }: LatestTrainingProps) {
   const latestTrainings = trainings.slice(0, 3)
 
+  const getLowestPrice = (training: any) => {
+    const parsePrice = (p: string) => {
+      if (!p) return Infinity;
+      const num = parseInt(p.replace(/\D/g, ''));
+      return isNaN(num) ? Infinity : num;
+    };
+    
+    const online = parsePrice(training.price_online);
+    const offline = parsePrice(training.price_offline);
+    const lowest = Math.min(online, offline);
+    
+    if (lowest === Infinity) {
+      if (!training.price) return "Hubungi Kami";
+      const oldPrice = parsePrice(training.price);
+      if (oldPrice === Infinity) return training.price;
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(oldPrice);
+    }
+    
+    const formatted = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(lowest);
+    return `Mulai ${formatted}`;
+  }
+
   return (
     <section className="py-20 md:py-28 bg-white">
       <div className="container max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 xl:px-20">
@@ -65,9 +87,7 @@ export function LatestTrainingSection({ trainings = [] }: LatestTrainingProps) {
                 <div className="flex items-center gap-1.5 pt-1 text-comfindo-green">
                   <Tag className="h-3.5 w-3.5" />
                   <span className="font-bold text-sm">
-                    {(training.price_offline || training.price_online) 
-                        ? `Mulai ${(training.price_online || training.price_offline)}` 
-                        : (training.price || "Hubungi Kami")}
+                    {getLowestPrice(training)}
                   </span>
                 </div>
               </CardContent>

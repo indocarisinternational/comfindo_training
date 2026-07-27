@@ -18,6 +18,28 @@ export function TrainingCatalogClient({ initialTrainings }: { initialTrainings: 
   const [selectedMonth, setSelectedMonth] = useState("Semua Bulan")
   const [searchQuery, setSearchQuery] = useState("")
 
+  const getLowestPrice = (training: any) => {
+    const parsePrice = (p: string) => {
+      if (!p) return Infinity;
+      const num = parseInt(p.replace(/\D/g, ''));
+      return isNaN(num) ? Infinity : num;
+    };
+    
+    const online = parsePrice(training.price_online);
+    const offline = parsePrice(training.price_offline);
+    const lowest = Math.min(online, offline);
+    
+    if (lowest === Infinity) {
+      if (!training.price) return "Hubungi Kami";
+      const oldPrice = parsePrice(training.price);
+      if (oldPrice === Infinity) return training.price;
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(oldPrice);
+    }
+    
+    const formatted = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(lowest);
+    return `Mulai ${formatted}`;
+  }
+
   const filteredTrainings = useMemo(() => {
     return initialTrainings.filter((t) => {
       const matchesCategory = selectedCategory === "Semua" || t.category === selectedCategory
@@ -122,9 +144,7 @@ export function TrainingCatalogClient({ initialTrainings }: { initialTrainings: 
                 <div className="flex items-center gap-1.5 pt-1">
                   <Tag className="h-3.5 w-3.5 text-comfindo-green" />
                   <span className="font-bold text-sm text-comfindo-green">
-                    {(training.price_offline || training.price_online) 
-                        ? `Mulai ${(training.price_online || training.price_offline)}` 
-                        : (training.price || "Hubungi Kami")}
+                    {getLowestPrice(training)}
                   </span>
                 </div>
               </CardContent>

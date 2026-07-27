@@ -26,6 +26,8 @@ export type Training = {
   date: string
   is_published: boolean
   price: string
+  price_online?: string
+  price_offline?: string
 }
 
 export const columns: ColumnDef<Training>[] = [
@@ -55,6 +57,18 @@ export const columns: ColumnDef<Training>[] = [
   {
     accessorKey: "price",
     header: "Price",
+    cell: ({ row }) => {
+        const training = row.original
+        if (training.price_online || training.price_offline) {
+            return (
+                <div className="flex flex-col gap-0.5 text-xs">
+                    {training.price_online && <span><strong className="font-semibold">Online:</strong> {training.price_online}</span>}
+                    {training.price_offline && <span><strong className="font-semibold">Offline:</strong> {training.price_offline}</span>}
+                </div>
+            )
+        }
+        return <span>{training.price || "-"}</span>
+    }
   },
   {
     accessorKey: "is_published",
