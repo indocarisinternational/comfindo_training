@@ -12,6 +12,7 @@ import { toast } from "sonner"
 import { Save, Loader2, ArrowLeft, Eye } from "lucide-react"
 import Link from "next/link"
 import { RichTextEditor } from "@/components/admin/RichTextEditor"
+import { SEOAnalyzer } from "@/components/admin/SEOAnalyzer"
 
 export default function NewBlogPost() {
   const supabase = createClient()
@@ -29,6 +30,7 @@ export default function NewBlogPost() {
     tags: "",
     seo_title: "",
     seo_description: "",
+    focus_keyword: "",
     is_published: false,
   })
 
@@ -58,6 +60,7 @@ export default function NewBlogPost() {
         tags: post.tags ? post.tags.split(",").map((t: string) => t.trim()) : [],
         seo_title: post.seo_title || post.title,
         seo_description: post.seo_description || post.excerpt,
+        focus_keyword: post.focus_keyword,
         read_time_minutes: estimateReadTime(post.content),
         is_published: publish || post.is_published,
         published_at: publish ? new Date().toISOString() : null,
@@ -184,8 +187,21 @@ export default function NewBlogPost() {
                 <Label>SEO Description</Label>
                 <Textarea value={post.seo_description} onChange={(e) => setPost({ ...post, seo_description: e.target.value })} placeholder="Default: post excerpt" rows={3} />
               </div>
+              <div className="space-y-2">
+                <Label>Focus Keyword</Label>
+                <Input value={post.focus_keyword} onChange={(e) => setPost({ ...post, focus_keyword: e.target.value })} placeholder="Kata kunci utama..." />
+              </div>
             </CardContent>
           </Card>
+          
+          <SEOAnalyzer 
+            focusKeyword={post.focus_keyword}
+            title={post.title}
+            slug={post.slug}
+            seoTitle={post.seo_title}
+            seoDescription={post.seo_description}
+            content={post.content}
+          />
         </div>
       </div>
     </div>

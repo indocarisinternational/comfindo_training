@@ -12,6 +12,7 @@ import { toast } from "sonner"
 import { Save, Loader2, ArrowLeft, Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 import { RichTextEditor } from "@/components/admin/RichTextEditor"
+import { SEOAnalyzer } from "@/components/admin/SEOAnalyzer"
 
 export default function EditBlogPost() {
   const supabase = createClient()
@@ -32,6 +33,7 @@ export default function EditBlogPost() {
     tags: "",
     seo_title: "",
     seo_description: "",
+    focus_keyword: "",
     is_published: false,
   })
 
@@ -52,6 +54,7 @@ export default function EditBlogPost() {
       tags: (data.tags || []).join(", "),
       seo_title: data.seo_title || "",
       seo_description: data.seo_description || "",
+      focus_keyword: data.focus_keyword || "",
       is_published: data.is_published || false,
     })
     setLoading(false)
@@ -79,6 +82,7 @@ export default function EditBlogPost() {
         tags: post.tags ? post.tags.split(",").map((t: string) => t.trim()) : [],
         seo_title: post.seo_title || post.title,
         seo_description: post.seo_description || post.excerpt,
+        focus_keyword: post.focus_keyword,
         read_time_minutes: estimateReadTime(post.content),
         is_published: isPublished,
         updated_at: new Date().toISOString(),
@@ -197,8 +201,21 @@ export default function EditBlogPost() {
                 <Label>SEO Description</Label>
                 <Textarea value={post.seo_description} onChange={(e) => setPost({ ...post, seo_description: e.target.value })} rows={3} />
               </div>
+              <div className="space-y-2">
+                <Label>Focus Keyword</Label>
+                <Input value={post.focus_keyword} onChange={(e) => setPost({ ...post, focus_keyword: e.target.value })} placeholder="Kata kunci utama..." />
+              </div>
             </CardContent>
           </Card>
+
+          <SEOAnalyzer 
+            focusKeyword={post.focus_keyword}
+            title={post.title}
+            slug={post.slug}
+            seoTitle={post.seo_title}
+            seoDescription={post.seo_description}
+            content={post.content}
+          />
         </div>
       </div>
     </div>
