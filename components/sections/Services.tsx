@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Tag } from "lucide-react"
+import { TrainingCardImage } from "@/components/training/TrainingCardImage"
 
 interface ServicesSectionProps {
   trainings?: any[]
@@ -48,11 +49,13 @@ export function ServicesSection({ trainings = [] }: ServicesSectionProps) {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map((item) => (
             <Card key={item.slug || item.id} className="group flex flex-col overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 rounded-2xl">
-              <div className="relative h-48 bg-linear-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
-                <div className="text-comfindo-green opacity-20 text-6xl font-black">
-                  {(item.category || "T").charAt(0)}
-                </div>
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)]">
+                <TrainingCardImage
+                  imageUrl={item.image_url}
+                  title={item.title}
+                  category={(item.category || "T").charAt(0)}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 <Badge className="absolute top-3 left-3 bg-comfindo-green text-white text-xs shadow-md">
                   {item.category}
                 </Badge>
