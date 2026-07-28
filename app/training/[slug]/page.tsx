@@ -204,9 +204,9 @@ export default async function TrainingDetailPage(props: { params: Promise<{ slug
               </div>
               <div className="space-y-3">
                 <Button className="w-full h-12 bg-comfindo-green hover:bg-comfindo-green-dark text-white rounded-xl shadow-md hover:shadow-lg text-sm font-semibold" size="lg" asChild>
-                  <Link href={`/contact?type=registration&program=${encodeURIComponent(training.title)}`}>
+                  <a href={`https://wa.me/6287741929105?text=Halo%20comfindo%20Management%2C%20saya%20ingin%20daftar%20program%20pelatihan%20${encodeURIComponent(training.title)}`} target="_blank" rel="noopener noreferrer">
                     Daftar Sekarang <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
+                  </a>
                 </Button>
                 <div className="relative my-4">
                   <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-gray-200" /></div>
