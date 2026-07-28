@@ -114,11 +114,25 @@ export function TrainingCatalogClient({ initialTrainings }: { initialTrainings: 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredTrainings.map((training) => (
             <Card key={training.slug || training.id} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-44 bg-linear-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
-                <div className="text-comfindo-green opacity-15 text-5xl font-black">
-                  {(training.category || "").split(" ").pop()}
-                </div>
+              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[hsl(152,40%,92%)] to-[hsl(152,30%,85%)]">
+                {training.image_url ? (
+                  <img
+                    src={training.image_url}
+                    alt={training.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.style.display = "none"
+                    }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-comfindo-green opacity-15 text-5xl font-black">
+                      {(training.category || "").split(" ").pop()}
+                    </div>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 <Badge className="absolute top-3 left-3 bg-comfindo-green text-white text-xs shadow-md">
                   {training.category}
                 </Badge>

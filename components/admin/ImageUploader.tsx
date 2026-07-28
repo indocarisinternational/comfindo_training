@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 import { Upload, Link as LinkIcon, X, ImageIcon, Loader2 } from "lucide-react"
@@ -29,18 +29,23 @@ export function ImageUploader({
   const [uploading, setUploading] = useState(false)
   const [tab, setTab] = useState<"url" | "upload">("url")
   const [urlInput, setUrlInput] = useState(value || "")
+  const [imgError, setImgError] = useState(false)
+
+  // Sync urlInput + reset error saat value berubah dari luar (misal saat edit page load data)
+  useEffect(() => {
+    setUrlInput(value || "")
+    setImgError(false)
+  }, [value])
 
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
 
-    // Validate file type
     if (!file.type.startsWith("image/")) {
       toast.error("File harus berupa gambar (JPG, PNG, WebP, dll)")
       return
     }
 
-    // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error("Ukuran gambar maksimal 5MB")
       return
@@ -63,25 +68,30 @@ export function ImageUploader({
       const { data } = supabase.storage.from(bucket).getPublicUrl(filename)
       onChange(data.publicUrl)
       setUrlInput(data.publicUrl)
+      setImgError(false)
       toast.success("Gambar berhasil diupload!")
     } catch (error: any) {
       toast.error("Gagal upload gambar", { description: error.message })
     } finally {
       setUploading(false)
-      // Reset input so same file can be re-selected
       if (fileInputRef.current) fileInputRef.current.value = ""
     }
   }
 
   function handleUrlApply() {
+    setImgError(false)
     onChange(urlInput)
   }
 
   function handleClear() {
     onChange("")
     setUrlInput("")
+    setImgError(false)
     if (fileInputRef.current) fileInputRef.current.value = ""
   }
+
+  // Unique ID to avoid conflicts when multiple uploaders exist on the same page
+  const inputId = `img-upload-${bucket}-${folder}`
 
   return (
     <div className="space-y-3">
@@ -121,7 +131,6 @@ export function ImageUploader({
             placeholder="https://example.com/gambar.jpg"
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
-            onBlur={handleUrlApply}
             onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleUrlApply())}
             className="text-sm"
           />
@@ -146,10 +155,10 @@ export function ImageUploader({
             accept="image/*"
             onChange={handleFileUpload}
             className="hidden"
-            id={`img-upload-${folder}`}
+            id={inputId}
           />
           <label
-            htmlFor={`img-upload-${folder}`}
+            htmlFor={inputId}
             className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed border-[var(--border)] rounded-lg p-6 cursor-pointer transition-colors hover:border-[var(--primary)] hover:bg-[var(--muted)] ${
               uploading ? "pointer-events-none opacity-60" : ""
             }`}
@@ -173,15 +182,13 @@ export function ImageUploader({
       )}
 
       {/* Preview */}
-      {value && (
+      {value && !imgError ? (
         <div className="relative">
           <img
             src={value}
             alt={label}
             className={`w-full ${previewHeight} object-cover rounded-lg border border-[var(--border)]`}
-            onError={(e) => {
-              ;(e.target as HTMLImageElement).style.display = "none"
-            }}
+            onError={() => setImgError(true)}
           />
           <button
             type="button"
@@ -192,14 +199,22 @@ export function ImageUploader({
             <X className="h-3.5 w-3.5" />
           </button>
         </div>
-      )}
-
-      {/* No image placeholder */}
-      {!value && (
+      ) : (
         <div className={`flex items-center justify-center border border-[var(--border)] rounded-lg ${previewHeight} bg-[var(--muted)]`}>
           <div className="text-center">
             <ImageIcon className="h-8 w-8 mx-auto text-[var(--muted-foreground)] mb-1" />
-            <p className="text-xs text-[var(--muted-foreground)]">Belum ada gambar</p>
+            <p className="text-xs text-[var(--muted-foreground)]">
+              {imgError ? "Gagal memuat gambar" : "Belum ada gambar"}
+            </p>
+            {value && imgError && (
+              <button
+                type="button"
+                onClick={handleClear}
+                className="mt-1 text-xs text-red-400 hover:text-red-600 underline"
+              >
+                Hapus URL
+              </button>
+            )}
           </div>
         </div>
       )}

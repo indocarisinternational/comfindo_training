@@ -51,11 +51,25 @@ export function LatestTrainingSection({ trainings = [] }: LatestTrainingProps) {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {latestTrainings.map((training) => (
             <Card key={training.slug || training.id} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-44 bg-linear-to-br from-[hsl(152,40%,90%)] to-[hsl(152,30%,82%)] flex items-center justify-center">
-                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
-                <div className="text-comfindo-green opacity-15 text-5xl font-black">
-                  {training.category}
-                </div>
+              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[hsl(152,40%,90%)] to-[hsl(152,30%,82%)]">
+                {training.image_url ? (
+                  <img
+                    src={training.image_url}
+                    alt={training.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.style.display = "none"
+                    }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-comfindo-green opacity-15 text-5xl font-black">
+                      {training.category}
+                    </div>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 <div className="absolute top-3 left-3 flex gap-2">
                   <Badge className="bg-comfindo-green text-white text-xs shadow-md">
                     {training.category}
@@ -65,6 +79,7 @@ export function LatestTrainingSection({ trainings = [] }: LatestTrainingProps) {
                   </Badge>
                 </div>
               </div>
+
 
               <CardContent className="flex-1 p-5 space-y-3">
                 <h3 className="font-semibold text-gray-900 line-clamp-2 min-h-[48px] group-hover:text-comfindo-green transition-colors">
