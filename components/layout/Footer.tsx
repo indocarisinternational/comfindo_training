@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, GraduationCap } from "lucide-react"
+import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Mail, GraduationCap, MessageCircle } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 
 const footerLinks = [
@@ -11,8 +11,8 @@ const footerLinks = [
   { name: "Blog", href: "/blog" },
 ]
 
-const socialIconMap: Record<string, typeof Facebook> = {
-  Facebook, Instagram, LinkedIn: Linkedin, YouTube: Youtube,
+const socialIconMap: Record<string, any> = {
+  Facebook, Instagram, LinkedIn: Linkedin, YouTube: Youtube, WhatsApp: MessageCircle
 }
 
 export async function Footer() {
@@ -23,11 +23,19 @@ export async function Footer() {
   const phone = contact?.phone || "0858-7066-3856"
   const phone2 = contact?.phone2 || "0821-1199-5378"
   const email = contact?.email || "comfindo.management@gmail.com"
-  const socialLinks = Array.isArray(contact?.social_links) ? contact.social_links : [
-    { name: "Facebook", url: "https://www.facebook.com/profile.php?id=100083385664789" },
-    { name: "Instagram", url: "https://www.instagram.com/comfindo.management/" },
-    { name: "LinkedIn", url: "http://www.linkedin.com/company/comfindomanagement" },
-    { name: "YouTube", url: "https://www.youtube.com/channel/UCIHuMFAhGwBsx-Q_1kRdWaQ" },
+
+  let waPhone = phone.replace(/\D/g, '');
+  if (waPhone.startsWith("0")) {
+    waPhone = "62" + waPhone.slice(1);
+  } else if (!waPhone.startsWith("62")) {
+    waPhone = "62" + waPhone;
+  }
+  const waUrl = `https://wa.me/${waPhone}`;
+
+  const socialLinks = Array.isArray(contact?.social_links) && contact.social_links.length > 0 ? contact.social_links : [
+    { name: "Instagram", url: "https://www.instagram.com/comfindo.co.id/" },
+    { name: "YouTube", url: "https://www.youtube.com/@comfindo" },
+    { name: "WhatsApp", url: waUrl },
   ]
 
   return (
