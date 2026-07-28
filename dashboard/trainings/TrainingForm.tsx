@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useTransition } from "react"
@@ -418,17 +417,20 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                         <FormField control={form.control} name="is_published" render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <button
-                                        type="button"
+                                    {/* div bukan button agar tidak nested button-in-button (React error #185) */}
+                                    <div
+                                        role="button"
+                                        tabIndex={0}
                                         onClick={() => field.onChange(!field.value)}
-                                        className={`w-full flex flex-row items-center gap-3 rounded-md border p-4 shadow-sm transition-colors cursor-pointer ${
+                                        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && field.onChange(!field.value)}
+                                        className={`w-full flex flex-row items-center gap-3 rounded-md border p-4 shadow-sm transition-colors cursor-pointer select-none ${
                                             field.value
                                                 ? "border-green-500 bg-green-50 dark:bg-green-950/30"
                                                 : "border-[var(--border)] hover:border-[var(--primary)]"
                                         }`}
                                     >
                                         <Globe className={`h-5 w-5 shrink-0 ${field.value ? "text-green-600" : "text-[var(--muted-foreground)]"}`} />
-                                        <div className="text-left space-y-0.5">
+                                        <div className="text-left space-y-0.5 flex-1">
                                             <p className={`text-sm font-medium ${field.value ? "text-green-700 dark:text-green-400" : "text-[var(--foreground)]"}`}>
                                                 {field.value ? "Dipublikasi" : "Draft (Tidak Publik)"}
                                             </p>
@@ -436,8 +438,17 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                                                 {field.value ? "Terlihat oleh publik" : "Klik untuk publish"}
                                             </p>
                                         </div>
-                                        <Checkbox checked={field.value} className="ml-auto pointer-events-none" tabIndex={-1} />
-                                    </button>
+                                        {/* Visual indicator - bukan Checkbox (button) agar tidak nested */}
+                                        <span className={`ml-auto h-4 w-4 rounded-sm border-2 flex items-center justify-center shrink-0 transition-colors ${
+                                            field.value ? "bg-green-500 border-green-500" : "border-[var(--border)] bg-transparent"
+                                        }`}>
+                                            {field.value && (
+                                                <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            )}
+                                        </span>
+                                    </div>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -445,17 +456,19 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                         <FormField control={form.control} name="is_featured" render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <button
-                                        type="button"
+                                    <div
+                                        role="button"
+                                        tabIndex={0}
                                         onClick={() => field.onChange(!field.value)}
-                                        className={`w-full flex flex-row items-center gap-3 rounded-md border p-4 shadow-sm transition-colors cursor-pointer ${
+                                        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && field.onChange(!field.value)}
+                                        className={`w-full flex flex-row items-center gap-3 rounded-md border p-4 shadow-sm transition-colors cursor-pointer select-none ${
                                             field.value
                                                 ? "border-amber-500 bg-amber-50 dark:bg-amber-950/30"
                                                 : "border-[var(--border)] hover:border-[var(--primary)]"
                                         }`}
                                     >
                                         <Star className={`h-5 w-5 shrink-0 ${field.value ? "text-amber-500" : "text-[var(--muted-foreground)]"}`} />
-                                        <div className="text-left space-y-0.5">
+                                        <div className="text-left space-y-0.5 flex-1">
                                             <p className={`text-sm font-medium ${field.value ? "text-amber-700 dark:text-amber-400" : "text-[var(--foreground)]"}`}>
                                                 {field.value ? "Featured (Unggulan)" : "Tidak Featured"}
                                             </p>
@@ -463,8 +476,16 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                                                 {field.value ? "Ditampilkan di homepage" : "Klik untuk jadikan unggulan"}
                                             </p>
                                         </div>
-                                        <Checkbox checked={field.value} className="ml-auto pointer-events-none" tabIndex={-1} />
-                                    </button>
+                                        <span className={`ml-auto h-4 w-4 rounded-sm border-2 flex items-center justify-center shrink-0 transition-colors ${
+                                            field.value ? "bg-amber-400 border-amber-400" : "border-[var(--border)] bg-transparent"
+                                        }`}>
+                                            {field.value && (
+                                                <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            )}
+                                        </span>
+                                    </div>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
