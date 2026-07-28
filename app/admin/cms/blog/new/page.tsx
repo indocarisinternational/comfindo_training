@@ -14,6 +14,7 @@ import { Save, Loader2, ArrowLeft, Eye } from "lucide-react"
 import Link from "next/link"
 import { RichTextEditor } from "@/components/admin/RichTextEditor"
 import { SEOAnalyzer } from "@/components/admin/SEOAnalyzer"
+import { ImageUploader } from "@/components/admin/ImageUploader"
 
 export default function NewBlogPost() {
   const supabase = createClient()
@@ -159,11 +160,15 @@ export default function NewBlogPost() {
                 <Input value={post.tags} onChange={(e) => setPost({ ...post, tags: e.target.value })} placeholder="BNSP, sertifikasi, karier" />
               </div>
               <div className="space-y-2">
-                <Label>Cover Image URL</Label>
-                <Input value={post.cover_image_url} onChange={(e) => setPost({ ...post, cover_image_url: e.target.value })} placeholder="https://..." />
-                {post.cover_image_url && (
-                  <img src={post.cover_image_url} alt="Cover" className="w-full h-32 object-cover rounded-lg mt-2" />
-                )}
+                <Label>Cover Image</Label>
+                <ImageUploader
+                  value={post.cover_image_url}
+                  onChange={(url) => setPost({ ...post, cover_image_url: url })}
+                  bucket="images"
+                  folder="blog"
+                  label="Cover Image"
+                  previewHeight="h-40"
+                />
               </div>
             </CardContent>
           </Card>

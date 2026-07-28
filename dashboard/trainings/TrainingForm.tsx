@@ -21,10 +21,11 @@ import { createClient } from "@/lib/supabase/client"
 import { useTransition } from "react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { ArrowLeft, Plus, Trash2, Loader2 } from "lucide-react"
+import { ArrowLeft, Plus, Trash2, Loader2, Globe, EyeOff, Star } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AdminPageHeader } from "@/components/admin/ui/AdminPageHeader"
+import { ImageUploader } from "@/components/admin/ImageUploader"
 
 const formSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters."),
@@ -140,14 +141,15 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
     defaultValues,
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>, overridePublish?: boolean) {
     setLoading(true)
     try {
         const payload = {
             ...values,
-            // Ensure empty string stays empty string (not null)
             price_offline: values.price_offline || null,
             price_online: values.price_online || null,
+            // override publish if explicitly triggered
+            is_published: overridePublish !== undefined ? overridePublish : values.is_published,
         }
         if (initialData?.id) {
             const { error } = await supabase
@@ -156,14 +158,14 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                 .eq('id', initialData.id)
             
             if (error) throw error
-            toast.success("Training berhasil diperbarui!")
+            toast.success(overridePublish ? "Training berhasil dipublikasi!" : "Training berhasil diperbarui!")
         } else {
             const { error } = await supabase
                 .from('training_programs')
                 .insert([payload])
             
             if (error) throw error
-            toast.success("Training berhasil dibuat!")
+            toast.success(overridePublish ? "Training berhasil dipublikasi!" : "Training berhasil dibuat sebagai draft!")
         }
         
         startTransition(() => {
@@ -178,6 +180,18 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
         }
         setLoading(false)
     }
+  }
+
+  async function handlePublish() {
+    const valid = await form.trigger()
+    if (!valid) return
+    onSubmit(form.getValues(), true)
+  }
+
+  async function handleSaveDraft() {
+    const valid = await form.trigger()
+    if (!valid) return
+    onSubmit(form.getValues(), false)
   }
 
   const generateSlug = (value: string) => {
@@ -232,14 +246,35 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
           title={initialData ? "Edit Training Program" : "Create Training Program"}
           description="Update training content, schedule, publishing status, and SEO metadata."
           action={
-            <Button variant="outline" size="icon" asChild>
-              <Link href="/admin/trainings"><ArrowLeft className="h-4 w-4" /></Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="icon" asChild>
+                <Link href="/admin/trainings"><ArrowLeft className="h-4 w-4" /></Link>
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleSaveDraft}
+                disabled={loading || isPending}
+              >
+                {(loading || isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                <EyeOff className="mr-2 h-4 w-4" />
+                Simpan Draft
+              </Button>
+              <Button
+                type="button"
+                onClick={handlePublish}
+                disabled={loading || isPending}
+              >
+                {(loading || isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                <Globe className="mr-2 h-4 w-4" />
+                {initialData?.is_published ? "Update & Publish" : "Publish Sekarang"}
+              </Button>
+            </div>
           }
         />
         
         <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit((v) => onSubmit(v))} className="space-y-6">
             
             <Card>
                 <CardHeader><CardTitle className="text-lg">Basic Information</CardTitle></CardHeader>
@@ -337,6 +372,27 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                 </CardContent>
             </Card>
 
+            <Card>
+                <CardHeader><CardTitle className="text-lg">Gambar Training</CardTitle></CardHeader>
+                <CardContent>
+                    <FormField control={form.control} name="image_url" render={({ field }) => (
+                        <FormItem>
+                            <FormControl>
+                                <ImageUploader
+                                    value={field.value || ""}
+                                    onChange={field.onChange}
+                                    bucket="images"
+                                    folder="trainings"
+                                    label="Gambar Training"
+                                    previewHeight="h-52"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )} />
+                </CardContent>
+            </Card>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {renderArrayInput("objectives", "Objectives (Tujuan)")}
                 {renderArrayInput("materials", "Materials (Materi / Silabus)")}
@@ -360,35 +416,75 @@ export function TrainingForm({ initialData }: TrainingFormProps) {
                     
                     <div className="grid gap-4 md:grid-cols-2 mt-4">
                         <FormField control={form.control} name="is_published" render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow-sm w-full">
+                            <FormItem>
                                 <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                    <button
+                                        type="button"
+                                        onClick={() => field.onChange(!field.value)}
+                                        className={`w-full flex flex-row items-center gap-3 rounded-md border p-4 shadow-sm transition-colors cursor-pointer ${
+                                            field.value
+                                                ? "border-green-500 bg-green-50 dark:bg-green-950/30"
+                                                : "border-[var(--border)] hover:border-[var(--primary)]"
+                                        }`}
+                                    >
+                                        <Globe className={`h-5 w-5 shrink-0 ${field.value ? "text-green-600" : "text-[var(--muted-foreground)]"}`} />
+                                        <div className="text-left space-y-0.5">
+                                            <p className={`text-sm font-medium ${field.value ? "text-green-700 dark:text-green-400" : "text-[var(--foreground)]"}`}>
+                                                {field.value ? "Dipublikasi" : "Draft (Tidak Publik)"}
+                                            </p>
+                                            <p className="text-xs text-[var(--muted-foreground)]">
+                                                {field.value ? "Terlihat oleh publik" : "Klik untuk publish"}
+                                            </p>
+                                        </div>
+                                        <Checkbox checked={field.value} className="ml-auto pointer-events-none" tabIndex={-1} />
+                                    </button>
                                 </FormControl>
-                                <div className="space-y-1 leading-none">
-                                    <FormLabel>Published</FormLabel>
-                                    <FormDescription>Make this training visible to the public.</FormDescription>
-                                </div>
+                                <FormMessage />
                             </FormItem>
                         )} />
                         <FormField control={form.control} name="is_featured" render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow-sm w-full">
+                            <FormItem>
                                 <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                    <button
+                                        type="button"
+                                        onClick={() => field.onChange(!field.value)}
+                                        className={`w-full flex flex-row items-center gap-3 rounded-md border p-4 shadow-sm transition-colors cursor-pointer ${
+                                            field.value
+                                                ? "border-amber-500 bg-amber-50 dark:bg-amber-950/30"
+                                                : "border-[var(--border)] hover:border-[var(--primary)]"
+                                        }`}
+                                    >
+                                        <Star className={`h-5 w-5 shrink-0 ${field.value ? "text-amber-500" : "text-[var(--muted-foreground)]"}`} />
+                                        <div className="text-left space-y-0.5">
+                                            <p className={`text-sm font-medium ${field.value ? "text-amber-700 dark:text-amber-400" : "text-[var(--foreground)]"}`}>
+                                                {field.value ? "Featured (Unggulan)" : "Tidak Featured"}
+                                            </p>
+                                            <p className="text-xs text-[var(--muted-foreground)]">
+                                                {field.value ? "Ditampilkan di homepage" : "Klik untuk jadikan unggulan"}
+                                            </p>
+                                        </div>
+                                        <Checkbox checked={field.value} className="ml-auto pointer-events-none" tabIndex={-1} />
+                                    </button>
                                 </FormControl>
-                                <div className="space-y-1 leading-none">
-                                    <FormLabel>Featured</FormLabel>
-                                    <FormDescription>Show this training on the homepage.</FormDescription>
-                                </div>
+                                <FormMessage />
                             </FormItem>
                         )} />
                     </div>
                 </CardContent>
             </Card>
 
-            <Button type="submit" size="lg" disabled={loading || isPending} className="w-full text-white">
-                {(loading || isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {initialData ? "Update Training Program" : "Create Training Program"}
-            </Button>
+            <div className="flex gap-3">
+              <Button type="button" variant="outline" size="lg" onClick={handleSaveDraft} disabled={loading || isPending} className="flex-1">
+                  {(loading || isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <EyeOff className="mr-2 h-4 w-4" />
+                  {initialData ? "Update sebagai Draft" : "Simpan sebagai Draft"}
+              </Button>
+              <Button type="button" size="lg" onClick={handlePublish} disabled={loading || isPending} className="flex-1">
+                  {(loading || isPending) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Globe className="mr-2 h-4 w-4" />
+                  {initialData ? "Update & Publish" : "Publish Sekarang"}
+              </Button>
+            </div>
         </form>
         </Form>
     </div>
