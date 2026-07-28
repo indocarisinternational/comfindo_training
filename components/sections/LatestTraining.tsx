@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, MapPin, Tag, ArrowRight } from "lucide-react"
+import { TrainingCardImage } from "@/components/training/TrainingCardImage"
 
 interface LatestTrainingProps {
   trainings?: any[]
@@ -52,23 +53,11 @@ export function LatestTrainingSection({ trainings = [] }: LatestTrainingProps) {
           {latestTrainings.map((training) => (
             <Card key={training.slug || training.id} className="group flex flex-col overflow-hidden border-0 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[hsl(152,40%,90%)] to-[hsl(152,30%,82%)]">
-                {training.image_url ? (
-                  <img
-                    src={training.image_url}
-                    alt={training.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement
-                      target.style.display = "none"
-                    }}
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-comfindo-green opacity-15 text-5xl font-black">
-                      {training.category}
-                    </div>
-                  </div>
-                )}
+                <TrainingCardImage
+                  imageUrl={training.image_url}
+                  title={training.title}
+                  category={training.category}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 <div className="absolute top-3 left-3 flex gap-2">
                   <Badge className="bg-comfindo-green text-white text-xs shadow-md">
